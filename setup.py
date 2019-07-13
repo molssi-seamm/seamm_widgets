@@ -12,13 +12,12 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'molssi_workflow>=0.1',
     'molssi_util>=0.1'
     # TODO: put any other package requirements here
 ]
 
 setup_requirements = [
-    'pytest-runner',
+    # tmp pws'pytest-runner',
     # TODO(paulsaxe): put setup requirements (distutils extensions, etc.) here
 ]
 

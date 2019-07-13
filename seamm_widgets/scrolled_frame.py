@@ -11,7 +11,7 @@ Based on a version:
 with minor changes.
 """
 
-import molssi_widgets as mw
+import seamm_widgets as sw
 import tkinter as tk
 from tkinter import ttk
 
@@ -74,7 +74,7 @@ class ScrolledFrame(ttk.Frame):
 
         self.canvas.bind('<Configure>', self._on_canvas_configure)
 
-        mw.MousewheelSupport(self).add_support_to(
+        sw.MousewheelSupport(self).add_support_to(
             self.canvas, xscrollbar=self.xscrollbar, yscrollbar=self.yscrollbar
         )
 

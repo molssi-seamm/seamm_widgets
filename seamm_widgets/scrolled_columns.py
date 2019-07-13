@@ -5,7 +5,7 @@ This widgets has two areas: a row of titles across the top and a scrolled frame
 below it. It is used to make a table of widgets with fixed column headers.
 """
 
-import molssi_widgets as mw
+import seamm_widgets as sw
 import tkinter as tk
 from tkinter import ttk
 
@@ -32,10 +32,10 @@ class ScrolledColumns(ttk.Frame):
         # Create the two subframes, linking them both to the
         # horizontal scrollbar at the bottom
         # self.headers = ttk.Frame(self)
-        self.table = mw.ScrolledFrame(
+        self.table = sw.ScrolledFrame(
             self, scroll_vertically=True, borderwidth=2, relief=tk.SUNKEN
         )
-        self.headers = mw.ScrolledFrame(
+        self.headers = sw.ScrolledFrame(
             self, scroll_vertically=False, borderwidth=2, relief=tk.RAISED,
             xscrollbar=self.table.xscrollbar
         )
