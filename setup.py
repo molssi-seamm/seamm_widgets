@@ -27,19 +27,19 @@ test_requirements = [
 ]
 
 setup(
-    name='molssi_widgets',
+    name='seamm_widgets',
     version='0.1.0',
-    description="Tk widgets to support the MolSSI Framework",
+    description="Tk widgets to support the plugins in SEAMM",
     long_description=readme + '\n\n' + history,
     author="Paul Saxe",
     author_email='psaxe@vt.edu',
-    url='https://github.com/paulsaxe/molssi_widgets',
-    packages=find_packages(include=['molssi_widgets']),
+    url='https://github.com/molssi-seamm/seamm_widgets',
+    packages=find_packages(include=['seamm_widgets']),
     include_package_data=True,
     install_requires=requirements,
     license="BSD license",
     zip_safe=False,
-    keywords='molssi_widgets',
+    keywords='seamm_widgets',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Science/Research',

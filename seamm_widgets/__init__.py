@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Top-level package for MolSSI Widgets."""
+"""Top-level package for SEAMM Widgets."""
 
 __author__ = """Paul Saxe"""
 __email__ = 'psaxe@vt.edu'
