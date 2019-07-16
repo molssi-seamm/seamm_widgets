@@ -10,7 +10,6 @@ standardize the user interface presented to the user.
 """
 
 import logging
-import molssi_widgets as mw
 import tkinter as tk
 import tkinter.ttk as ttk
 

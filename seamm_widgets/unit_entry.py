@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Labeled combobox widget with units.
+"""Labeled entry widget with units.
 
 The goal of these widgets is twofold: to make it easier for developers
 to implement dialogs with compound widgets, and to naturally
@@ -8,8 +8,8 @@ standardize the user interface presented to the user.
 """
 
 import logging
-from molssi_widgets import ureg, Q_, units_class
-import molssi_widgets as mw
+from seamm_widgets import ureg, Q_, units_class
+import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 options = {
-    'unitcombobox': {
+    'unitentry': {
         'as_quantity': 'as_quantity',
     },
     'units': {
@@ -37,18 +37,18 @@ options = {
     }
 }
 
-class UnitCombobox(mw.LabeledCombobox):
+class UnitEntry(sw.LabeledEntry):
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance
         """
-        class_ = kwargs.pop('class_', 'MUnitCombobox')
+        class_ = kwargs.pop('class_', 'MUnitEntry')
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
-        # unitcombobox options
+        # unitentry options
         self.as_quantity = kwargs.pop('as_quantity', False)
-
+        
         # units combobox
         unitsheight = kwargs.pop('unitsheight', 7)
         unitswidth = kwargs.pop('unitswidth', 10)
@@ -87,19 +87,20 @@ class UnitCombobox(mw.LabeledCombobox):
         show_all = (len(args) == 0 or args[0] == 'all')
         
         if show_all or 'units' in args:
-            self.units.grid(row=0, column=2, sticky=tk.W)
+            self.units.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.units.grid_forget()
-
+            
     def set(self, value, unit_string=None):
         """Set the the value and units"""
 
+        self.entry.delete(0, tk.END)
         if value is None:
             return
 
         # the value may have units or be a plain value
         if isinstance(value, units_class):
-            self.combobox.set(value.magnitude)
+            self.entry.insert(0, value.magnitude)
 
             dimensionality = value.dimensionality
             current_units = self.units.cget('values')
@@ -111,12 +112,12 @@ class UnitCombobox(mw.LabeledCombobox):
                         break
 
             if len(current_units) == 0:
-                self.set_units([*mw.default_units[str(dimensionality)], ''])
+                self.set_units([*sw.default_units[str(dimensionality)], ''])
                 self.units.set(
                     '{0.units:~}'.format(value).replace(' ', '')
                 )
         elif unit_string:
-            self.combobox.set(value)
+            self.entry.insert(0, value)
 
             dimensionality = Q_(unit_string).dimensionality
             current_units = self.units.cget('values')
@@ -128,59 +129,55 @@ class UnitCombobox(mw.LabeledCombobox):
                         break
 
             if len(current_units) == 0:
-                self.set_units([*mw.default_units[str(dimensionality)], ''])
+                self.set_units([*sw.default_units[str(dimensionality)], ''])
                 self.units.set(unit_string)
         else:
-            self.combobox.set(value)
+            self.entry.insert(0, value)
             self.set_units('all')
             self.units.set('')
 
     def get(self):
         """return the current value with units"""
-        value = self.combobox.get()
-        if value in self.combobox.cget('values'):
+        value = self.entry.get()
+        unit = self.units.get()
+        if unit == '':
             return value
-        else:
-            unit = self.units.get()
-            if unit == '':
-                return value
-            elif self.as_quantity:
-                try:
-                    magnitude = float(value)
-                    return Q_(magnitude, unit)
-                except:
-                    return (value, unit)
-            else:
+        elif self.as_quantity:
+            try:
+                magnitude = float(value)
+                return Q_(magnitude, unit)
+            except:
                 return (value, unit)
+        else:
+            return (value, unit)
 
     def set_units(self, values=None):
+        # logger.debug('set_units: ' + str(values))
         if values is None:
             dimensionality = str(self.get().dimensionality)
-            self.units.config(values=mw.default_units[dimensionality])
+            self.units.config(values=sw.default_units[dimensionality])
         elif values == 'all':
             tmp = ['']
-            for key in mw.default_units:
-                tmp += mw.default_units[key]
+            for key in sw.default_units:
+                tmp += sw.default_units[key]
             self.units.config(values=tmp)
         else:
             self.units.config(values=values)
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
-        unitcombobox = options['unitcombobox']
+        unitentry = options['unitentry']
         units = options['units']
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]
         for k in keys:
-            if k in unitcombobox and unitcombobox[k] in self.__dict__:
+            if k in unitentry and unitentry[k] in self.__dict__:
                 v = kwargs.pop(k)
-                self.__dict__[unitcombobox[k]] = v
+                self.__dict__[unitentry[k]] = v
             elif k in units:
                 v = kwargs.pop(k)
                 self.units.config(**{units[k]: v})
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
-
-
