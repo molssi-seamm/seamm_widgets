@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use MolSSI Widgets in a project::
+To use the SEAMM Widgets in a project::
 
-    import molssi_widgets
+    import seamm_widgets

@@ -20,7 +20,7 @@ except ImportError:
     from urllib.request import urlopen
 
 
-GITHUB_REPO = 'paulsaxe/molssi_widgets'
+GITHUB_REPO = 'molssi-seamm/seamm_widgets'
 TRAVIS_CONFIG_FILE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), '.travis.yml')
 

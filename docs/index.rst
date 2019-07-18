@@ -1,5 +1,5 @@
-Welcome to MolSSI Widgets's documentation!
-======================================
+Welcome to the documentation for the SEAMM widgets!
+===================================================
 
 Contents:
 

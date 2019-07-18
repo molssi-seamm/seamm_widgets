@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/paulsaxe/molssi_widgets/issues.
+Report bugs at https://github.com/molssi-seamm/seamm_widgets/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/paulsaxe/molssi_widgets/issues.
+The best way to send feedback is to file an issue at https://github.com/molssi-seamm/seamm_widgets/issues.
 
 If you are proposing a feature:
 
@@ -57,17 +57,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `molssi_widgets` for local development.
+Ready to contribute? Here's how to set up `seamm_widgets` for local development.
 
-1. Fork the `molssi_widgets` repo on GitHub.
+1. Fork the `seamm_widgets` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/molssi_widgets.git
+    $ git clone git@github.com:your_name_here/seamm_widgets.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv molssi_widgets
-    $ cd molssi_widgets/
+    $ mkvirtualenv seamm_widgets
+    $ cd seamm_widgets/
     $ python setup.py develop
 
 4. Create a branch for local development::
@@ -78,7 +78,7 @@ Ready to contribute? Here's how to set up `molssi_widgets` for local development
 
 5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
-    $ flake8 molssi_widgets tests
+    $ flake8 seamm_widgets tests
     $ python setup.py test or py.test
     $ tox
 
@@ -101,8 +101,8 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.6, 2.7, 3.3, 3.4 and 3.5, and for PyPy. Check
-   https://travis-ci.org/paulsaxe/molssi_widgets/pull_requests
+3. The pull request should work for Python 3.4, 3.5 and 3.7, and for PyPy. Check
+   https://travis-ci.org/molssi-seamm/seamm_widgets/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Tips
@@ -110,5 +110,5 @@ Tips
 
 To run a subset of tests::
 
-$ py.test tests.test_molssi_widgets
+$ py.test tests.test_seamm_widgets
 
