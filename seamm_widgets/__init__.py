@@ -4,7 +4,7 @@
 
 __author__ = """Paul Saxe"""
 __email__ = 'psaxe@vt.edu'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
 # Unit handling! This needs to be bofre other import which use e.g. ureg.
 import pint

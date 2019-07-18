@@ -28,7 +28,7 @@ test_requirements = [
 
 setup(
     name='seamm_widgets',
-    version='0.1.0',
+    version='0.2.0',
     description="Tk widgets to support the plugins in SEAMM",
     long_description=readme + '\n\n' + history,
     author="Paul Saxe",
