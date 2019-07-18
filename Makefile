@@ -47,26 +47,31 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 
-lint: ## check style with flake8
-	flake8 molssi_widgets tests
+lint: ## check style with yapf
+	yapf --diff --recursive seamm_widgets tests
+	flake8 seamm_widgets tests
+
+format: ## reformat with with yapf and isort
+	yapf --recursive --in-place seamm_widgets tests
+
+#	isort --recursive --atomic seamm_widgets tests
 
 test: ## run tests quickly with the default Python
 	py.test
-	
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source molssi_widgets -m pytest
+	coverage run --source seamm_widgets -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/molssi_widgets.rst
+	rm -f docs/seamm_widgets.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ molssi_widgets
+	sphinx-apidoc -o docs/ seamm_widgets
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
@@ -75,8 +80,8 @@ servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: clean ## package and upload a release
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	python setup.py sdist bdist_wheel
+	python -m twine upload dist/*
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
@@ -87,5 +92,5 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 uninstall: clean ## uninstall the package
-	pip uninstall --yes molssi_widgets
+	pip uninstall --yes seamm_widgets
 
