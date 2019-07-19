@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """Add support for the mousewheel to scrolled widgets
 
 Based on a version:
@@ -15,23 +16,30 @@ import platform
 
 OS = platform.system()
 
-class MousewheelSupport(object):    
+
+class MousewheelSupport(object):
 
     # implementation of singleton pattern
     _instance = None
+
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = object.__new__(cls)
         return cls._instance
 
-    def __init__(self, root, horizontal_factor = 2, vertical_factor=2,
-                 natural_scroll_direction=True):
+    def __init__(
+        self,
+        root,
+        horizontal_factor=2,
+        vertical_factor=2,
+        natural_scroll_direction=True
+    ):
         """Initialize the instance
         """
 
         self._active_area = None
         self.natural_scroll_direction = natural_scroll_direction
-        
+
         if isinstance(horizontal_factor, int):
             self.horizontal_factor = horizontal_factor
         else:
@@ -42,14 +50,14 @@ class MousewheelSupport(object):
         else:
             raise Exception("Horizontal factor must be an integer.")
 
-        if OS == "Linux" :
-            root.bind_all('<4>', self._on_mousewheel,  add='+')
-            root.bind_all('<5>', self._on_mousewheel,  add='+')
+        if OS == "Linux":
+            root.bind_all('<4>', self._on_mousewheel, add='+')
+            root.bind_all('<5>', self._on_mousewheel, add='+')
         else:
             # Windows and MacOS
-            root.bind_all("<MouseWheel>", self._on_mousewheel,  add='+')
+            root.bind_all("<MouseWheel>", self._on_mousewheel, add='+')
 
-    def _on_mousewheel(self,event):
+    def _on_mousewheel(self, event):
         if self._active_area:
             self._active_area.onMouseWheel(event)
 
@@ -59,9 +67,15 @@ class MousewheelSupport(object):
     def _mousewheel_unbind(self):
         self._active_area = None
 
-    def add_support_to(self, widget=None, xscrollbar=None, yscrollbar=None,
-                       what="units", horizontal_factor=None,
-                       vertical_factor=None):
+    def add_support_to(
+        self,
+        widget=None,
+        xscrollbar=None,
+        yscrollbar=None,
+        what="units",
+        horizontal_factor=None,
+        vertical_factor=None
+    ):
         if xscrollbar is None and yscrollbar is None:
             return
 
@@ -69,12 +83,13 @@ class MousewheelSupport(object):
             horizontal_factor = horizontal_factor or self.horizontal_factor
 
             xscrollbar.onMouseWheel = self._make_mouse_wheel_handler(
-                widget,'x', self.horizontal_factor, what,
+                widget, 'x', self.horizontal_factor, what,
                 self.natural_scroll_direction
             )
             xscrollbar.bind(
-                '<Enter>', lambda event,
-                scrollbar=xscrollbar: self._mousewheel_bind(scrollbar)
+                '<Enter>',
+                lambda event, scrollbar=xscrollbar: self.
+                _mousewheel_bind(scrollbar)
             )
             xscrollbar.bind('<Leave>', lambda event: self._mousewheel_unbind())
 
@@ -82,23 +97,24 @@ class MousewheelSupport(object):
             vertical_factor = vertical_factor or self.vertical_factor
 
             yscrollbar.onMouseWheel = self._make_mouse_wheel_handler(
-                widget,'y', self.vertical_factor, what,
+                widget, 'y', self.vertical_factor, what,
                 self.natural_scroll_direction
             )
             yscrollbar.bind(
-                '<Enter>', lambda event,
-                scrollbar=yscrollbar: self._mousewheel_bind(scrollbar)
+                '<Enter>',
+                lambda event, scrollbar=yscrollbar: self.
+                _mousewheel_bind(scrollbar)
             )
             yscrollbar.bind('<Leave>', lambda event: self._mousewheel_unbind())
 
         main_scrollbar = yscrollbar if yscrollbar is not None else xscrollbar
-        
+
         if widget is not None:
             if isinstance(widget, list) or isinstance(widget, tuple):
                 list_of_widgets = widget
                 for widget in list_of_widgets:
                     widget.bind(
-                        '<Enter>',lambda event: self._mousewheel_bind(widget)
+                        '<Enter>', lambda event: self._mousewheel_bind(widget)
                     )
                     widget.bind(
                         '<Leave>', lambda event: self._mousewheel_unbind()
@@ -107,51 +123,59 @@ class MousewheelSupport(object):
                     widget.onMouseWheel = main_scrollbar.onMouseWheel
             else:
                 widget.bind(
-                    '<Enter>',lambda event: self._mousewheel_bind(widget)
+                    '<Enter>', lambda event: self._mousewheel_bind(widget)
                 )
-                widget.bind(
-                    '<Leave>', lambda event: self._mousewheel_unbind()
-                )
+                widget.bind('<Leave>', lambda event: self._mousewheel_unbind())
 
                 widget.onMouseWheel = main_scrollbar.onMouseWheel
 
     @staticmethod
-    def _make_mouse_wheel_handler(widget, orient, factor = 1, what="units",
-                                  natural_scroll_direction=True):
-        view_command = getattr(widget, orient+'view')
-        
+    def _make_mouse_wheel_handler(
+        widget, orient, factor=1, what="units", natural_scroll_direction=True
+    ):
+        view_command = getattr(widget, orient + 'view')
+
         if natural_scroll_direction:
             if OS == 'Linux':
+
                 def onMouseWheel(event):
                     if event.num == 4:
                         view_command("scroll", factor, what)
                     elif event.num == 5:
-                        view_command("scroll", (-1)*factor, what) 
+                        view_command("scroll", (-1) * factor, what)
 
             elif OS == 'Windows':
-                def onMouseWheel(event):        
-                    view_command("scroll", int((event.delta/120)*factor),
-                                 what)
-        
+
+                def onMouseWheel(event):
+                    view_command(
+                        "scroll", int((event.delta / 120) * factor), what
+                    )
+
             elif OS == 'Darwin':
-                def onMouseWheel(event):        
-                    view_command("scroll", (-1)*event.delta, what)
+
+                def onMouseWheel(event):
+                    view_command("scroll", (-1) * event.delta, what)
 
         else:
             if OS == 'Linux':
+
                 def onMouseWheel(event):
                     if event.num == 4:
-                        view_command("scroll", (-1)*factor, what)
+                        view_command("scroll", (-1) * factor, what)
                     elif event.num == 5:
-                        view_command("scroll", factor, what) 
+                        view_command("scroll", factor, what)
 
             elif OS == 'Windows':
-                def onMouseWheel(event):        
-                    view_command("scroll", (-1)*int((event.delta/120)*factor),
-                                 what)
-        
+
+                def onMouseWheel(event):
+                    view_command(
+                        "scroll", (-1) * int((event.delta / 120) * factor),
+                        what
+                    )
+
             elif OS == 'Darwin':
-                def onMouseWheel(event):        
+
+                def onMouseWheel(event):
                     view_command("scroll", event.delta, what)
-        
+
         return onMouseWheel

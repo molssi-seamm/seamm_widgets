@@ -14,26 +14,27 @@ import tkinter.ttk as ttk
 
 logger = logging.getLogger(__name__)
 
-
 options = {
-    'combobox': {
-        'class_': 'class_',
-        'cursor': 'cursor',
-        'exportselection': 'exportselection',
-        'justify': 'justify',
-        'height': 'height',
-        'postcommand': 'postcommand',
-        'state': 'state',
-        'style': 'style',
-        'takefocus': 'takefocus',
-        'variable': 'textvariable',
-        'values': 'values',
-        'width': 'width'
-    },
+    'combobox':
+        {
+            'class_': 'class_',
+            'cursor': 'cursor',
+            'exportselection': 'exportselection',
+            'justify': 'justify',
+            'height': 'height',
+            'postcommand': 'postcommand',
+            'state': 'state',
+            'style': 'style',
+            'takefocus': 'takefocus',
+            'variable': 'textvariable',
+            'values': 'values',
+            'width': 'width'
+        },
 }
 
 
 class LabeledCombobox(sw.LabeledWidget):
+
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance
         """
@@ -48,17 +49,12 @@ class LabeledCombobox(sw.LabeledWidget):
         state = kwargs.pop('state', 'normal')
 
         self.combobox = ttk.Combobox(
-            interior,
-            height=height,
-            width=width,
-            state=state
+            interior, height=height, width=width, state=state
         )
         self.combobox.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
-        self.interior = ttk.Frame(
-            interior
-        )
+        self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
 
         interior.columnconfigure(0, weight=1)
@@ -80,7 +76,7 @@ class LabeledCombobox(sw.LabeledWidget):
         super().show(*args)
 
         show_all = (len(args) == 0 or args[0] == 'all')
-        
+
         if show_all or 'combobox' in args:
             self.combobox.grid(row=0, column=1, sticky=tk.EW)
         else:

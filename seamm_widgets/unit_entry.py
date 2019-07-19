@@ -8,36 +8,38 @@ standardize the user interface presented to the user.
 """
 
 import logging
-from seamm_widgets import ureg, Q_, units_class
+from seamm_util import ureg, Q_, units_class  # noqa: F401
 import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
 
 logger = logging.getLogger(__name__)
 
-
 options = {
     'unitentry': {
         'as_quantity': 'as_quantity',
     },
-    'units': {
-        'class_': 'class_',
-        'cursor': 'cursor',
-        'exportselection': 'exportselection',
-        'unitsheight': 'height',
-        'unitsjustify': 'justify',
-        'postcommand': 'postcommand',
-        'style': 'style',
-        'unitstakefocus': 'takefocus',
-        'variable': 'textvariable',
-        'unitsvalidate': 'validate',
-        'unitsvalidatecommand': 'validatecommand',
-        'unitswidth': 'width',
-        'unitsxscrollcommand': 'xscrollcommand',
-    }
+    'units':
+        {
+            'class_': 'class_',
+            'cursor': 'cursor',
+            'exportselection': 'exportselection',
+            'unitsheight': 'height',
+            'unitsjustify': 'justify',
+            'postcommand': 'postcommand',
+            'style': 'style',
+            'unitstakefocus': 'takefocus',
+            'variable': 'textvariable',
+            'unitsvalidate': 'validate',
+            'unitsvalidatecommand': 'validatecommand',
+            'unitswidth': 'width',
+            'unitsxscrollcommand': 'xscrollcommand',
+        }
 }
 
+
 class UnitEntry(sw.LabeledEntry):
+
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance
         """
@@ -48,24 +50,19 @@ class UnitEntry(sw.LabeledEntry):
 
         # unitentry options
         self.as_quantity = kwargs.pop('as_quantity', False)
-        
+
         # units combobox
         unitsheight = kwargs.pop('unitsheight', 7)
         unitswidth = kwargs.pop('unitswidth', 10)
         unitsstate = kwargs.pop('unitsstate', 'readonly')
 
         self.units = ttk.Combobox(
-            interior,
-            height=unitsheight,
-            width=unitswidth,
-            state=unitsstate
+            interior, height=unitsheight, width=unitswidth, state=unitsstate
         )
         self.units.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
-        self.interior = ttk.Frame(
-            interior
-        )
+        self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
 
         self.config(**kwargs)
@@ -85,12 +82,12 @@ class UnitEntry(sw.LabeledEntry):
         super().show(*args)
 
         show_all = (len(args) == 0 or args[0] == 'all')
-        
+
         if show_all or 'units' in args:
             self.units.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.units.grid_forget()
-            
+
     def set(self, value, unit_string=None):
         """Set the the value and units"""
 
@@ -113,9 +110,7 @@ class UnitEntry(sw.LabeledEntry):
 
             if len(current_units) == 0:
                 self.set_units([*sw.default_units[str(dimensionality)], ''])
-                self.units.set(
-                    '{0.units:~}'.format(value).replace(' ', '')
-                )
+                self.units.set('{0.units:~}'.format(value).replace(' ', ''))
         elif unit_string:
             self.entry.insert(0, value)
 
@@ -146,7 +141,7 @@ class UnitEntry(sw.LabeledEntry):
             try:
                 magnitude = float(value)
                 return Q_(magnitude, unit)
-            except:
+            except:  # noqa: E722
                 return (value, unit)
         else:
             return (value, unit)

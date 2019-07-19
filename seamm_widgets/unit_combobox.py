@@ -8,36 +8,38 @@ standardize the user interface presented to the user.
 """
 
 import logging
-from seamm_widgets import ureg, Q_, units_class
+from seamm_util import ureg, Q_, units_class  # noqa: F401
 import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
 
 logger = logging.getLogger(__name__)
 
-
 options = {
     'unitcombobox': {
         'as_quantity': 'as_quantity',
     },
-    'units': {
-        'class_': 'class_',
-        'cursor': 'cursor',
-        'exportselection': 'exportselection',
-        'unitsheight': 'height',
-        'unitsjustify': 'justify',
-        'postcommand': 'postcommand',
-        'style': 'style',
-        'unitstakefocus': 'takefocus',
-        'variable': 'textvariable',
-        'unitsvalidate': 'validate',
-        'unitsvalidatecommand': 'validatecommand',
-        'unitswidth': 'width',
-        'unitsxscrollcommand': 'xscrollcommand',
-    }
+    'units':
+        {
+            'class_': 'class_',
+            'cursor': 'cursor',
+            'exportselection': 'exportselection',
+            'unitsheight': 'height',
+            'unitsjustify': 'justify',
+            'postcommand': 'postcommand',
+            'style': 'style',
+            'unitstakefocus': 'takefocus',
+            'variable': 'textvariable',
+            'unitsvalidate': 'validate',
+            'unitsvalidatecommand': 'validatecommand',
+            'unitswidth': 'width',
+            'unitsxscrollcommand': 'xscrollcommand',
+        }
 }
 
+
 class UnitCombobox(sw.LabeledCombobox):
+
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance
         """
@@ -55,17 +57,12 @@ class UnitCombobox(sw.LabeledCombobox):
         unitsstate = kwargs.pop('unitsstate', 'readonly')
 
         self.units = ttk.Combobox(
-            interior,
-            height=unitsheight,
-            width=unitswidth,
-            state=unitsstate
+            interior, height=unitsheight, width=unitswidth, state=unitsstate
         )
         self.units.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
-        self.interior = ttk.Frame(
-            interior
-        )
+        self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
 
         self.config(**kwargs)
@@ -85,7 +82,7 @@ class UnitCombobox(sw.LabeledCombobox):
         super().show(*args)
 
         show_all = (len(args) == 0 or args[0] == 'all')
-        
+
         if show_all or 'units' in args:
             self.units.grid(row=0, column=2, sticky=tk.W)
         else:
@@ -112,9 +109,7 @@ class UnitCombobox(sw.LabeledCombobox):
 
             if len(current_units) == 0:
                 self.set_units([*sw.default_units[str(dimensionality)], ''])
-                self.units.set(
-                    '{0.units:~}'.format(value).replace(' ', '')
-                )
+                self.units.set('{0.units:~}'.format(value).replace(' ', ''))
         elif unit_string:
             self.combobox.set(value)
 
@@ -148,7 +143,7 @@ class UnitCombobox(sw.LabeledCombobox):
                 try:
                     magnitude = float(value)
                     return Q_(magnitude, unit)
-                except:
+                except:  # noqa: E722
                     return (value, unit)
             else:
                 return (value, unit)
@@ -182,5 +177,3 @@ class UnitCombobox(sw.LabeledCombobox):
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
-
-

@@ -15,29 +15,29 @@ import tkinter.ttk as ttk
 
 logger = logging.getLogger(__name__)
 
-
 options = {
-    'label': {
-        'labelanchor': 'anchor',
-        'labelbackground': 'background',
-        'labelborderwidth': 'borderwidth',
-        'class_': 'class_',
-        'compound': 'compound',
-        'cursor': 'cursor',
-        'labelfont': 'font',
-        'labelforeground': 'foreground',
-        'labelimage': 'image',
-        'labeljustify': 'justify',
-        'labelpadding': 'padding',
-        'labelrelief': 'relief',
-        'style': 'style',
-        'labeltakefocus': 'takefocus',
-        'labeltext': 'text',
-        'labeltextvariable': 'textvariable',
-        'labelunderline': 'underline',
-        'labelwidth': 'width',
-        'labelwraplength': 'wraplength',
-    },
+    'label':
+        {
+            'labelanchor': 'anchor',
+            'labelbackground': 'background',
+            'labelborderwidth': 'borderwidth',
+            'class_': 'class_',
+            'compound': 'compound',
+            'cursor': 'cursor',
+            'labelfont': 'font',
+            'labelforeground': 'foreground',
+            'labelimage': 'image',
+            'labeljustify': 'justify',
+            'labelpadding': 'padding',
+            'labelrelief': 'relief',
+            'style': 'style',
+            'labeltakefocus': 'takefocus',
+            'labeltext': 'text',
+            'labeltextvariable': 'textvariable',
+            'labelunderline': 'underline',
+            'labelwidth': 'width',
+            'labelwraplength': 'wraplength',
+        },
 }
 
 
@@ -64,6 +64,7 @@ def align_labels(widgets, sticky=None):
 
 
 class LabeledWidget(ttk.Frame):
+
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance
         """
@@ -72,15 +73,12 @@ class LabeledWidget(ttk.Frame):
 
         # label
         labeltext = kwargs.pop('labeltext', '')
-        labeltextvariable = kwargs.pop('labeltextvariable', None)
+        # labeltextvariable = kwargs.pop('labeltextvariable', None)
         labeljustify = kwargs.pop('labeljustify', 'right')
         labelpadding = kwargs.pop('labelpadding', 0)
 
         self.label = ttk.Label(
-            self,
-            text=labeltext,
-            justify=labeljustify,
-            padding=labelpadding
+            self, text=labeltext, justify=labeljustify, padding=labelpadding
         )
         self.label.grid(row=0, column=0, sticky=tk.E)
 
@@ -97,7 +95,7 @@ class LabeledWidget(ttk.Frame):
         'all' or no arguments reverts to showing all"""
 
         show_all = (len(args) == 0 or args[0] == 'all')
-        
+
         if show_all or 'label' in args:
             self.label.grid(row=0, column=0, sticky=tk.E)
         else:

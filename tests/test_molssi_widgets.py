@@ -3,7 +3,6 @@
 
 """Tests for `molssi_widgets` package."""
 
-import pytest  # nopep8
+import pytest  # noqa: F401
 
-
-from molssi_widgets import molssi_widgets  # nopep8
+from molssi_widgets import molssi_widgets  # noqa: F401

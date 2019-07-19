@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """A ttk-based widget for columns of widgets, with fixed titles and scrolling
 
 This widgets has two areas: a row of titles across the top and a scrolled frame
@@ -36,7 +37,10 @@ class ScrolledColumns(ttk.Frame):
             self, scroll_vertically=True, borderwidth=2, relief=tk.SUNKEN
         )
         self.headers = sw.ScrolledFrame(
-            self, scroll_vertically=False, borderwidth=2, relief=tk.RAISED,
+            self,
+            scroll_vertically=False,
+            borderwidth=2,
+            relief=tk.RAISED,
             xscrollbar=self.table.xscrollbar
         )
 
@@ -64,25 +68,25 @@ class ScrolledColumns(ttk.Frame):
         if value is None:
             try:
                 result = self._widgets[row][column]
-            except Exception as error:
+            except Exception:
                 raise
             return result
         else:
             if column >= self.ncolumns:
                 # pad the header and each row with None's
-                extra = [None]*(column-self.ncolumns+1)
+                extra = [None] * (column - self.ncolumns + 1)
                 self._header_widgets.extend(extra)
                 for row_of_widgets in self._widgets:
                     row_of_widgets.extend(extra)
             if row >= self.nrows:
                 # add rows 'till we get there
-                extra = [None]*self.ncolumns
-                for i in range(self.nrows, row+1):
+                extra = [None] * self.ncolumns
+                for i in range(self.nrows, row + 1):
                     self._widgets.append(extra)
 
             if isinstance(value, str):
                 value = ttk.Label(self.table.interior(), text=value)
-                
+
             value.grid(row=row, column=column)
             self._widgets[row][column] = value
 
@@ -126,8 +130,8 @@ class ScrolledColumns(ttk.Frame):
 
     def __delitem__(self, key):
         """Allow deletion of keys"""
-        if isinstance(index, tuple):
-            row, column = index
+        if isinstance(key, tuple):
+            row, column = key
             widget = self.cell(row, column)
             widget.destroy()
             self.cell(row, column, None)
@@ -158,7 +162,7 @@ class ScrolledColumns(ttk.Frame):
 
         self.after_cancel(self._after_id)
         self._after_id = None
-        
+
         header = self.headers.interior()
         table = self.table.interior()
 
@@ -182,7 +186,7 @@ class ScrolledColumns(ttk.Frame):
 
         # ensure that the header area is large enough
         h = header.grid_bbox(0, 0)[3]
-        self.headers.height = h+5
+        self.headers.height = h + 5
 
     def interior(self):
         """Where the user packs widgets"""
