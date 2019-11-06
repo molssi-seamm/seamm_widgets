@@ -118,7 +118,10 @@ class UnitEntry(sw.LabeledEntry):
             current_units = self.units.cget('values')
             if len(current_units) > 0:
                 for unit in current_units:
-                    if Q_(unit).dimensionality != dimensionality:
+                    if (
+                        unit != '' and
+                        Q_(unit).dimensionality != dimensionality
+                    ):
                         self.units.configure(values=[])
                         current_units = []
                         break

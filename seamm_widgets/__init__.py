@@ -19,6 +19,7 @@ from seamm_widgets.unit_entry import UnitEntry  # noqa: F401
 from seamm_widgets.unit_combobox import UnitCombobox  # noqa: F401
 
 default_units = {
+    'dimensionless': ['degree'],
     '[length]': ['Å', 'pm', 'nm', 'um'],
     '[length] ** 3': ['Å**3', 'pm**3', 'nm**3', 'um**3'],
     '[mass]': ['g', 'kg', 'tonne', 'lb', 'ton'],
