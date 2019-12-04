@@ -635,7 +635,7 @@ if __name__ == '__main__':  # pragma: no cover
     )
     dialog.geometry('500x400')
 
-    keywords = ['BAR']*10
+    keywords = ['BAR'] * 10
 
     w = Keywords(dialog.interior(), metadata)
     w.keywords = keywords
