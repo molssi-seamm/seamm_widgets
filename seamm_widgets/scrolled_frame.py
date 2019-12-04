@@ -50,7 +50,8 @@ class ScrolledFrame(ttk.Frame):
             background=background,
             highlightthickness=0,
             width=width,
-            height=height
+            height=height,
+            takefocus=True
         )
         self.canvas.grid(row=0, column=0, sticky=tk.NSEW)
 
@@ -58,7 +59,9 @@ class ScrolledFrame(ttk.Frame):
             if yscrollbar is not None:
                 self.yscrollbar = yscrollbar
             else:
-                self.yscrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL)
+                self.yscrollbar = ttk.Scrollbar(
+                    self, orient=tk.VERTICAL, takefocus=False
+                )
                 self.yscrollbar.grid(row=0, column=1, sticky=tk.NS)
 
             self.canvas.configure(yscrollcommand=self.yscrollbar.set)
@@ -70,7 +73,9 @@ class ScrolledFrame(ttk.Frame):
             if xscrollbar is not None:
                 self.xscrollbar = xscrollbar
             else:
-                self.xscrollbar = ttk.Scrollbar(self, orient=tk.HORIZONTAL)
+                self.xscrollbar = ttk.Scrollbar(
+                    self, orient=tk.HORIZONTAL, takefocus=False
+                )
                 self.xscrollbar.grid(row=1, column=0, sticky=tk.EW)
 
             self.canvas.configure(xscrollcommand=self.xscrollbar.set)
