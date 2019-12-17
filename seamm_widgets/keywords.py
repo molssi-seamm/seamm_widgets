@@ -99,17 +99,18 @@ class Keywords(sw.ScrolledFrame):
         self.clear()
         self._working_keywords = []
         self._keywords = value
-        for keyword in value:
-            if '=' in keyword:
-                keyword, value = keyword.split('=')
-                self._working_keywords.append(
-                    {
-                        'keyword': keyword,
-                        'value': value
-                    }
-                )
-            else:
-                self._working_keywords.append({'keyword': keyword})
+        if value is not None:
+            for keyword in value:
+                if '=' in keyword:
+                    keyword, value = keyword.split('=')
+                    self._working_keywords.append(
+                        {
+                            'keyword': keyword,
+                            'value': value
+                        }
+                    )
+                else:
+                    self._working_keywords.append({'keyword': keyword})
         self.logger.debug('  keywords.setter call layout_keywords')
         self.layout_keywords()
 
@@ -284,7 +285,12 @@ class Keywords(sw.ScrolledFrame):
                 definition = self._metadata[keyword]
                 if 'takes values' in definition:
                     value = widgets['value'].get().strip()
-                    keywords.append(keyword + '=' + value)
+                    if value == '':
+                        keywords.append(keyword)
+                    else:
+                        keywords.append(
+                            format(definition['format'], keyword, value)
+                        )
                 else:
                     keywords.append(keyword)
 
