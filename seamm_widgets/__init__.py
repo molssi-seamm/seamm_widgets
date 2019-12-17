@@ -12,6 +12,7 @@ __version__ = '0.2.1'
 from seamm_widgets.mousewheel_support import MousewheelSupport  # noqa: F401
 from seamm_widgets.scrolled_frame import ScrolledFrame  # noqa: F401
 from seamm_widgets.scrolled_columns import ScrolledColumns  # noqa: F401
+from seamm_widgets.keywords import Keywords  # noqa: F401
 from seamm_widgets.labeled_widget import LabeledWidget, align_labels  # noqa: F401, E501
 from seamm_widgets.labeled_entry import LabeledEntry  # noqa: F401
 from seamm_widgets.labeled_combobox import LabeledCombobox  # noqa: F401
@@ -19,6 +20,7 @@ from seamm_widgets.unit_entry import UnitEntry  # noqa: F401
 from seamm_widgets.unit_combobox import UnitCombobox  # noqa: F401
 
 default_units = {
+    'dimensionless': ['degree'],
     '[length]': ['Å', 'pm', 'nm', 'um'],
     '[length] ** 3': ['Å**3', 'pm**3', 'nm**3', 'um**3'],
     '[mass]': ['g', 'kg', 'tonne', 'lb', 'ton'],

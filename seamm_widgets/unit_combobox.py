@@ -102,25 +102,27 @@ class UnitCombobox(sw.LabeledCombobox):
             current_units = self.units.cget('values')
             if len(current_units) > 0:
                 for unit in current_units:
-                    if Q_(unit).dimensionality != dimensionality:
-                        self.units.configure(values=[])
-                        current_units = []
-                        break
+                    if unit != '':
+                        if Q_(unit).dimensionality != dimensionality:
+                            self.units.configure(values=[])
+                            current_units = []
+                            break
 
             if len(current_units) == 0:
                 self.set_units([*sw.default_units[str(dimensionality)], ''])
                 self.units.set('{0.units:~}'.format(value).replace(' ', ''))
-        elif unit_string:
+        elif unit_string is not None:
             self.combobox.set(value)
 
             dimensionality = Q_(unit_string).dimensionality
             current_units = self.units.cget('values')
             if len(current_units) > 0:
                 for unit in current_units:
-                    if Q_(unit).dimensionality != dimensionality:
-                        self.units.configure(values=[])
-                        current_units = []
-                        break
+                    if unit != '':
+                        if Q_(unit).dimensionality != dimensionality:
+                            self.units.configure(values=[])
+                            current_units = []
+                            break
 
             if len(current_units) == 0:
                 self.set_units([*sw.default_units[str(dimensionality)], ''])

@@ -23,6 +23,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'seamm-util>=0.5',
+    'Pmw',
 ]
 
 setup(

@@ -17,7 +17,7 @@ class ScrolledColumns(ttk.Frame):
         """Initialize the widget
         """
 
-        class_ = kwargs.pop('class_', 'MLabeledEntry')
+        class_ = kwargs.pop('class_', 'MScrolledColumns')
         super().__init__(parent, class_=class_)
 
         columns = kwargs.pop('columns', [])
