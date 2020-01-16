@@ -1,34 +1,98 @@
 language: python
-dist: xenial
-python:
-- 3.7
-- 3.6
-- 3.5
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  skip_existing: true
-  on:
-    python: 3.6
-    repo: molssi-seamm/seamm_widgets
-    tags: true
-  user: seamm
-  password:
-    secure: g4g2u4PbsieDHXuC2gDWloaSmA8RYf+RqZrZy/uWzEdv/362gqCZYefNAQwpJGkqWhOw3wxAQkxhL4Rt7RvaeX06iiKL497yDcfReM/YX4mitJMLfEHHLEXRUQJwBmtMhuWVpLUrGju50cWrVNtNts9URpF5sVoByyTMtHnU+II92S1DUhEoKSSuoPnxinATFmCrM1QjQOnlhLa43vllsNmIQBIIacH62kO7OuKaePabP3NA/x07pdggK4TzKDj8KCOXQyK7VlY985jr1Ln0tVq8OpRquW/X4wTesMUhvZF1x3vlncPQANZxq5rqpVLj+5HWL+nDZ6LUoUiUE7nt3IuwwaYPI5VHko+JtxET/79X9mRiThJJ8b/NuIc3Y0TxX8CdHq69t1AwGGUMyKuLDLSn072we6yWQICBkfeozHrOD2bff3HwRxYX3iPJ3GTwNfJt4W3gHXUVEzV9H18w5J6WZ7+S5CqLfLcRAHsmVh4Zx65lTN4LBxoJevWgnLGMZaIJUzi9bPGguAJgAZ24yVa4GfmLWSVCh1S1AvnsFjUPOFuoX8KpIXKx+FxitRnhrqmiKe5D8zrU7MkrDY0XHgFQ0oOWYrJBmp88AJusCJzG4Z8Jspx54G25pyEPX2kAo1qfNFj9CXRaBxTBhN2AfpT/GGlo/ZPxwnoJDs8j61Q=
+
+before_install:
+    # Additional info about the build
+  - uname -a
+  - df -h
+  - ulimit -a
+
+    # Install the Python environment
+  - source devtools/travis-ci/before_install.sh
+  - python -V
+
+install:
+    # Create test environment for package
+  - python devtools/scripts/create_conda_env.py -n=test -p=$PYTHON_VER devtools/conda-envs/test_env.yaml
+    # Activate the test environment
+  - conda activate test
+    # Build and install package
+    #- python setup.py develop --no-deps
+  - pip install -e .
+    # Print details of the environment
+  - conda list
+  - pip freeze
+
 matrix:
   fast_finish: true
+
+notifications:
+    email: false
+
 stages:
-- lint
-- check
-- test
-install:
-- pip install -U tox-travis
-- pip install -U codecov
+  - lint
+  - test
+  - deploy
+
 jobs:
   include:
-  - stage: lint
-    script: tox -e lint
-    python: '3.6'
-script: tox -e coverage
-after_success:
-- codecov -e TOX_ENV
+    - stage: lint
+      name: "Check formatting of code for PEP-8"
+      os: linux
+      language: generic
+      env: PYTHON_VER=3.7
+      script:
+        - flake8 seamm_widgets tests
+        - yapf --diff --recursive  seamm_widgets tests
+
+    - stage: test
+      name: "Tests on MacOS Python 3.6"
+      script:
+        - pytest -v tests/
+      os: osx
+      language: generic
+      env: PYTHON_VER=3.6
+
+    - stage: test
+      name: "Tests on MacOS Python 3.7"
+      script:
+        - pytest -v tests/
+      os: osx
+      language: generic
+      env: PYTHON_VER=3.7
+
+    - stage: test
+      name: "Tests on Linux Python 3.6"
+      script:
+        - pytest -v tests/
+      os: linux
+      language: generic  # No need to set Python version since its conda
+      env: PYTHON_VER=3.6
+
+    - stage: test
+      name: "Tests and coverage on Linux Python 3.7"
+      script:
+        - pytest -v --cov=seamm_widgets tests/
+      after_success:
+        - codecov
+      os: linux
+      language: generic
+      env: PYTHON_VER=3.7
+
+    - stage: deploy
+      name: "Deploy to PyPi"
+      if: tag IS present
+      dist: xenial
+      python: 3.7
+      script: skip
+      deploy:
+        provider: pypi
+        distributions: sdist bdist_wheel
+        skip_existing: true
+        on:
+          condition: $PYTHON_VER = 3.7
+          condition: $TRAVIS_OS_NAME = linux
+          repo: molssi-seamm/seamm_widgets
+          tags: true
+        user: seamm
+        password:
+    secure: g4g2u4PbsieDHXuC2gDWloaSmA8RYf+RqZrZy/uWzEdv/362gqCZYefNAQwpJGkqWhOw3wxAQkxhL4Rt7RvaeX06iiKL497yDcfReM/YX4mitJMLfEHHLEXRUQJwBmtMhuWVpLUrGju50cWrVNtNts9URpF5sVoByyTMtHnU+II92S1DUhEoKSSuoPnxinATFmCrM1QjQOnlhLa43vllsNmIQBIIacH62kO7OuKaePabP3NA/x07pdggK4TzKDj8KCOXQyK7VlY985jr1Ln0tVq8OpRquW/X4wTesMUhvZF1x3vlncPQANZxq5rqpVLj+5HWL+nDZ6LUoUiUE7nt3IuwwaYPI5VHko+JtxET/79X9mRiThJJ8b/NuIc3Y0TxX8CdHq69t1AwGGUMyKuLDLSn072we6yWQICBkfeozHrOD2bff3HwRxYX3iPJ3GTwNfJt4W3gHXUVEzV9H18w5J6WZ7+S5CqLfLcRAHsmVh4Zx65lTN4LBxoJevWgnLGMZaIJUzi9bPGguAJgAZ24yVa4GfmLWSVCh1S1AvnsFjUPOFuoX8KpIXKx+FxitRnhrqmiKe5D8zrU7MkrDY0XHgFQ0oOWYrJBmp88AJusCJzG4Z8Jspx54G25pyEPX2kAo1qfNFj9CXRaBxTBhN2AfpT/GGlo/ZPxwnoJDs8j61Q=
