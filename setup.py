@@ -5,6 +5,7 @@
 seamm_widgets
 Custom widgets for the SEAMM environment.
 """
+
 import sys
 from setuptools import setup, find_packages
 import versioneer
@@ -21,10 +22,8 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    'seamm-util>=0.5',
-    'Pmw',
-]
+with open('requirements_install.txt') as fd:
+    requirements = fd.read()
 
 setup(
     # Descriptive entries which should always be present
@@ -34,7 +33,6 @@ setup(
     description=short_description[1],
     long_description=readme + '\n\n' + history,
     version=versioneer.get_version(),
-    # version='0.1.0',
     cmdclass=versioneer.get_cmdclass(),
     license='BSD-3-Clause',
     url='https://github.com/molssi-seam/seamm_widgets',
