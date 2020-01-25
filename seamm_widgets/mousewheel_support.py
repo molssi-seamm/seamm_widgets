@@ -83,7 +83,7 @@ class MousewheelSupport(object):
             horizontal_factor = horizontal_factor or self.horizontal_factor
 
             xscrollbar.onMouseWheel = self._make_mouse_wheel_handler(
-                widget, 'x', self.horizontal_factor, what,
+                widget, 'x', horizontal_factor, what,
                 self.natural_scroll_direction
             )
             xscrollbar.bind(
@@ -97,7 +97,7 @@ class MousewheelSupport(object):
             vertical_factor = vertical_factor or self.vertical_factor
 
             yscrollbar.onMouseWheel = self._make_mouse_wheel_handler(
-                widget, 'y', self.vertical_factor, what,
+                widget, 'y', vertical_factor, what,
                 self.natural_scroll_direction
             )
             yscrollbar.bind(

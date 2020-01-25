@@ -8,7 +8,7 @@ standardize the user interface presented to the user.
 """
 
 import logging
-from seamm_util import ureg, Q_, units_class  # noqa: F401
+from seamm_util import Q_, units_class
 import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -144,7 +144,7 @@ class UnitEntry(sw.LabeledEntry):
             try:
                 magnitude = float(value)
                 return Q_(magnitude, unit)
-            except:  # noqa: E722
+            except Exception:
                 return (value, unit)
         else:
             return (value, unit)
