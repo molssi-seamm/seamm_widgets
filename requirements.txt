@@ -9,6 +9,5 @@ python-dateutil==2.8.1
 pytz==2019.3
 scipy==1.4.1
 seamm-util==0.7.0
-seamm-widgets==0.7.0
 six==1.14.0
-statsmodels==0.10.2
+statsmodels==0.11.0
