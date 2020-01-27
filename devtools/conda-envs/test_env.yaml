@@ -19,6 +19,8 @@ dependencies:
   - pip:
     - Pmw
     - seamm-util>=0.7
+
       # Testing
+    - codecov
     - yapf
 
