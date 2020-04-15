@@ -1,2 +1,2 @@
-seamm-util>=0.8
+seamm-util>=0.9
 Pmw
