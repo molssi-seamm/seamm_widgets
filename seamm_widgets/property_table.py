@@ -178,9 +178,7 @@ class PropertyTable(sw.ScrolledFrame):
             if 'name' not in widgets:
                 # the name of the property
                 widgets['name'] = ttk.Label(
-                    frame,
-                    width=self._max_width,
-                    text=_property
+                    frame, width=self._max_width, text=_property
                 )
                 widgets['plusminus'] = ttk.Label(frame, text='±')
                 # and desired accuracy
