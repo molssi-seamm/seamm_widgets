@@ -52,8 +52,6 @@ class PropertyTable(sw.ScrolledFrame):
         self._working_properties = None
         self._add_widget = None
         self._dialog = None
-        self.property_cb = None
-        self.value_cb = None
         self._set_property_cb = None
         self.popup_menu = None
 
@@ -99,10 +97,10 @@ class PropertyTable(sw.ScrolledFrame):
         self._properties = value
         if value is not None:
             for item in value:
-                property, accuracy = item
+                _property, accuracy = item
                 self._working_properties.append(
                     {
-                        'property': property,
+                        'property': _property,
                         'accuracy': accuracy
                     }
                 )
@@ -120,8 +118,8 @@ class PropertyTable(sw.ScrolledFrame):
         self._metadata = value
         self._max_width = 0
         if value is not None:
-            for property in self._metadata.keys():
-                width = len(property)
+            for _property in self._metadata.keys():
+                width = len(_property)
                 if width > self._max_width:
                     self._max_width = width
             self._max_width += 3  # a little padding...
@@ -154,10 +152,6 @@ class PropertyTable(sw.ScrolledFrame):
             slave.grid_forget()
 
         # Callbacks
-        if self.property_cb is None:
-            self.property_cb = frame.register(self.handle_property)
-        if self.value_cb is None:
-            self.value_cb = frame.register(self.validate_property_value)
         if self._set_property_cb is None:
             self._set_property_cb = frame.register(self.set_property_cb)
 
@@ -165,7 +159,7 @@ class PropertyTable(sw.ScrolledFrame):
         for d in self._working_properties:
             self.logger.debug(d)
             row += 1
-            property = d['property']
+            _property = d['property']
             if 'widgets' not in d:
                 widgets = d['widgets'] = {}
             else:
@@ -186,7 +180,7 @@ class PropertyTable(sw.ScrolledFrame):
                 widgets['name'] = ttk.Label(
                     frame,
                     width=self._max_width,
-                    text=property
+                    text=_property
                 )
                 widgets['plusminus'] = ttk.Label(frame, text='±')
                 # and desired accuracy
@@ -194,9 +188,9 @@ class PropertyTable(sw.ScrolledFrame):
                 if 'accuracy' in d:
                     accuracy, units = d['accuracy']
                 else:
-                    units = self._metadata[property]['units']
-                    if 'accuracy' in self._metadata[property]:
-                        accuracy = self._metadata[property]['accuracy']
+                    units = self._metadata[_property]['units']
+                    if 'accuracy' in self._metadata[_property]:
+                        accuracy = self._metadata[_property]['accuracy']
                     else:
                         accuracy = '0.1%'
                 widgets['accuracy'].set(accuracy, units)
@@ -235,170 +229,34 @@ class PropertyTable(sw.ScrolledFrame):
         properties = []
         for d in self._working_properties:
             widgets = d['widgets']
-            property = widgets['name'].cget('text')
+            _property = widgets['name'].cget('text')
             accuracy = widgets['accuracy'].get()
 
-            properties.append((property, accuracy))
+            properties.append((_property, accuracy))
 
         return properties
 
-    def handle_property(
-        self, property, row, w_name, value, before, action, changed
-    ):
-        """Handle typing in a combobox for the property
-
-        Arguments:
-            property: the MOPAC property
-            w_name: the widget name
-            value: the value *after* the keystroke
-            before: the value before the keystroke
-            action: 0 for deletion, 1 for insertion
-            changed: the text being inserted or deleted
-        """
-
-        self.logger.debug('Properties::handle_property')
-        w = self.nametowidget(w_name)  # nopep8
-        self.logger.debug('Validating the property')
-
-        if changed == '\t':
-            changed = 'TAB'
-        self.logger.debug('\tproperty: {}'.format(property))
-        self.logger.debug('\t    row: {}'.format(row))
-        self.logger.debug('\t  value: {}'.format(value))
-        self.logger.debug('\t before: {}'.format(before))
-        self.logger.debug('\t action: {}'.format(action))
-        self.logger.debug('\tchanged: {}'.format(changed))
-
-        d = self._working_properties[int(row)]
-        self.logger.debug('\tmetadata: ' + str(d))
-        d['property'] = value
-
-        if value in self._metadata:
-            w.configure(style='TEntry')
-            self.layout_properties()
-        else:
-            w.configure(style='Red.TEntry')
-
-        return True
-
-    def post_cb(self, row):
-        """Handle post command for the combobox 'w'
-
-        Arguments:
-            w_name: the name of the widget (from %W)
-        """
-
-        w = self['property_' + str(row)]
-        current = w.get().upper()
-
-        properties = []
-        for property in self._metadata:
-            if property.startswith(current):
-                properties.append(property)
-
-        w.configure(values=sorted(properties))
-
-    def set_property_cb(self, property):
+    def set_property_cb(self, _property):
         self.logger.debug('Properties::set_property_cb')
-        self.logger.debug(property)
+        self.logger.debug(_property)
 
-        self._working_properties.append({'property': property})
+        self._working_properties.append({'property': _property})
         self.layout_properties()
 
-    def add_property(self, property=''):
+    def add_property(self, _property=''):
         """Add a property to the input"""
         # Post a menu with the choices
         popup_menu = tk.Menu(self.innerframe, tearoff=0)
         current = self.properties
-        for property in self._metadata:
-            if property not in current:
-                description = self._metadata[property]['description']
+        for _property in self._metadata:
+            if _property not in current:
+                description = self._metadata[_property]['description']
                 popup_menu.add_command(
-                    label='{}: {}'.format(property, description),
-                    command=(self._set_property_cb, property)
+                    label='{}: {}'.format(_property, description),
+                    command=(self._set_property_cb, _property)
                 )
         x, y = w.winfo_pointerxy()
         popup_menu.tk_popup(x, y, 0)
-
-    def post_property_dialog(self):
-        """Put up the dialog with the appropriate list of properties"""
-        if self._dialog is None:
-            """Create the dialog!"""
-            self._dialog = Pmw.Dialog(
-                self.toplevel,
-                buttons=('OK', 'Help', 'Cancel'),
-                defaultbutton='OK',
-                master=self._dialog,
-                title='Add property',
-                command=self.handle_property_dialog
-            )
-            self._dialog.withdraw()
-            frame = ttk.Frame(self._dialog.interior())
-            frame.pack(expand=tk.YES, fill=tk.BOTH)
-            self['property frame'] = frame
-
-            w = self['property tree'] = ttk.Treeview(
-                frame,
-                columns=('Property', 'Description'),
-            )
-            w.pack(expand=tk.YES, fill=tk.BOTH)
-
-            w.heading('Property', text='Property')
-            w.heading('Description', text='Description')
-            w.column('#0', minwidth=1, width=1, stretch=False)
-            w.column('Property', width=100, stretch=False)
-
-            for property in self._metadata:
-                description = self._metadata[property]['description']
-                w.insert(
-                    '', 'end', iid=property, values=(property, description)
-                )
-
-        self._dialog.activate(geometry='centerscreenfirst')
-
-    def handle_property_dialog(self, result):
-        if result is None or result == 'Cancel':
-            self._dialog.deactivate(result)
-            return
-
-        if result == 'Help':
-            # display help!!!
-            return
-
-        if result != "OK":
-            self._dialog.deactivate(result)
-            raise RuntimeError(
-                "Don't recognize dialog result '{}'".format(result)
-            )
-
-        self._dialog.deactivate(result)
-
-        property = self['property tree'].selection()
-        self.logger.debug(property)
-
-    def validate_property_value(
-        self, property, w_name, value, before, action, changed
-    ):
-        """Handle typing in a combobox for the property
-
-        Arguments:
-            property: the MOPAC property
-            w_name: the widget name
-            value: the value *after* the keystroke
-            before: the value before the keystroke
-            action: 0 for deletion, 1 for insertion
-            changed: the text being inserted or deleted
-        """
-
-        # w = self._dialog.nametowidget(w_name)
-        self.logger.debug('Validating the value of a property')
-        self.logger.debug('\tproperty: {}'.format(property))
-        self.logger.debug('\t  value: {}'.format(value))
-        self.logger.debug('\t before: {}'.format(before))
-        self.logger.debug('\t action: {}'.format(action))
-        self.logger.debug('\tchanged: {}'.format(changed))
-
-        return True
 
     def remove_property(self, row=None):
         """Remove a property from dd to input"""
