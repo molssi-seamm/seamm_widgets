@@ -253,7 +253,7 @@ class PropertyTable(sw.ScrolledFrame):
                     label='{}: {}'.format(_property, description),
                     command=(self._set_property_cb, _property)
                 )
-        x, y = w.winfo_pointerxy()
+        x, y = self.winfo_pointerxy()
         popup_menu.tk_popup(x, y, 0)
 
     def remove_property(self, row=None):
