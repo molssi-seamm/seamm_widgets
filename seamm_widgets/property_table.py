@@ -32,27 +32,20 @@ class PropertyTable(sw.ScrolledFrame):
         master,
         metadata=None,
         properties='',
-        width=None,
-        anchor=tk.N,
-        height=None,
-        mousewheel_speed=2,
-        scroll_horizontally=True,
-        xscrollbar=None,
-        scroll_vertically=True,
-        yscrollbar=None,
-        background=None,
         logger=module_logger,
+        labeltext='',
         **kwargs
     ):
         """
         """
         self.logger = logger
-        self._properties = ''
+        self._properties = []
         self._max_width = 0
         self._working_properties = None
         self._add_widget = None
         self._dialog = None
         self._set_property_cb = None
+        self._labeltext = labeltext
         self.popup_menu = None
 
         class_ = kwargs.pop('class_', 'MProperties')
@@ -61,19 +54,7 @@ class PropertyTable(sw.ScrolledFrame):
         s.configure('Red.TEntry', foreground='red')
 
         super().__init__(
-            master,
-            class_=class_,
-            width=width,
-            anchor=anchor,
-            height=height,
-            mousewheel_speed=mousewheel_speed,
-            scroll_horizontally=scroll_horizontally,
-            xscrollbar=xscrollbar,
-            scroll_vertically=scroll_vertically,
-            yscrollbar=yscrollbar,
-            background=background,
-            inner_frame=ttk.Frame,
-            **kwargs
+            master, class_=class_, inner_frame=ttk.Frame, **kwargs
         )
 
         # After everything is set up can put in the properties and metadata
@@ -84,10 +65,11 @@ class PropertyTable(sw.ScrolledFrame):
     def properties(self):
         """The current properties, reflecting changes in the widgets
         """
-        result = []
-        for d in self._working_properties:
-            result.append(d['property'])
-        return result
+        # result = []
+        # for d in self._working_properties:
+        #     result.append((d['property'], d['accuracy']))
+        # return result
+        return self.get()
 
     @properties.setter
     def properties(self, value):
@@ -107,6 +89,10 @@ class PropertyTable(sw.ScrolledFrame):
         self.logger.debug('  properties.setter call layout_properties')
         self.layout_properties()
 
+    def set(self, value):
+        """Set the properties in the widget."""
+        self.properties = value
+
     @property
     def metadata(self):
         """The current metadata
@@ -123,7 +109,7 @@ class PropertyTable(sw.ScrolledFrame):
                 if width > self._max_width:
                     self._max_width = width
             self._max_width += 3  # a little padding...
-        self.properties = self._properties
+            self.properties = self._properties
 
     def clear(self):
         """Remove the widgets.
@@ -219,7 +205,7 @@ class PropertyTable(sw.ScrolledFrame):
 
         frame.grid_columnconfigure(2, weight=1)
 
-    def get_properties(self):
+    def get(self):
         """Get the values of the properties from the widgets
         """
         self.logger.debug('Properties::get_properties')
@@ -245,7 +231,10 @@ class PropertyTable(sw.ScrolledFrame):
         """Add a property to the input"""
         # Post a menu with the choices
         popup_menu = tk.Menu(self.innerframe, tearoff=0)
-        current = self.properties
+        current = []
+        for d, _ in self.properties:
+            current.append(d)
+
         for _property in self._metadata:
             if _property not in current:
                 description = self._metadata[_property]['description']
@@ -394,7 +383,7 @@ if __name__ == '__main__':  # pragma: no cover
 
     # Helper to print the current properties
     def print_properties(*args):
-        print(w.get_properties())
+        print(w.get())
 
     def print_focus(*args):
         print(root.focus_get())
@@ -402,7 +391,7 @@ if __name__ == '__main__':  # pragma: no cover
     def handle_dialog(result):
         dialog.deactivate(result)
         if result == "OK":
-            properties = w.get_properties()
+            properties = w.get()
             print('OK')
             print(properties)
             w.properties = properties
