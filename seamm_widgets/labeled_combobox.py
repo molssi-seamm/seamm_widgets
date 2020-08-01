@@ -78,7 +78,7 @@ class LabeledCombobox(sw.LabeledWidget):
         show_all = (len(args) == 0 or args[0] == 'all')
 
         if show_all or 'combobox' in args:
-            self.combobox.grid(row=0, column=1, sticky=tk.EW)
+            self.combobox.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.combobox.grid_forget()
 

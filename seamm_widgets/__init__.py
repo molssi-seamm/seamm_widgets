@@ -17,6 +17,7 @@ from seamm_widgets.keywords import Keywords  # noqa: F401
 from seamm_widgets.property_table import PropertyTable  # noqa: F401
 from seamm_widgets.labeled_entry import LabeledEntry  # noqa: F401
 from seamm_widgets.labeled_combobox import LabeledCombobox  # noqa: F401
+from seamm_widgets.periodic_table import PeriodicTable  # noqa: F401
 from seamm_widgets.unit_entry import UnitEntry  # noqa: F401
 from seamm_widgets.unit_combobox import UnitCombobox  # noqa: F401
 

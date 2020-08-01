@@ -84,7 +84,7 @@ class UnitCombobox(sw.LabeledCombobox):
         show_all = (len(args) == 0 or args[0] == 'all')
 
         if show_all or 'units' in args:
-            self.units.grid(row=0, column=2, sticky=tk.W)
+            self.units.grid(row=0, column=0, sticky=tk.W)
         else:
             self.units.grid_forget()
 
