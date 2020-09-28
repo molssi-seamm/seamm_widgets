@@ -92,6 +92,19 @@ class ScrolledColumns(ttk.Frame):
 
             self._update_widths()
 
+    def clear(self):
+        """Clear the contents of the widget.
+
+        Returns
+        -------
+        None
+        """
+        for row in self._widgets:
+            for item in row:
+                if item is not None:
+                    item.destroy()
+        self._widgets = []
+
     def delete_row(self, index):
         for item in self._widgets[index]:
             if item is not None:
