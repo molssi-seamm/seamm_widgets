@@ -41,7 +41,8 @@ class ScrolledColumns(ttk.Frame):
             scroll_vertically=False,
             borderwidth=2,
             relief=tk.RAISED,
-            xscrollbar=self.table.xscrollbar
+            xscrollbar=self.table.xscrollbar,
+            height=22
         )
 
         # and patch up the horizontal scrolling
