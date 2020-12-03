@@ -46,6 +46,7 @@ class PeriodicTable(sw.LabeledWidget):
         self._widget = {}
         self._max_selected = 'all'
         self._command = command
+        self._disabled = []
 
         class_ = kwargs.pop('class_', 'MPeriodicTable')
 
@@ -74,6 +75,72 @@ class PeriodicTable(sw.LabeledWidget):
         self.reset_widgets()
 
         # After everything is set up can put
+
+    @property
+    def command(self):
+        """A command to execute when an element is selected."""
+        return self._command
+
+    @command.setter
+    def command(self, command):
+        self._command = command
+
+    @property
+    def disabled(self):
+        """The elements that are disabled."""
+        return self._disabled
+
+    @disabled.setter
+    def disabled(self, elements):
+        for element in self.elements:
+            button = self._widget[element]
+            if element in self._disabled:
+                if element not in elements:
+                    button.configure(state='normal', relief='raised')
+            else:
+                button.configure(state='disabled', relief='raised')
+        self._disabled = elements
+
+    @property
+    def elements(self):
+        elements = []
+        for period in element_layout:
+            for element in period:
+                if element != '':
+                    elements.append(element)
+        return elements
+
+    def disable(self, elements):
+        """Disable the buttons for the given elements"""
+        if elements == 'all':
+            elements = self.elements
+        for element in elements:
+            if element not in self._disabled:
+                button = self._widget[element]
+                button.configure(state='disabled', relief='raised')
+                if isinstance(self._disabled, set):
+                    self._disabled.add(element)
+                else:
+                    self._disabled.append(element)
+
+    def enable(self, elements):
+        """Disable the buttons for the given elements"""
+        if elements == 'all':
+            elements = self.elements
+        for element in elements:
+            if element in self._disabled:
+                button = self._widget[element]
+                button.configure(state='normal', relief='raised')
+                self._disabled.remove(element)
+
+    def set_text_color(self, elements='all', color='black'):
+        """Set the color of the text in the button for the given elements"""
+        if elements == 'all':
+            for element in self.elements:
+                self._widget[element].configure(fg=color)
+        else:
+            for element in elements:
+                self._widget[element].configure(fg=color)
 
     def reset_widgets(self):
         """Layout the widgets for the current state."""
