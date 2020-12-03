@@ -12,6 +12,10 @@ on:
     branches:
       - "master"
       - "main"
+  release:
+    branches:
+      - "master"
+      - "main"
   schedule:
     # Run on master by default Sunday morning at 3:30:
     #   Scheduled workflows run on the latest commit on the default or base branch.
@@ -124,6 +128,7 @@ jobs:
   deploy:
     name: PyPi ${{ matrix.os }} Py${{ matrix.python-version }}
     # Run only for tagged releases.
+    if: github.event_name == 'release'
     if: startsWith(github.ref, 'refs/tags')
     runs-on: ${{ matrix.os }}
     needs: [lint, test]
