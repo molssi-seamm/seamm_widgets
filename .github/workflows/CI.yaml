@@ -13,6 +13,7 @@ on:
       - "master"
       - "main"
   release:
+    types: [published]
     branches:
       - "master"
       - "main"
@@ -128,7 +129,7 @@ jobs:
   deploy:
     name: PyPi ${{ matrix.os }} Py${{ matrix.python-version }}
     # Run only for tagged releases.
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags')
     runs-on: ${{ matrix.os }}
     needs: [lint, test]
     strategy:
@@ -162,7 +163,6 @@ jobs:
         ls -l dist/
         
     - name: Publish distribution 📦 to Test PyPI
-      if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.test_pypi_password }}
@@ -170,7 +170,6 @@ jobs:
         skip_existing: true
 
     - name: Publish distribution 📦 to PyPI
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.pypi_password }}
