@@ -9,6 +9,7 @@ dependencies:
   - pip
 
   # Testing
+  - black
   - codecov
   - flake8
   - pytest
@@ -22,3 +23,8 @@ dependencies:
       # Testing
     - yapf
 
+    # Documentation
+    - rinohtype
+    - pygments
+    - sphinx-rtd-theme
+    - pystemmer
