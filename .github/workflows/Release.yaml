@@ -26,8 +26,8 @@ jobs:
     - uses: conda-incubator/setup-miniconda@v2
       with:
         python-version: 3.8
-        environment-file: devtools/conda-envs/release.yaml
-        activate-environment: release
+        environment-file: devtools/conda-envs/test_env.yaml
+        activate-environment: test
         auto-update-conda: false
         auto-activate-base: false
         show-channel-urls: true
