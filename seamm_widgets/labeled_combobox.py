@@ -15,42 +15,37 @@ import tkinter.ttk as ttk
 logger = logging.getLogger(__name__)
 
 options = {
-    'combobox':
-        {
-            'class_': 'class_',
-            'cursor': 'cursor',
-            'exportselection': 'exportselection',
-            'justify': 'justify',
-            'height': 'height',
-            'postcommand': 'postcommand',
-            'state': 'state',
-            'style': 'style',
-            'takefocus': 'takefocus',
-            'variable': 'textvariable',
-            'values': 'values',
-            'width': 'width'
-        },
+    "combobox": {
+        "class_": "class_",
+        "cursor": "cursor",
+        "exportselection": "exportselection",
+        "justify": "justify",
+        "height": "height",
+        "postcommand": "postcommand",
+        "state": "state",
+        "style": "style",
+        "takefocus": "takefocus",
+        "variable": "textvariable",
+        "values": "values",
+        "width": "width",
+    },
 }
 
 
 class LabeledCombobox(sw.LabeledWidget):
-
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the instance
-        """
-        class_ = kwargs.pop('class_', 'MLabeledCombobox')
+        """Initialize the instance"""
+        class_ = kwargs.pop("class_", "MLabeledCombobox")
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
         # combobox
-        height = kwargs.pop('height', 7)
-        width = kwargs.pop('width', 20)
-        state = kwargs.pop('state', 'normal')
+        height = kwargs.pop("height", 7)
+        width = kwargs.pop("width", 20)
+        state = kwargs.pop("state", "normal")
 
-        self.combobox = ttk.Combobox(
-            interior, height=height, width=width, state=state
-        )
+        self.combobox = ttk.Combobox(interior, height=height, width=width, state=state)
         self.combobox.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
@@ -75,9 +70,9 @@ class LabeledCombobox(sw.LabeledWidget):
 
         super().show(*args)
 
-        show_all = (len(args) == 0 or args[0] == 'all')
+        show_all = len(args) == 0 or args[0] == "all"
 
-        if show_all or 'combobox' in args:
+        if show_all or "combobox" in args:
             self.combobox.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.combobox.grid_forget()
@@ -99,7 +94,7 @@ class LabeledCombobox(sw.LabeledWidget):
         """Set the configuration of the megawidget"""
 
         # our options that we deal with
-        combobox = options['combobox']
+        combobox = options["combobox"]
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]

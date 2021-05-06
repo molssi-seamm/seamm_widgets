@@ -1,3 +1,4 @@
+MODULE := seamm_widgets
 .PHONY: clean clean-test clean-pyc clean-build docs help
 .DEFAULT_GOAL := help
 define BROWSER_PYSCRIPT
@@ -47,14 +48,12 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 
-lint: ## check style with yapf
-	yapf --diff --recursive seamm_widgets tests
-	flake8 seamm_widgets tests
+lint: ## check style with black and flake8
+	black --check --diff $(MODULE) tests
+	flake8 $(MODULE) tests
 
 format: ## reformat with with yapf and isort
-	yapf --recursive --in-place seamm_widgets tests
-
-#	isort --recursive --atomic seamm_widgets tests
+	black $(MODULE) tests
 
 test: ## run tests quickly with the default Python
 	py.test
@@ -63,18 +62,20 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source seamm_widgets -m pytest
+	coverage run --source $(MODULE) -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/seamm_widgets.rst
+	rm -f docs/$(MODULE).rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ seamm_widgets
+	sphinx-apidoc -o docs/ $(MODULE)
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
+	rm -f docs/$(MODULE).rst
+	rm -f docs/modules.rst
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
@@ -92,5 +93,5 @@ install: uninstall ## install the package to the active Python's site-packages
 	python setup.py install
 
 uninstall: clean ## uninstall the package
-	pip uninstall --yes seamm_widgets
+	pip uninstall --yes $(MODULE)
 

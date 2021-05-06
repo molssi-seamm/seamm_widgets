@@ -7,6 +7,7 @@ dependencies:
   # Base depends
   - python
   - pip
+  - pmw
 
   # Testing
   - black
@@ -15,16 +16,14 @@ dependencies:
   - pytest
   - pytest-cov
 
+  # Documentation
+  - pygments
+
   # Pip-only installs
   - pip:
-    - Pmw
     - seamm-util
-
-      # Testing
-    - yapf
 
     # Documentation
     - rinohtype
-    - pygments
     - sphinx-rtd-theme
     - pystemmer

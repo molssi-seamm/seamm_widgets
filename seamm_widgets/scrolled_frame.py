@@ -18,7 +18,6 @@ from tkinter import ttk
 
 
 class ScrolledFrame(ttk.Frame):
-
     def __init__(
         self,
         master,
@@ -34,9 +33,8 @@ class ScrolledFrame(ttk.Frame):
         inner_frame=ttk.Frame,
         **kwargs
     ):
-        """
-        """
-        class_ = kwargs.pop('class_', 'MScrolledFrame')
+        """ """
+        class_ = kwargs.pop("class_", "MScrolledFrame")
         super().__init__(master, class_=class_)
 
         self.grid_columnconfigure(0, weight=1)
@@ -51,7 +49,7 @@ class ScrolledFrame(ttk.Frame):
             highlightthickness=0,
             width=width,
             height=height,
-            takefocus=True
+            takefocus=True,
         )
         self.canvas.grid(row=0, column=0, sticky=tk.NSEW)
 
@@ -65,7 +63,7 @@ class ScrolledFrame(ttk.Frame):
                 self.yscrollbar.grid(row=0, column=1, sticky=tk.NS)
 
             self.canvas.configure(yscrollcommand=self.yscrollbar.set)
-            self.yscrollbar['command'] = self.canvas.yview
+            self.yscrollbar["command"] = self.canvas.yview
         else:
             self.yscrollbar = None
 
@@ -79,7 +77,7 @@ class ScrolledFrame(ttk.Frame):
                 self.xscrollbar.grid(row=1, column=0, sticky=tk.EW)
 
             self.canvas.configure(xscrollcommand=self.xscrollbar.set)
-            self.xscrollbar['command'] = self.canvas.xview
+            self.xscrollbar["command"] = self.canvas.xview
         else:
             self.xscrollbar = None
 
@@ -90,15 +88,13 @@ class ScrolledFrame(ttk.Frame):
         self.innerframe.pack(anchor=anchor)
 
         self.canvas.create_window(
-            0, 0, window=self.innerframe, anchor='nw', tags="inner_frame"
+            0, 0, window=self.innerframe, anchor="nw", tags="inner_frame"
         )
 
-        self.canvas.bind('<Configure>', self._on_canvas_configure)
+        self.canvas.bind("<Configure>", self._on_canvas_configure)
 
         sw.MousewheelSupport(self).add_support_to(
-            self.canvas,
-            xscrollbar=self.xscrollbar,
-            yscrollbar=self.yscrollbar
+            self.canvas, xscrollbar=self.xscrollbar, yscrollbar=self.yscrollbar
         )
 
     @property
@@ -150,7 +146,7 @@ class ScrolledFrame(ttk.Frame):
         self.canvas.configure(
             scrollregion="0 0 %s %s" % (window_width, window_height),
             width=canvas_width,
-            height=canvas_height
+            height=canvas_height,
         )
         self.canvas.itemconfigure(
             "inner_frame", width=window_width, height=window_height

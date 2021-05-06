@@ -15,39 +15,36 @@ import tkinter.ttk as ttk
 logger = logging.getLogger(__name__)
 
 options = {
-    'entry':
-        {
-            'class_': 'class_',
-            'cursor': 'cursor',
-            'exportselection': 'exportselection',
-            'font': 'font',
-            'invalidcommand': 'invalidcommand',
-            'justify': 'justify',
-            'show': 'show',
-            'style': 'style',
-            'takefocus': 'takefocus',
-            'variable': 'textvariable',
-            'validate': 'validate',
-            'validatecommand': 'validatecommand',
-            'width': 'width',
-            'xscrollcommand': 'xscrollcommand'
-        },
+    "entry": {
+        "class_": "class_",
+        "cursor": "cursor",
+        "exportselection": "exportselection",
+        "font": "font",
+        "invalidcommand": "invalidcommand",
+        "justify": "justify",
+        "show": "show",
+        "style": "style",
+        "takefocus": "takefocus",
+        "variable": "textvariable",
+        "validate": "validate",
+        "validatecommand": "validatecommand",
+        "width": "width",
+        "xscrollcommand": "xscrollcommand",
+    },
 }
 
 
 class LabeledEntry(sw.LabeledWidget):
-
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the instance
-        """
-        class_ = kwargs.pop('class_', 'MLabeledEntry')
+        """Initialize the instance"""
+        class_ = kwargs.pop("class_", "MLabeledEntry")
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
         # entry
-        justify = kwargs.pop('justify', tk.LEFT)
-        entrywidth = kwargs.pop('width', 15)
+        justify = kwargs.pop("justify", tk.LEFT)
+        entrywidth = kwargs.pop("width", 15)
 
         self.entry = ttk.Entry(interior, justify=justify, width=entrywidth)
         self.entry.grid(row=0, column=0, sticky=tk.EW)
@@ -74,9 +71,9 @@ class LabeledEntry(sw.LabeledWidget):
 
         super().show(*args)
 
-        show_all = (len(args) == 0 or args[0] == 'all')
+        show_all = len(args) == 0 or args[0] == "all"
 
-        if show_all or 'entry' in args:
+        if show_all or "entry" in args:
             self.entry.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.entry.grid_forget()
@@ -99,7 +96,7 @@ class LabeledEntry(sw.LabeledWidget):
         """Set the configuration of the megawidget"""
 
         # our options that we deal with
-        entry = options['entry']
+        entry = options["entry"]
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]

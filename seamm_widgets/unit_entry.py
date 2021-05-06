@@ -16,45 +16,42 @@ import tkinter.ttk as ttk
 logger = logging.getLogger(__name__)
 
 options = {
-    'unitentry': {
-        'as_quantity': 'as_quantity',
+    "unitentry": {
+        "as_quantity": "as_quantity",
     },
-    'units':
-        {
-            'class_': 'class_',
-            'cursor': 'cursor',
-            'exportselection': 'exportselection',
-            'unitsheight': 'height',
-            'unitsjustify': 'justify',
-            'postcommand': 'postcommand',
-            'style': 'style',
-            'unitstakefocus': 'takefocus',
-            'variable': 'textvariable',
-            'unitsvalidate': 'validate',
-            'unitsvalidatecommand': 'validatecommand',
-            'unitswidth': 'width',
-            'unitsxscrollcommand': 'xscrollcommand',
-        }
+    "units": {
+        "class_": "class_",
+        "cursor": "cursor",
+        "exportselection": "exportselection",
+        "unitsheight": "height",
+        "unitsjustify": "justify",
+        "postcommand": "postcommand",
+        "style": "style",
+        "unitstakefocus": "takefocus",
+        "variable": "textvariable",
+        "unitsvalidate": "validate",
+        "unitsvalidatecommand": "validatecommand",
+        "unitswidth": "width",
+        "unitsxscrollcommand": "xscrollcommand",
+    },
 }
 
 
 class UnitEntry(sw.LabeledEntry):
-
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the instance
-        """
-        class_ = kwargs.pop('class_', 'MUnitEntry')
+        """Initialize the instance"""
+        class_ = kwargs.pop("class_", "MUnitEntry")
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
         # unitentry options
-        self.as_quantity = kwargs.pop('as_quantity', False)
+        self.as_quantity = kwargs.pop("as_quantity", False)
 
         # units combobox
-        unitsheight = kwargs.pop('unitsheight', 7)
-        unitswidth = kwargs.pop('unitswidth', 10)
-        unitsstate = kwargs.pop('unitsstate', 'readonly')
+        unitsheight = kwargs.pop("unitsheight", 7)
+        unitswidth = kwargs.pop("unitswidth", 10)
+        unitsstate = kwargs.pop("unitsstate", "readonly")
 
         self.units = ttk.Combobox(
             interior, height=unitsheight, width=unitswidth, state=unitsstate
@@ -81,9 +78,9 @@ class UnitEntry(sw.LabeledEntry):
 
         super().show(*args)
 
-        show_all = (len(args) == 0 or args[0] == 'all')
+        show_all = len(args) == 0 or args[0] == "all"
 
-        if show_all or 'units' in args:
+        if show_all or "units" in args:
             self.units.grid(row=0, column=0, sticky=tk.EW)
         else:
             self.units.grid_forget()
@@ -100,7 +97,7 @@ class UnitEntry(sw.LabeledEntry):
             self.entry.insert(0, value.magnitude)
 
             dimensionality = value.dimensionality
-            current_units = self.units.cget('values')
+            current_units = self.units.cget("values")
             if len(current_units) > 0:
                 for unit in current_units:
                     if Q_(unit).dimensionality != dimensionality:
@@ -109,36 +106,33 @@ class UnitEntry(sw.LabeledEntry):
                         break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ''])
-                self.units.set('{0.units:~}'.format(value).replace(' ', ''))
+                self.set_units([*sw.default_units[str(dimensionality)], ""])
+                self.units.set("{0.units:~}".format(value).replace(" ", ""))
         elif unit_string:
             self.entry.insert(0, value)
 
             dimensionality = Q_(unit_string).dimensionality
-            current_units = self.units.cget('values')
+            current_units = self.units.cget("values")
             if len(current_units) > 0:
                 for unit in current_units:
-                    if (
-                        unit != '' and
-                        Q_(unit).dimensionality != dimensionality
-                    ):
+                    if unit != "" and Q_(unit).dimensionality != dimensionality:
                         self.units.configure(values=[])
                         current_units = []
                         break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ''])
+                self.set_units([*sw.default_units[str(dimensionality)], ""])
                 self.units.set(unit_string)
         else:
             self.entry.insert(0, value)
-            self.set_units('all')
-            self.units.set('')
+            self.set_units("all")
+            self.units.set("")
 
     def get(self):
         """return the current value with units"""
         value = self.entry.get()
         unit = self.units.get()
-        if unit == '':
+        if unit == "":
             return value
         elif self.as_quantity:
             try:
@@ -154,8 +148,8 @@ class UnitEntry(sw.LabeledEntry):
         if values is None:
             dimensionality = str(self.get().dimensionality)
             self.units.config(values=sw.default_units[dimensionality])
-        elif values == 'all':
-            tmp = ['']
+        elif values == "all":
+            tmp = [""]
             for key in sw.default_units:
                 tmp += sw.default_units[key]
             self.units.config(values=tmp)
@@ -164,8 +158,8 @@ class UnitEntry(sw.LabeledEntry):
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
-        unitentry = options['unitentry']
-        units = options['units']
+        unitentry = options["unitentry"]
+        units = options["units"]
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]

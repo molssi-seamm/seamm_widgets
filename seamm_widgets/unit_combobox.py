@@ -16,45 +16,42 @@ import tkinter.ttk as ttk
 logger = logging.getLogger(__name__)
 
 options = {
-    'unitcombobox': {
-        'as_quantity': 'as_quantity',
+    "unitcombobox": {
+        "as_quantity": "as_quantity",
     },
-    'units':
-        {
-            'class_': 'class_',
-            'cursor': 'cursor',
-            'exportselection': 'exportselection',
-            'unitsheight': 'height',
-            'unitsjustify': 'justify',
-            'postcommand': 'postcommand',
-            'style': 'style',
-            'unitstakefocus': 'takefocus',
-            'variable': 'textvariable',
-            'unitsvalidate': 'validate',
-            'unitsvalidatecommand': 'validatecommand',
-            'unitswidth': 'width',
-            'unitsxscrollcommand': 'xscrollcommand',
-        }
+    "units": {
+        "class_": "class_",
+        "cursor": "cursor",
+        "exportselection": "exportselection",
+        "unitsheight": "height",
+        "unitsjustify": "justify",
+        "postcommand": "postcommand",
+        "style": "style",
+        "unitstakefocus": "takefocus",
+        "variable": "textvariable",
+        "unitsvalidate": "validate",
+        "unitsvalidatecommand": "validatecommand",
+        "unitswidth": "width",
+        "unitsxscrollcommand": "xscrollcommand",
+    },
 }
 
 
 class UnitCombobox(sw.LabeledCombobox):
-
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the instance
-        """
-        class_ = kwargs.pop('class_', 'MUnitCombobox')
+        """Initialize the instance"""
+        class_ = kwargs.pop("class_", "MUnitCombobox")
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
         # unitcombobox options
-        self.as_quantity = kwargs.pop('as_quantity', False)
+        self.as_quantity = kwargs.pop("as_quantity", False)
 
         # units combobox
-        unitsheight = kwargs.pop('unitsheight', 7)
-        unitswidth = kwargs.pop('unitswidth', 10)
-        unitsstate = kwargs.pop('unitsstate', 'readonly')
+        unitsheight = kwargs.pop("unitsheight", 7)
+        unitswidth = kwargs.pop("unitswidth", 10)
+        unitsstate = kwargs.pop("unitsstate", "readonly")
 
         self.units = ttk.Combobox(
             interior, height=unitsheight, width=unitswidth, state=unitsstate
@@ -81,9 +78,9 @@ class UnitCombobox(sw.LabeledCombobox):
 
         super().show(*args)
 
-        show_all = (len(args) == 0 or args[0] == 'all')
+        show_all = len(args) == 0 or args[0] == "all"
 
-        if show_all or 'units' in args:
+        if show_all or "units" in args:
             self.units.grid(row=0, column=0, sticky=tk.W)
         else:
             self.units.grid_forget()
@@ -99,47 +96,47 @@ class UnitCombobox(sw.LabeledCombobox):
             self.combobox.set(value.magnitude)
 
             dimensionality = value.dimensionality
-            current_units = self.units.cget('values')
+            current_units = self.units.cget("values")
             if len(current_units) > 0:
                 for unit in current_units:
-                    if unit != '':
+                    if unit != "":
                         if Q_(unit).dimensionality != dimensionality:
                             self.units.configure(values=[])
                             current_units = []
                             break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ''])
-                self.units.set('{0.units:~}'.format(value).replace(' ', ''))
+                self.set_units([*sw.default_units[str(dimensionality)], ""])
+                self.units.set("{0.units:~}".format(value).replace(" ", ""))
         elif unit_string is not None:
             self.combobox.set(value)
 
             dimensionality = Q_(unit_string).dimensionality
-            current_units = self.units.cget('values')
+            current_units = self.units.cget("values")
             if len(current_units) > 0:
                 for unit in current_units:
-                    if unit != '':
+                    if unit != "":
                         if Q_(unit).dimensionality != dimensionality:
                             self.units.configure(values=[])
                             current_units = []
                             break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ''])
+                self.set_units([*sw.default_units[str(dimensionality)], ""])
                 self.units.set(unit_string)
         else:
             self.combobox.set(value)
-            self.set_units('all')
-            self.units.set('')
+            self.set_units("all")
+            self.units.set("")
 
     def get(self):
         """return the current value with units"""
         value = self.combobox.get()
-        if value in self.combobox.cget('values'):
+        if value in self.combobox.cget("values"):
             return value
         else:
             unit = self.units.get()
-            if unit == '':
+            if unit == "":
                 return value
             elif self.as_quantity:
                 try:
@@ -154,8 +151,8 @@ class UnitCombobox(sw.LabeledCombobox):
         if values is None:
             dimensionality = str(self.get().dimensionality)
             self.units.config(values=sw.default_units[dimensionality])
-        elif values == 'all':
-            tmp = ['']
+        elif values == "all":
+            tmp = [""]
             for key in sw.default_units:
                 tmp += sw.default_units[key]
             self.units.config(values=tmp)
@@ -164,8 +161,8 @@ class UnitCombobox(sw.LabeledCombobox):
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
-        unitcombobox = options['unitcombobox']
-        units = options['units']
+        unitcombobox = options["unitcombobox"]
+        units = options["units"]
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]
