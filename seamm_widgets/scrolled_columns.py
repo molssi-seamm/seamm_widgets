@@ -12,16 +12,14 @@ from tkinter import ttk
 
 
 class ScrolledColumns(ttk.Frame):
-
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the widget
-        """
+        """Initialize the widget"""
 
-        class_ = kwargs.pop('class_', 'MScrolledColumns')
+        class_ = kwargs.pop("class_", "MScrolledColumns")
         super().__init__(parent, class_=class_)
 
-        columns = kwargs.pop('columns', [])
-        self.min_sizes = kwargs.pop('minsize', [])
+        columns = kwargs.pop("columns", [])
+        self.min_sizes = kwargs.pop("minsize", [])
         self._after_id = None
 
         # list (vector) of the header widgets, _ncolumns long
@@ -42,11 +40,11 @@ class ScrolledColumns(ttk.Frame):
             borderwidth=2,
             relief=tk.RAISED,
             xscrollbar=self.table.xscrollbar,
-            height=22
+            height=22,
         )
 
         # and patch up the horizontal scrolling
-        self.table.xscrollbar['command'] = self.xview
+        self.table.xscrollbar["command"] = self.xview
 
         self.headers.grid(row=0, column=0, sticky=tk.EW)
         self.table.grid(row=1, column=0, sticky=tk.NSEW)
@@ -64,8 +62,7 @@ class ScrolledColumns(ttk.Frame):
             self._header_widgets.append(item)
 
     def cell(self, row, column, value=None):
-        """Return or set the widget at the given cell
-        """
+        """Return or set the widget at the given cell"""
         if value is None:
             try:
                 result = self._widgets[row][column]
@@ -164,12 +161,12 @@ class ScrolledColumns(ttk.Frame):
 
     def _update_widths_now(self):
         """Force the update of the column widths to happen now"""
-        self._update_widths(when='now')
+        self._update_widths(when="now")
 
-    def _update_widths(self, when='later'):
+    def _update_widths(self, when="later"):
         """Make the column widths of header and table identical"""
 
-        if when == 'later':
+        if when == "later":
             if self._after_id is None:
                 self._after_id = self.after_idle(self._update_widths_now)
             return
