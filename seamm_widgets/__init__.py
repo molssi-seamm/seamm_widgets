@@ -33,6 +33,7 @@ del get_versions, versions
 default_units = {
     "dimensionless": ["degree"],
     "[length]": ["Å", "pm", "nm", "um"],
+    "[length] ** 2": ["Å**2", "pm**2", "nm**2", "um**2"],
     "[length] ** 3": ["Å**3", "pm**3", "nm**3", "um**3"],
     "[mass]": ["g", "kg", "tonne", "lb", "ton"],
     "[substance]": ["mol"],
