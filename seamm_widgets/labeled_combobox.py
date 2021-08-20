@@ -105,3 +105,6 @@ class LabeledCombobox(sw.LabeledWidget):
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
