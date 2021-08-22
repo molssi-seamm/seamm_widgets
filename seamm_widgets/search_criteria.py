@@ -204,6 +204,17 @@ class Criterion(sw.LabeledWidget):
         if self.command is not None:
             self.command(self, event, what)
 
+    def clear(self):
+        """Remove all rows from the table."""
+        for remove_button, criterion in self._rows.items():
+            remove_button.destroy()
+            criterion.destroy()
+
+        self.callback(None, "internal", "clear")
+
+        self._rows = []
+        self.layout()
+
     def get(self):
         """Return the values of the widgets as a tuple."""
         return (
@@ -289,26 +300,14 @@ class SearchCriteria(sw.ScrolledLabelFrame):
 
         self.layout()
 
-    def layout(self):
-        """Layout the criteria."""
+    def add_row(self, values=None):
+        """Add a new row to the table.
 
-        frame = self.frame
-
-        # Unpack any widgets
-        for slave in frame.grid_slaves():
-            slave.grid_forget()
-
-        row = 0
-        for remove_button, criterion in self._rows:
-            remove_button.grid(row=row, column=0, sticky=tk.EW)
-            criterion.grid(row=row, column=1, sticky=tk.EW)
-            row += 1
-
-        self.add_button.grid(row=row, column=0, sticky=tk.EW)
-        frame.grid_columnconfigure(1, weight=1)
-
-    def add_row(self):
-        """Add a new row to the table."""
+        Parameters
+        ----------
+        values : [5]
+            Values to set the criterion widget with.
+        """
         # The button to remove a row...
         remove_button = ttk.Button(
             self.frame,
@@ -339,6 +338,8 @@ class SearchCriteria(sw.ScrolledLabelFrame):
             operatorstate=self.operatorstate,
             two_values=self.two_values,
         )
+        if values is not None:
+            criterion.set(values)
 
         self._rows.append((remove_button, criterion))
 
@@ -346,10 +347,38 @@ class SearchCriteria(sw.ScrolledLabelFrame):
 
         self.layout()
 
+        return criterion
+
     def callback(self, criterion, event, what):
         """Call the command for changes in the widget value."""
         if self.command is not None:
             self.command(self, criterion, event, what)
+
+    def get(self):
+        """Return the list of criteria."""
+        result = []
+        for _, criterion in self._rows:
+            result.append(criterion.get())
+
+        return result
+
+    def layout(self):
+        """Layout the criteria."""
+
+        frame = self.frame
+
+        # Unpack any widgets
+        for slave in frame.grid_slaves():
+            slave.grid_forget()
+
+        row = 0
+        for remove_button, criterion in self._rows:
+            remove_button.grid(row=row, column=0, sticky=tk.EW)
+            criterion.grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+
+        self.add_button.grid(row=row, column=0, sticky=tk.EW)
+        frame.grid_columnconfigure(1, weight=1)
 
     def remove_row(self, index):
         """Remove a row from the table.
@@ -371,6 +400,19 @@ class SearchCriteria(sw.ScrolledLabelFrame):
             row[0].configure(command=lambda index=i: self.remove_row(index))
 
         self.layout()
+
+    def set(self, criteria):
+        """Set the current value of the widget to the given criteria.
+
+        Parameters
+        ----------
+        criteria : [tuple()]
+            A list of the value for each criterion.
+        """
+        self.clear()
+
+        for values in criteria:
+            self.add_row(values=values)
 
 
 if __name__ == "__main__":  # pragma: no cover
