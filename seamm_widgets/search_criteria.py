@@ -529,35 +529,34 @@ if __name__ == "__main__":  # pragma: no cover
     root = tk.Tk()
     root.title("Search Criteria")
 
-    if False:
-        criterion = Criterion(
-            root,
-            fieldvalues=("keyword", "author", "date"),
-            operatorvalues=("=", "like"),
-            two_values=("between",),
-        )
-        criterion.grid(row=0, column=0, columnspan=2, sticky=tk.EW)
+    # criterion = Criterion(
+    #     root,
+    #     fieldvalues=("keyword", "author", "date"),
+    #     operatorvalues=("=", "like"),
+    #     two_values=("between",),
+    # )
+    # criterion.grid(row=0, column=0, columnspan=2, sticky=tk.EW)
 
-        w = ttk.Button(root, text="Check", command=lambda w=criterion: check(w))
-        w.grid(row=1, column=0)
+    # w = ttk.Button(root, text="Check", command=lambda w=criterion: check(w))
+    # w.grid(row=1, column=0)
 
-        w = ttk.Button(root, text="Set", command=lambda w=criterion: set_values(w))
-        w.grid(row=1, column=1)
-    else:
-        search = SearchCriteria(
-            root,
-            text="Find Flowcharts",
-            labelanchor=tk.N,
-            inclusiontext="That ",
-            inclusionvalues=("contain", "do not contain"),
-            fieldvalues=("keyword", "author", "date"),
-            operatorvalues=("<", ">", "=", "like", "between"),
-            two_values=("between",),
-            command=callback,
-        )
-        search.grid(row=0, column=0, columnspan=2, sticky=tk.NSEW)
+    # w = ttk.Button(root, text="Set", command=lambda w=criterion: set_values(w))
+    # w.grid(row=1, column=1)
 
-        root.grid_rowconfigure(0, weight=1)
-        root.grid_columnconfigure(0, weight=1)
+    search = SearchCriteria(
+        root,
+        text="Find Flowcharts",
+        labelanchor=tk.N,
+        inclusiontext="That ",
+        inclusionvalues=("contain", "do not contain"),
+        fieldvalues=("keyword", "author", "date"),
+        operatorvalues=("<", ">", "=", "like", "between"),
+        two_values=("between",),
+        command=callback,
+    )
+    search.grid(row=0, column=0, columnspan=2, sticky=tk.NSEW)
+
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
 
     root.mainloop()
