@@ -48,6 +48,12 @@ class LabeledCombobox(sw.LabeledWidget):
         self.combobox = ttk.Combobox(interior, height=height, width=width, state=state)
         self.combobox.grid(row=0, column=0, sticky=tk.EW)
 
+        # Add the main widget to the bind tags for the combobox so its events
+        # are passed to the main LabeledCombobox.
+        tags = [*self.combobox.bindtags()]
+        tags.insert(2, self)
+        self.combobox.bindtags(tags)
+
         # interior frame
         self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
@@ -105,3 +111,6 @@ class LabeledCombobox(sw.LabeledWidget):
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
