@@ -24,10 +24,13 @@ in composing a reasonable natural language statement, such as:
     entries that contain a keyword like molecule
     entries that do not contain a author like Doe, John
 """
-
-import seamm_widgets as sw
+import logging
 import tkinter as tk
 from tkinter import ttk
+
+import seamm_widgets as sw
+
+logger = logging.getLogger(__name__)
 
 
 class Criterion(sw.LabeledWidget):
@@ -43,9 +46,9 @@ class Criterion(sw.LabeledWidget):
 
         # Inclusion combobox
         inclusiontext = kwargs.pop("inclusiontext", "")
-        inclusionvalues = kwargs.pop("inclusionvalues", ("has", "does not have"))
+        inclusionvalues = kwargs.pop("inclusionvalues", ("and", "or"))
         inclusionheight = kwargs.pop("inclusionheight", 7)
-        inclusionwidth = kwargs.pop("inclusionwidth", 10)
+        inclusionwidth = kwargs.pop("inclusionwidth", 3)
         inclusionstate = kwargs.pop("inclusionstate", "readonly")
 
         self.inclusion = sw.LabeledCombobox(
@@ -57,7 +60,8 @@ class Criterion(sw.LabeledWidget):
             state=inclusionstate,
         )
         self.inclusion.grid(row=0, column=0, sticky=tk.EW)
-        self.inclusion.set(inclusionvalues[0])
+        if len(inclusionvalues) > 0:
+            self.inclusion.set(inclusionvalues[0])
 
         cb = self.inclusion.combobox
         cb.bind(
@@ -88,7 +92,8 @@ class Criterion(sw.LabeledWidget):
             state=fieldstate,
         )
         self.field.grid(row=0, column=1, sticky=tk.EW)
-        self.field.set(fieldvalues[0])
+        if len(fieldvalues) > 0:
+            self.field.set(fieldvalues[0])
 
         cb = self.field.combobox
         cb.bind(
@@ -117,7 +122,8 @@ class Criterion(sw.LabeledWidget):
             state=operatorstate,
         )
         self.operator.grid(row=0, column=2, sticky=tk.EW)
-        self.operator.set(operatorvalues[0])
+        if len(operatorvalues) > 0:
+            self.operator.set(operatorvalues[0])
 
         cb = self.operator.combobox
         cb.bind(
@@ -149,7 +155,6 @@ class Criterion(sw.LabeledWidget):
         # interior frame
         self.interior = ttk.Frame(frame)
         self.interior.grid(row=0, column=5, sticky=tk.NSEW)
-
         frame.columnconfigure(5, weight=1)
 
         two_values = kwargs.pop("two_values", False)
@@ -189,17 +194,27 @@ class Criterion(sw.LabeledWidget):
                 show = operator in self._two_values
 
             if show:
-                if self.value2 not in self.frame.grid_slaves():
-                    self.value2.grid(row=0, column=4, sticky=tk.EW)
-                    self.interior.grid(row=0, column=5, sticky=tk.NSEW)
-                    self.frame.columnconfigure(4, weight=0)
-                    self.frame.columnconfigure(5, weight=1)
+                self.show("value2")
+                # if self.value2 not in self.frame.grid_slaves():
+                #     self.value2.grid(row=0, column=4, sticky=tk.EW)
             else:
-                if self.value2 in self.frame.grid_slaves():
-                    self.value2.grid_forget()
-                    self.interior.grid(row=0, column=4, sticky=tk.NSEW)
-                    self.frame.columnconfigure(4, weight=1)
-                    self.frame.columnconfigure(5, weight=0)
+                self.hide("value2")
+                # if self.value2 in self.frame.grid_slaves():
+                #     self.value2.grid_forget()
+        elif what == "inclusion":
+            include = self.inclusion.get()
+            if include in ("and", "or", "(", ")"):
+                self.hide("all")
+                self.show("inclusion")
+            else:
+                self.show("all")
+                if isinstance(self._two_values, bool):
+                    show = self._two_values
+                else:
+                    operator = self.operator.get()
+                    show = operator in self._two_values
+                if not show:
+                    self.hide("value2")
 
         if self.command is not None:
             self.command(self, event, what)
@@ -225,6 +240,24 @@ class Criterion(sw.LabeledWidget):
             self.value2.get(),
         )
 
+    def hide(self, *args):
+        """Hide the specified subwidgets.
+        'all' or no arguments hides all the subwidgets
+        """
+
+        hide_all = len(args) == 0 or args[0] == "all"
+
+        if hide_all or "inclusion" in args:
+            self.inclusion.grid_forget()
+        if hide_all or "field" in args:
+            self.field.grid_forget()
+        if hide_all or "operator" in args:
+            self.operator.grid_forget()
+        if hide_all or "value" in args:
+            self.value.grid_forget()
+        if hide_all or "value2" in args:
+            self.value2.grid_forget()
+
     def set(self, *args):
         """Set the values of the widgets as a tuple.
 
@@ -248,6 +281,23 @@ class Criterion(sw.LabeledWidget):
         self.value2.set(args[4])
 
         self.callback("internal", "set")
+
+    def show(self, *args):
+        """Show the specified subwidgets.
+        'all' or no arguments reverts to showing all"""
+
+        show_all = len(args) == 0 or args[0] == "all"
+
+        if show_all or "inclusion" in args:
+            self.inclusion.grid(row=0, column=0, sticky=tk.EW)
+        if show_all or "field" in args:
+            self.field.grid(row=0, column=1, sticky=tk.EW)
+        if show_all or "operator" in args:
+            self.operator.grid(row=0, column=2, sticky=tk.EW)
+        if show_all or "value" in args:
+            self.value.grid(row=0, column=3, sticky=tk.EW)
+        if show_all or "value2" in args:
+            self.value2.grid(row=0, column=4, sticky=tk.EW)
 
 
 class SearchCriteria(sw.ScrolledLabelFrame):
@@ -363,22 +413,61 @@ class SearchCriteria(sw.ScrolledLabelFrame):
         return result
 
     def layout(self):
-        """Layout the criteria."""
+        """Layout the criteria.
+
+        Indent rows after a parenthesis.
+        """
 
         frame = self.frame
+
+        # Remove any weights on columns
+        for i in range(frame.grid_size()[0]):
+            frame.grid_columnconfigure(i, weight=0)
 
         # Unpack any widgets
         for slave in frame.grid_slaves():
             slave.grid_forget()
 
+        level = 0
+        max_level = 0
+        for remove_button, criterion in self._rows:
+            inclusion = criterion.get()[0]
+            if "(" in inclusion:
+                level += 1
+                if level > max_level:
+                    max_level = level
+            elif ")" in inclusion:
+                level -= 1
+
+        level = 0
         row = 0
         for remove_button, criterion in self._rows:
             remove_button.grid(row=row, column=0, sticky=tk.EW)
-            criterion.grid(row=row, column=1, sticky=tk.EW)
+            span = max_level - level + 1
+            logger.debug(
+                f"criterion.grid(row={row}, column={1 + level}, columnspan={span}..."
+            )
+            criterion.grid(row=row, column=1 + level, columnspan=span, sticky=tk.EW)
             row += 1
 
+            inclusion = criterion.get()[0]
+            if "(" in inclusion:
+                level += 1
+                if level > max_level:
+                    max_level = level
+            elif ")" in inclusion:
+                level -= 1
+            logger.debug(f"{inclusion=}, {level=}")
+
         self.add_button.grid(row=row, column=0, sticky=tk.EW)
-        frame.grid_columnconfigure(1, weight=1)
+
+        # Set up the last column as the one that expands
+        frame.grid_columnconfigure(max_level + 1, weight=1)
+
+        # and minumum widths to indent
+        for i in range(1, max_level + 1):
+            logger.debug(f"frame.grid_columnconfigure({i}, minsize=30)")
+            frame.grid_columnconfigure(i, minsize=30)
 
     def remove_row(self, index):
         """Remove a row from the table.
