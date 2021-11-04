@@ -68,6 +68,8 @@ class LabeledWidget(ttk.Frame):
         class_ = kwargs.pop("class_", "MLabeledWidget")
         super().__init__(parent, class_=class_)
 
+        self._labelpos = None
+
         # label
         labeltext = kwargs.pop("labeltext", "")
         # labeltextvariable = kwargs.pop('labeltextvariable', None)
@@ -77,15 +79,65 @@ class LabeledWidget(ttk.Frame):
         self.label = ttk.Label(
             self, text=labeltext, justify=labeljustify, padding=labelpadding
         )
-        self.label.grid(row=0, column=0, sticky=tk.E)
 
         # interior frame
         self.interior = ttk.Frame(self)
-        self.interior.grid(row=0, column=1, sticky=tk.NSEW)
 
-        self.columnconfigure(1, weight=1)
+        # Set the label position to the default if needed.
+        if "labelpos" not in kwargs:
+            self.labelpos = "w"
 
         self.config(**kwargs)
+
+    @property
+    def labelpos(self):
+        """Where the label is positioned relative to the widget."""
+        return self._labelpos
+
+    @labelpos.setter
+    def labelpos(self, value):
+        for slave in self.grid_slaves():
+            slave.grid_forget()
+        self.rowconfigure(0, weight=0)
+        self.rowconfigure(1, weight=0)
+        self.columnconfigure(0, weight=0)
+        self.columnconfigure(1, weight=0)
+
+        if value[0] == "n":
+            if len(value) == 2:
+                self.label.grid(row=0, column=0, sticky=value[1])
+            else:
+                self.label.grid(row=0, column=0)
+            self.interior.grid(row=1, column=0, sticky="nsew")
+            self.rowconfigure(1, weight=1)
+            self.columnconfigure(0, weight=1)
+        elif value[0] == "e":
+            self.interior.grid(row=0, column=0, sticky="nsew")
+            if len(value) == 2:
+                self.label.grid(row=0, column=1, sticky=value[1])
+            else:
+                self.label.grid(row=0, column=1)
+            self.rowconfigure(0, weight=1)
+            self.columnconfigure(0, weight=1)
+        elif value[0] == "s":
+            self.interior.grid(row=0, column=0, sticky="nsew")
+            if len(value) == 2:
+                self.label.grid(row=1, column=0, sticky=value[1])
+            else:
+                self.label.grid(row=1, column=0)
+            self.rowconfigure(0, weight=1)
+            self.columnconfigure(0, weight=1)
+        elif value[0] == "w":
+            if len(value) == 2:
+                self.label.grid(row=0, column=0, sticky=value[1])
+            else:
+                self.label.grid(row=0, column=0)
+            self.interior.grid(row=0, column=1, sticky="nsew")
+            self.rowconfigure(0, weight=1)
+            self.columnconfigure(1, weight=1)
+        else:
+            raise ValueError(f"Can't handle labelpos = '{value}'")
+        self._labelpos = value
 
     def show(self, *args):
         """Show only the specified subwidgets.
@@ -112,6 +164,8 @@ class LabeledWidget(ttk.Frame):
                 v = kwargs.pop(k)
                 logger.debug("   {} --> {}: {}".format(k, label[k], v))
                 self.label.config(**{label[k]: v})
+            elif k == "labelpos":
+                self.labelpos = kwargs.pop(k)
             else:
                 # Since this is the base class, raise an error force
                 # unrecognized options
