@@ -6,6 +6,7 @@ include README.rst
 include requirements*
 include versioneer.py
 
+recursive-include seamm_widgets/data *
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

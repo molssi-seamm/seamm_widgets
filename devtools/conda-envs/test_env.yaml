@@ -7,7 +7,9 @@ dependencies:
   # Base depends
   - python
   - pip
+  - pillow
   - pmw
+  - seamm-util
 
   # Testing
   - black
@@ -21,8 +23,6 @@ dependencies:
 
   # Pip-only installs
   - pip:
-    - seamm-util
-
     # Documentation
     - rinohtype
     - sphinx-rtd-theme

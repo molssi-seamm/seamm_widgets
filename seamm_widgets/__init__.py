@@ -22,6 +22,7 @@ from seamm_widgets.unit_entry import UnitEntry  # noqa: F401
 from seamm_widgets.unit_combobox import UnitCombobox  # noqa: F401
 from seamm_widgets.search_criteria import Criterion  # noqa: F401
 from seamm_widgets.search_criteria import SearchCriteria  # noqa: F401
+from seamm_widgets.check_tree import CheckTree  # noqa: F401
 
 # Handle versioneer
 from ._version import get_versions
