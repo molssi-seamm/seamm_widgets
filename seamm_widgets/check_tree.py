@@ -268,6 +268,39 @@ class CheckTree(sw.LabeledWidget):
         """
         return self.tree.focus(iid)
 
+    def get(self, parent="", as_dict=False):
+        """Get the selected items.
+
+        Parameters
+        ----------
+        parent : str = ""
+            Get selected children of the parent. Defaults to the entire tree.
+        as_dict : bool = False
+            Return a dictionary keyed by the branching nodes, rather than a flat list.
+
+        Returns
+        -------
+        [str] or dict(str: str|dict(str: str|dict(...)
+        """
+        if as_dict:
+            result = {"selected": [], "children": {}}
+        else:
+            result = []
+        for child in self.get_children(parent):
+            if len(self.get_children(child)) > 0:
+                if as_dict:
+                    result["children"][child] = self.get(parent=child, as_dict=as_dict)
+                else:
+                    result.extend(self.get(parent=child))
+            else:
+                tags = self.item(child, "tags")
+                if "checked" in tags:
+                    if as_dict:
+                        result["selected"].append(child)
+                    else:
+                        result.append(child)
+        return result
+
     def get_children(self, item=None):
         """Returns a tuple of the iid values of the children of the item specified by
         the item argument. If the argument is omitted, you get a tuple containing the
