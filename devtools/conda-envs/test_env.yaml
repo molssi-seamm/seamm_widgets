@@ -9,7 +9,7 @@ dependencies:
   - pip
   - pillow
   - pmw
-  - seamm_util
+  - seamm-util
 
   # Testing
   - black
