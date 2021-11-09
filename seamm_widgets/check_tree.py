@@ -194,7 +194,8 @@ class CheckTree(sw.LabeledWidget):
             The return from any command invoked by changing the state.
         """
         tags = [*self.tree.item(iid, "tags")]
-        tags.remove("checked")
+        if "checked" in tags:
+            tags.remove("checked")
         self.tree.item(iid, image=self.unchecked_image, tags=tags)
 
         # If this is a branch node, i.e. it has children, change them too
@@ -307,6 +308,20 @@ class CheckTree(sw.LabeledWidget):
         iid values of the top-level items.
         """
         return self.tree.get_children(item)
+
+    def get_leaves(self, item=None):
+        """Returns the iid values of all leaves of the tree belove of the item specified
+        by the item argument. If the argument is omitted, it gives the leaves for the
+        entire tree.
+        """
+        leaves = []
+        for child in self.tree.get_children(item):
+            children = self.tree.get_children(child)
+            if len(children) > 0:
+                leaves.extend(self.get_leaves(child))
+            else:
+                leaves.append(child)
+        return leaves
 
     def heading(self, cid, option=None, **kw):
         """Use this method to configure the column heading that appears at the top of
@@ -561,7 +576,7 @@ class CheckTree(sw.LabeledWidget):
         """Only the specified items will be selected; if any other items were selected
         before, they will become unselected.
         """
-        self.selection_remove(self.get_children())
+        self.selection_remove(self.get_leaves())
         self.selection_add(items)
 
     def selection_toggle(self, items):
