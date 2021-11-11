@@ -562,6 +562,16 @@ class CheckTree(sw.LabeledWidget):
             for item in items:
                 self._select(item)
 
+    def selection_clear(self, items=None):
+        """Clear all selections from the subtree(s)"""
+        if items is None:
+            self.selection_remove("")
+        elif isinstance(items, str):
+            self.selection_remove(self.get(items))
+        else:
+            for item in items:
+                self.selection_remove(self.get(item))
+
     def selection_remove(self, items):
         """Unselect any items specified by the argument, which may be a single iid or a
         sequence of iids.
