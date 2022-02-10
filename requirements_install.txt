@@ -1,3 +1,0 @@
-pillow
-Pmw
-seamm-util>=2020.9.23
