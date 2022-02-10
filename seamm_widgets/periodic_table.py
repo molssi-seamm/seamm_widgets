@@ -120,7 +120,7 @@ element_layout = [
         "Xe",
     ],  # noqa: E501
     [
-        "Ca",
+        "Cs",
         "Ba",
         "",
         "Lu",
