@@ -28,12 +28,16 @@ import logging
 import tkinter as tk
 from tkinter import ttk
 
-import seamm_widgets as sw
+from .labeled_combobox import LabeledCombobox
+from .labeled_entry import LabeledEntry
+from .labeled_widget import LabeledWidget
+from .scrolled_labelframe import ScrolledLabelFrame
+
 
 logger = logging.getLogger(__name__)
 
 
-class Criterion(sw.LabeledWidget):
+class Criterion2(LabeledWidget):
     """Class to provide a line in a search criteria widget."""
 
     def __init__(self, parent, *args, **kwargs):
@@ -46,12 +50,14 @@ class Criterion(sw.LabeledWidget):
 
         # Inclusion combobox
         inclusiontext = kwargs.pop("inclusiontext", "")
-        inclusionvalues = kwargs.pop("inclusionvalues", ("and", "or"))
+        inclusionvalues = kwargs.pop(
+            "inclusionvalues", ("and", "or", "and (", "or (", ")")
+        )
         inclusionheight = kwargs.pop("inclusionheight", 7)
         inclusionwidth = kwargs.pop("inclusionwidth", 3)
         inclusionstate = kwargs.pop("inclusionstate", "readonly")
 
-        self.inclusion = sw.LabeledCombobox(
+        self.inclusion = LabeledCombobox(
             frame,
             labeltext=inclusiontext,
             values=inclusionvalues,
@@ -83,7 +89,7 @@ class Criterion(sw.LabeledWidget):
         fieldwidth = kwargs.pop("fieldwidth", 10)
         fieldstate = kwargs.pop("fieldstate", "readonly")
 
-        self.field = sw.LabeledCombobox(
+        self.field = LabeledCombobox(
             frame,
             labeltext=fieldtext,
             values=fieldvalues,
@@ -113,7 +119,7 @@ class Criterion(sw.LabeledWidget):
         operatorwidth = kwargs.pop("operatorwidth", 10)
         operatorstate = kwargs.pop("operatorstate", "readonly")
 
-        self.operator = sw.LabeledCombobox(
+        self.operator = LabeledCombobox(
             frame,
             labeltext=operatortext,
             values=operatorvalues,
@@ -142,14 +148,14 @@ class Criterion(sw.LabeledWidget):
         valuetext = kwargs.pop("valuetext", "")
         valuewidth = kwargs.pop("valuewidth", 10)
 
-        self.value = sw.LabeledEntry(frame, labeltext=valuetext, width=valuewidth)
+        self.value = LabeledEntry(frame, labeltext=valuetext, width=valuewidth)
         self.value.grid(row=0, column=3, sticky=tk.EW)
 
         # Value2 entry
         value2text = kwargs.pop("value2text", " and ")
         value2width = kwargs.pop("value2width", 10)
 
-        self.value2 = sw.LabeledEntry(frame, labeltext=value2text, width=value2width)
+        self.value2 = LabeledEntry(frame, labeltext=value2text, width=value2width)
         self.value2.grid(row=0, column=4, sticky=tk.EW)
 
         frame.columnconfigure(3, weight=1)
@@ -191,6 +197,9 @@ class Criterion(sw.LabeledWidget):
         if what in ("operator", "self.two_values", "set"):
             if isinstance(self._two_values, bool):
                 show = self._two_values
+            elif self._two_values == "":
+                operator = self.operator.get()
+                show = "between" in operator
             else:
                 operator = self.operator.get()
                 show = operator in self._two_values
@@ -203,13 +212,16 @@ class Criterion(sw.LabeledWidget):
                 self.frame.columnconfigure(4, weight=0)
         elif what == "inclusion":
             include = self.inclusion.get()
-            if include in ("and", "or", "(", ")"):
+            if "(" in include or ")" in include:
                 self.hide("all")
                 self.show("inclusion")
             else:
                 self.show("all")
                 if isinstance(self._two_values, bool):
                     show = self._two_values
+                elif self._two_values == "":
+                    operator = self.operator.get()
+                    show = "between" in operator
                 else:
                     operator = self.operator.get()
                     show = operator in self._two_values
@@ -289,7 +301,7 @@ class Criterion(sw.LabeledWidget):
             self.value2.grid(row=0, column=4, sticky=tk.EW)
 
 
-class SearchCriteria(sw.ScrolledLabelFrame):
+class SearchCriteria2(ScrolledLabelFrame):
     """Class to editable list of criteria for e.g. searching."""
 
     def __init__(self, parent, *args, **kwargs):
@@ -299,9 +311,11 @@ class SearchCriteria(sw.ScrolledLabelFrame):
         self.command = kwargs.pop("command", None)
 
         self.inclusiontext = kwargs.pop("inclusiontext", "")
-        self.inclusionvalues = kwargs.pop("inclusionvalues", ("with", "without"))
-        self.inclusionheight = kwargs.pop("inclusionheight", 7)
-        self.inclusionwidth = kwargs.pop("inclusionwidth", 10)
+        self.inclusionvalues = kwargs.pop(
+            "inclusionvalues", ("and", "or", "and (", "or (", ")")
+        )
+        self.inclusionheight = kwargs.pop("inclusionheight", 5)
+        self.inclusionwidth = kwargs.pop("inclusionwidth", 5)
         self.inclusionstate = kwargs.pop("inclusionstate", "readonly")
 
         self.fieldtext = kwargs.pop("fieldtext", "")
@@ -316,7 +330,7 @@ class SearchCriteria(sw.ScrolledLabelFrame):
         self.operatorwidth = kwargs.pop("operatorwidth", 10)
         self.operatorstate = kwargs.pop("operatorstate", "readonly")
 
-        self.two_values = kwargs.pop("two_values", ("between",))
+        self.two_values = kwargs.pop("two_values", "")
 
         self._rows = []
 
@@ -357,7 +371,7 @@ class SearchCriteria(sw.ScrolledLabelFrame):
         )
 
         # and the criterion
-        criterion = Criterion(
+        criterion = Criterion2(
             self.frame,
             command=self.callback,
             inclusiontext=self.inclusiontext,
@@ -390,6 +404,9 @@ class SearchCriteria(sw.ScrolledLabelFrame):
 
     def callback(self, criterion, event, what):
         """Call the command for changes in the widget value."""
+        if what == "inclusion":
+            self.layout()
+
         if self.command is not None:
             self.command(self, criterion, event, what)
 
@@ -441,8 +458,26 @@ class SearchCriteria(sw.ScrolledLabelFrame):
 
         level = 0
         row = 0
+        first = True
         for remove_button, criterion in self._rows:
             remove_button.grid(row=row, column=0, sticky=tk.EW)
+
+            inclusion = criterion.get()[0]
+            if ")" in inclusion:
+                level -= 1
+                criterion.hide("all")
+                criterion.show("inclusion")
+
+            # The first rows options are different
+            if first:
+                w = criterion.inclusion
+                w.configure(values=("where", "where ("))
+                if "(" in inclusion:
+                    w.set("where (")
+                else:
+                    w.set("where")
+                first = False
+
             span = max_level - level + 1
             logger.debug(
                 f"criterion.grid(row={row}, column={1 + level}, columnspan={span}..."
@@ -450,14 +485,11 @@ class SearchCriteria(sw.ScrolledLabelFrame):
             criterion.grid(row=row, column=1 + level, columnspan=span, sticky=tk.EW)
             row += 1
 
-            inclusion = criterion.get()[0]
             if "(" in inclusion:
                 level += 1
-                if level > max_level:
-                    max_level = level
-            elif ")" in inclusion:
-                level -= 1
-            logger.debug(f"{inclusion=}, {level=}")
+                first = True
+                criterion.hide("all")
+                criterion.show("inclusion")
 
         self.add_button.grid(row=row, column=0, sticky=tk.EW)
 
@@ -529,7 +561,7 @@ if __name__ == "__main__":  # pragma: no cover
     root = tk.Tk()
     root.title("Search Criteria")
 
-    # criterion = Criterion(
+    # criterion = Criterion2(
     #     root,
     #     fieldvalues=("keyword", "author", "date"),
     #     operatorvalues=("=", "like"),
@@ -543,7 +575,7 @@ if __name__ == "__main__":  # pragma: no cover
     # w = ttk.Button(root, text="Set", command=lambda w=criterion: set_values(w))
     # w.grid(row=1, column=1)
 
-    search = SearchCriteria(
+    search = SearchCriteria2(
         root,
         text="Find Flowcharts",
         labelanchor=tk.N,
