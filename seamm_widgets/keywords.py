@@ -285,7 +285,8 @@ class Keywords(sw.ScrolledFrame):
                     if value == "":
                         keywords.append(keyword)
                     else:
-                        keywords.append(format(definition["format"], keyword, value))
+                        result = definition["format"].format(keyword, value)
+                        keywords.append(result)
                 else:
                     keywords.append(keyword)
 
