@@ -8,7 +8,7 @@ standardize the user interface presented to the user.
 """
 
 import logging
-from seamm_util import Q_, units_class
+from seamm_util import Q_, units_class, default_units
 import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -106,7 +106,7 @@ class UnitEntry(sw.LabeledEntry):
                         break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ""])
+                self.set_units([*default_units(str(dimensionality)), ""])
                 self.units.set("{0.units:~}".format(value).replace(" ", ""))
         elif unit_string:
             self.entry.insert(0, value)
@@ -121,7 +121,7 @@ class UnitEntry(sw.LabeledEntry):
                         break
 
             if len(current_units) == 0:
-                self.set_units([*sw.default_units[str(dimensionality)], ""])
+                self.set_units([*default_units(str(dimensionality)), ""])
                 self.units.set(unit_string)
         else:
             self.entry.insert(0, value)
@@ -147,12 +147,9 @@ class UnitEntry(sw.LabeledEntry):
         # logger.debug('set_units: ' + str(values))
         if values is None:
             dimensionality = str(self.get().dimensionality)
-            self.units.config(values=sw.default_units[dimensionality])
+            self.units.config(values=[*default_units(dimensionality), ""])
         elif values == "all":
-            tmp = [""]
-            for key in sw.default_units:
-                tmp += sw.default_units[key]
-            self.units.config(values=tmp)
+            self.units.config(values=[*default_units("all"), ""])
         else:
             self.units.config(values=values)
 
