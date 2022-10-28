@@ -163,8 +163,12 @@ class Keywords(sw.ScrolledFrame):
             else:
                 widgets = d["widgets"]
 
-            if "remove" not in widgets:
-                # The button to remove a row...
+            # The button to remove a row...
+            if "remove" in widgets:
+                widgets["remove"].configure(
+                    command=lambda row=row: self.remove_keyword(row)
+                )
+            else:
                 widgets["remove"] = ttk.Button(
                     frame,
                     text="-",
@@ -173,7 +177,20 @@ class Keywords(sw.ScrolledFrame):
                     takefocus=True,
                 )
 
-            if "entry" not in widgets:
+            if "entry" in widgets:
+                widgets["entry"].configure(
+                    validatecommand=(
+                        self.keyword_cb,
+                        keyword,
+                        row,
+                        "%W",
+                        "%P",
+                        "%s",
+                        "%d",
+                        "%S",
+                    )
+                )
+            else:
                 # the name of the keyword
                 widgets["entry"] = ttk.Entry(
                     frame,
@@ -192,11 +209,11 @@ class Keywords(sw.ScrolledFrame):
                     takefocus=True,
                     style="Red.TEntry",
                 )
-                widgets["entry"].bind(
-                    "<KeyPress-Tab>",
-                    lambda event=None, row=row: self.handle_tab(event, row),
-                )
                 widgets["entry"].insert("end", keyword)
+            widgets["entry"].bind(
+                "<KeyPress-Tab>",
+                lambda event=None, row=row: self.handle_tab(event, row),
+            )
 
             self.logger.debug("  widgets: " + str(widgets))
             widgets["remove"].grid(row=row, column=0, sticky=tk.W)
