@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>seamm_widgets.mousewheel_support &mdash; SEAMM Widgets 2022.10.28+2.g6052342 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+
+  
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
+<!-- End Google Tag Manager -->
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=238f36e4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQXXTJ2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+ 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SEAMM Widgets
+          </a>
+              <div class="version">
+                2022.10.28+2.g6052342
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">SEAMM Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://molssi-seamm.github.io">Main SEAMM documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SEAMM Widgets</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">seamm_widgets.mousewheel_support</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for seamm_widgets.mousewheel_support</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;Add support for the mousewheel to scrolled widgets</span>
+
+<span class="sd">Based on a version:</span>
+<span class="sd"># Version: 0.22</span>
+<span class="sd"># Author: Miguel Martinez Lopez</span>
+<span class="sd"># Uncomment the next line to see my email</span>
+<span class="sd"># print(&quot;Author&#39;s email: &quot;,</span>
+<span class="sd"># &quot;61706c69636163696f6e616d656469646140676d61696c2e636f6d&quot;.decode(&quot;hex&quot;))</span>
+
+<span class="sd">with minor changes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">platform</span>
+
+<span class="n">OS</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="MousewheelSupport">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.mousewheel_support.MousewheelSupport">[docs]</a>
+<span class="k">class</span> <span class="nc">MousewheelSupport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c1"># implementation of singleton pattern</span>
+    <span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_instance</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">root</span><span class="p">,</span>
+        <span class="n">horizontal_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">vertical_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">natural_scroll_direction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span> <span class="o">=</span> <span class="n">natural_scroll_direction</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">horizontal_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_factor</span> <span class="o">=</span> <span class="n">horizontal_factor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Vertical factor must be an integer.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vertical_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vertical_factor</span> <span class="o">=</span> <span class="n">vertical_factor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Horizontal factor must be an integer.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;4&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;5&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Windows and MacOS</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;MouseWheel&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_mousewheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span><span class="o">.</span><span class="n">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_mousewheel_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span> <span class="o">=</span> <span class="n">widget</span>
+
+    <span class="k">def</span> <span class="nf">_mousewheel_unbind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="MousewheelSupport.add_support_to">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.mousewheel_support.MousewheelSupport.add_support_to">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_support_to</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">xscrollbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">yscrollbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">what</span><span class="o">=</span><span class="s2">&quot;units&quot;</span><span class="p">,</span>
+        <span class="n">horizontal_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">vertical_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">xscrollbar</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">yscrollbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">xscrollbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">horizontal_factor</span> <span class="o">=</span> <span class="n">horizontal_factor</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_factor</span>
+
+            <span class="n">xscrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_mouse_wheel_handler</span><span class="p">(</span>
+                <span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">horizontal_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
+            <span class="p">)</span>
+            <span class="n">xscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+                <span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">event</span><span class="p">,</span> <span class="n">scrollbar</span><span class="o">=</span><span class="n">xscrollbar</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">scrollbar</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">xscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">yscrollbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vertical_factor</span> <span class="o">=</span> <span class="n">vertical_factor</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertical_factor</span>
+
+            <span class="n">yscrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_mouse_wheel_handler</span><span class="p">(</span>
+                <span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">vertical_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
+            <span class="p">)</span>
+            <span class="n">yscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+                <span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">event</span><span class="p">,</span> <span class="n">scrollbar</span><span class="o">=</span><span class="n">yscrollbar</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">scrollbar</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">yscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+
+        <span class="n">main_scrollbar</span> <span class="o">=</span> <span class="n">yscrollbar</span> <span class="k">if</span> <span class="n">yscrollbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">xscrollbar</span>
+
+        <span class="k">if</span> <span class="n">widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">list_of_widgets</span> <span class="o">=</span> <span class="n">widget</span>
+                <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">list_of_widgets</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+
+                    <span class="n">widget</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="n">main_scrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+
+                <span class="n">widget</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="n">main_scrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_make_mouse_wheel_handler</span><span class="p">(</span>
+        <span class="n">widget</span><span class="p">,</span> <span class="n">orient</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="n">natural_scroll_direction</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
+        <span class="n">view_command</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">orient</span> <span class="o">+</span> <span class="s2">&quot;view&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">natural_scroll_direction</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">view_command</span><span class="p">(</span>
+                        <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span>
+                    <span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+
+                <span class="k">def</span> <span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">onMouseWheel</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+
+<p>
+<div class="row">
+  <div class="column_left">
+    <a href="https://molssi.org/" target="_blank" title="Go to MolSSI in a new tab">
+      <img src="/_images/MolSSI.jpg" alt="The MolSSI" style="border:0;">
+    </a>
+  </div>
+  <div class="column">
+    &copy; Copyright 2019-2021, the Molecular Sciences Software Institute,
+    which receives funding from the National Science Foundation under awards OAC-1547580
+    and CHE-2136142.
+  </div>
+  <div class="column_right">
+    <a href="https://nsf.gov/" target="_blank" title="Go to the NSF in a new tab">
+      <img src="/_images/NSF_4-Color_bitmap_Logo.png" alt="The NSF" style="border:0;">
+    </a>
+  </div>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>seamm_widgets.check_tree &mdash; SEAMM Widgets 2022.10.28+3.g0582717 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+
+  
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
+<!-- End Google Tag Manager -->
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=1769d1a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQXXTJ2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+ 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SEAMM Widgets
+          </a>
+              <div class="version">
+                2022.10.28+3.g0582717
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">SEAMM Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://molssi-seamm.github.io">Main SEAMM documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SEAMM Widgets</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">seamm_widgets.check_tree</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for seamm_widgets.check_tree</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;A Tk widget for a tree of checkboxes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageTk</span><span class="p">,</span> <span class="n">Image</span>
+
+<span class="kn">import</span> <span class="nn">seamm_widgets</span> <span class="k">as</span> <span class="nn">sw</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;treeview&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="s2">&quot;columns&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;cursor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;displaycolumns&quot;</span><span class="p">:</span> <span class="s2">&quot;displaycolumns&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;padding&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;show&quot;</span><span class="p">:</span> <span class="s2">&quot;show&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;takefocus&quot;</span><span class="p">:</span> <span class="s2">&quot;takefocus&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="CheckTree">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckTree</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to provide a tree of checkboxes.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MCheckTree&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span> <span class="o">=</span> <span class="n">columns</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span>
+            <span class="n">selectmode</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_bind</span><span class="p">(</span><span class="s2">&quot;_node_&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;Button-1&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_click_cb</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_scrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">xview</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">xscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x_scrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_scrollbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">yview</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_scrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NSEW</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_scrollbar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_scrollbar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">rowconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;data/&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">checked_image</span> <span class="o">=</span> <span class="n">ImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;checked.png&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unchecked_image</span> <span class="o">=</span> <span class="n">ImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;unchecked.png&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mixed_image</span> <span class="o">=</span> <span class="n">ImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;mixed.png&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CheckTree.bbox">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bonding box for the item.</span>
+
+<span class="sd">        For the item with iid item, if the item is currently visible, this method</span>
+<span class="sd">        returns a tuple (x, y, w, h), where (x, y) are the coordinates of the upper left</span>
+<span class="sd">        corner of that item relative to the widget, and w and h are the width and height</span>
+<span class="sd">        of the item in pixels. If the item is not visible, the method returns an empty</span>
+<span class="sd">        string.</span>
+
+<span class="sd">        If the optional column argument is omitted, you get the bounding box of the</span>
+<span class="sd">        entire row. To get the bounding box of one specific column of the item&#39;s row,</span>
+<span class="sd">        use column=C where C is either the integer index of the column or its column</span>
+<span class="sd">        identifier.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">bbox</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.column">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.column">[docs]</a>
+    <span class="k">def</span> <span class="nf">column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method configures the appearance of the logical column specified by cid,</span>
+<span class="sd">        which may be either a column index or a column identifier. To configure the icon</span>
+<span class="sd">        column, use a cid value of &#39;#0&#39;.</span>
+
+<span class="sd">        Each column in a Treeview widget has its own set of options from this table:</span>
+
+<span class="sd">            anchor</span>
+<span class="sd">                The anchor that specifies where to position the content of the</span>
+<span class="sd">                column. The default value is &#39;w&#39;.</span>
+
+<span class="sd">            id</span>
+<span class="sd">                The column name. This option is read-only and set when the constructor</span>
+<span class="sd">                is called.</span>
+
+<span class="sd">            minwidth</span>
+<span class="sd">                Minimum width of the column in pixels; the default value is 20.</span>
+
+<span class="sd">            stretch</span>
+<span class="sd">                If this option is True, the column&#39;s width will be adjusted when the</span>
+<span class="sd">                widget is resized. The default setting is 1.</span>
+
+<span class="sd">            width</span>
+<span class="sd">                Initial width of the column in pixels; the default is 200.</span>
+
+<span class="sd">        If no option value or any other keyword argument is supplied, the method returns</span>
+<span class="sd">        a dictionary of the column options for the specified column.</span>
+
+<span class="sd">        To interrogate the current value of an option named X , use an argument</span>
+<span class="sd">        option=X.</span>
+
+<span class="sd">        To set one or more column options, you may pass keyword arguments using the</span>
+<span class="sd">        option names shown above, e.g., anchor=tk.CENTER to center the column contents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.config">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.config">[docs]</a>
+    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the configuration of the megawidget&quot;&quot;&quot;</span>
+
+        <span class="c1"># our options that we deal with</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;treeview&quot;</span><span class="p">]</span>
+
+        <span class="c1"># cannot modify kwargs while iterating over it...</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">entry</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span><span class="p">})</span>
+
+        <span class="c1"># having removed our options, pass rest to parent</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.configure">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.configure">[docs]</a>
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for config()&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_check_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Correct the state of all parents up the tree to make their state correct.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iid : str</span>
+<span class="sd">            The item to start with.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">iid</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">parent</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parent</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_parents</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_click_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">iid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_row</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_element</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_click_cb, </span><span class="si">{</span><span class="n">iid</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">element</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CheckTree.delete">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The arguments are iid values. All the items in the widget that have matching</span>
+<span class="sd">        iid values are destroyed, along with all their descendants.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_deselect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; to unchecked.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iid : str</span>
+<span class="sd">            The unique id of the item in the tree.</span>
+<span class="sd">        recursive : bool</span>
+<span class="sd">            Whether to select all children</span>
+<span class="sd">        check_parents: bool</span>
+<span class="sd">            Whether to set the state of parents</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        any</span>
+<span class="sd">            The return from any command invoked by changing the state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unchecked_image</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+
+        <span class="c1"># If this is a branch node, i.e. it has children, change them too</span>
+        <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_deselect</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check_parents</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_parents</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CheckTree.detach">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.detach">[docs]</a>
+    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The arguments are iid values. All the items in the widget that have matching</span>
+<span class="sd">        iid values are removed from the visible widget, along with all their</span>
+<span class="sd">        descendants.</span>
+
+<span class="sd">        The items are not destroyed. You may reattach them to the visible tree using the</span>
+<span class="sd">        .move() method described below.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">detach</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.exists">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.exists">[docs]</a>
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if there exists an item in the widget with the given iid, or</span>
+<span class="sd">        False otherwise. If an item is not currently visible because it was removed with</span>
+<span class="sd">        the .detach() method, it is still considered to exist for the purposes of the</span>
+<span class="sd">        .exists() method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.from_dict">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.from_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Get any data in the columns</span>
+            <span class="n">column_data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">column_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">column</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                        <span class="n">tmp</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span>
+                        <span class="k">break</span>
+                <span class="n">column_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+
+            <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_node_&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">]</span>
+            <span class="n">checked</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">checked</span><span class="p">:</span>
+                <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">iid</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked_image</span> <span class="k">if</span> <span class="n">checked</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">unchecked_image</span><span class="p">,</span>
+                <span class="n">tag</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span>
+                <span class="nb">open</span><span class="o">=</span><span class="s2">&quot;open&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">],</span>
+                <span class="n">values</span><span class="o">=</span><span class="n">column_data</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># Recurse if a branch node</span>
+            <span class="k">if</span> <span class="s2">&quot;items&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Set the state of intermediate nodes</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">child</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.focus">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.focus">[docs]</a>
+    <span class="k">def</span> <span class="nf">focus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If you don&#39;t provide an argument to this method, you get back either the iid</span>
+<span class="sd">        of the item that currently has focus, or &#39;&#39; if no item has focus.</span>
+
+<span class="sd">        You can give focus to an item by passing its iid as the argument to this method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">focus</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.get">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the selected items.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        parent : str = &quot;&quot;</span>
+<span class="sd">            Get selected children of the parent. Defaults to the entire tree.</span>
+<span class="sd">        as_dict : bool = False</span>
+<span class="sd">            Return a dictionary keyed by the branching nodes, rather than a flat list.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        [str] or dict(str: str|dict(str: str|dict(...)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">as_dict</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;selected&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{}}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">child</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">as_dict</span><span class="p">:</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="n">as_dict</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">child</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">as_dict</span><span class="p">:</span>
+                        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;selected&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.get_children">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get_children">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a tuple of the iid values of the children of the item specified by</span>
+<span class="sd">        the item argument. If the argument is omitted, you get a tuple containing the</span>
+<span class="sd">        iid values of the top-level items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.get_leaves">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get_leaves">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the iid values of all leaves of the tree belove of the item specified</span>
+<span class="sd">        by the item argument. If the argument is omitted, it gives the leaves for the</span>
+<span class="sd">        entire tree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">leaves</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">leaves</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_leaves</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">leaves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">leaves</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.heading">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.heading">[docs]</a>
+    <span class="k">def</span> <span class="nf">heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to configure the column heading that appears at the top of</span>
+<span class="sd">        the widget for the column specified by cid, which may be either a column index</span>
+<span class="sd">        or a column identifier. Use a cid argument value of &#39;#0&#39; to configure the</span>
+<span class="sd">        heading over the icon column.</span>
+
+<span class="sd">        Each heading has its own set of options with these names and values:</span>
+
+<span class="sd">        anchor</span>
+<span class="sd">            An anchor that specifies how the heading is aligned within the column; see</span>
+<span class="sd">            Section 5.5, “Anchors”. The default value is tk.W.</span>
+<span class="sd">        command</span>
+<span class="sd">            A procedure to be called when the user clicks on this column heading.</span>
+<span class="sd">        image</span>
+<span class="sd">            To present a graphic in the column heading (either with or instead of a text</span>
+<span class="sd">            heading), set this option to an image, as specified in Section 5.9,</span>
+<span class="sd">            “Images”.</span>
+<span class="sd">        text</span>
+<span class="sd">            The text that you want to appear in the column heading.</span>
+
+<span class="sd">        If you supply no keyword arguments, the method will return a dictionary showing</span>
+<span class="sd">        the current settings of the column heading options.</span>
+
+<span class="sd">        To interrogate the current value of some heading option X, use an argument of</span>
+<span class="sd">        the form option=X; the method will return the current value of that option.</span>
+
+<span class="sd">        You can set one or more heading options by supplying them as keyword arguments</span>
+<span class="sd">        such as “anchor=tk.CENTER”.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.identify_column">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_column">[docs]</a>
+    <span class="k">def</span> <span class="nf">identify_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Given an x coordinate, this method returns a string of the form &#39;#n&#39; that</span>
+<span class="sd">        identifies the column that contains that x coordinate.</span>
+
+<span class="sd">        Assuming that the icon column is displayed, the value of n is 0 for the icon</span>
+<span class="sd">        column; 1 for the second physical column; 2 for the third physical column; and</span>
+<span class="sd">        so on. Recall that the physical column number may be different from the logical</span>
+<span class="sd">        column number in cases where you have rearranged them using the displaycolumns</span>
+<span class="sd">        argument to the Treeview constructor.</span>
+
+<span class="sd">        If the icon column is not displayed, the value of n is 1 for the first physical</span>
+<span class="sd">        column, 2 for the second, and so on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_column</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.identify_element">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_element">[docs]</a>
+    <span class="k">def</span> <span class="nf">identify_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the name of the element at location (x, y) relative to the widget, or</span>
+<span class="sd">        &#39;&#39; if no element appears at that position. Element names are discussed in</span>
+<span class="sd">        Section 50, “The ttk element layer”.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_element</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.identify_region">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_region">[docs]</a>
+    <span class="k">def</span> <span class="nf">identify_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Given the coordinates of a point relative to the widget, this method returns</span>
+<span class="sd">        a string indicating what part of the widget contains that point. Return values</span>
+<span class="sd">        may include:</span>
+
+<span class="sd">        &#39;nothing&#39;</span>
+<span class="sd">            The point is not within a functional part of the widget.</span>
+<span class="sd">        &#39;heading&#39;</span>
+<span class="sd">            The point is within one of the column headings.</span>
+<span class="sd">        &#39;separator&#39;</span>
+<span class="sd">             The point is located within the column headings row, but on the separator</span>
+<span class="sd">             between columns. Use the .identify_column() method to determine which</span>
+<span class="sd">             column is located just to the left of this separator.</span>
+<span class="sd">        &#39;tree&#39;</span>
+<span class="sd">             The point is located within the icon column.</span>
+<span class="sd">        &#39;cell&#39;</span>
+<span class="sd">             The point is located within an item row but not within the icon column.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_region</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.identify_row">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_row">[docs]</a>
+    <span class="k">def</span> <span class="nf">identify_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If y-coordinate y is within one of the items, this method returns the iid of</span>
+<span class="sd">        that item. If that vertical coordinate is not within an item, this method</span>
+<span class="sd">        returns an empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_row</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.index">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.index">[docs]</a>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns the index of the item with the specified iid relative to</span>
+<span class="sd">        its parent, counting from zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.insert">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.insert">[docs]</a>
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">parent</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">,</span>
+        <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">selected</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">state</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="p">[],</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method adds a new item to the tree, and returns the item&#39;s iid</span>
+<span class="sd">        value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        parent : str</span>
+<span class="sd">            To insert a new top-level item, make this argument an empty string. To</span>
+<span class="sd">            insert a new item as a child of an existing item, make this argument the</span>
+<span class="sd">            parent item&#39;s iid.</span>
+<span class="sd">        index : int or &#39;end&#39;</span>
+<span class="sd">            This argument specifies the position among this parent&#39;s children where you</span>
+<span class="sd">            want the new item to be added. For example, to insert the item as the new</span>
+<span class="sd">            first child, use a value of zero; to insert it after the parent&#39;s first</span>
+<span class="sd">            child, use a value of 1; and so on. To add the new item as the last child of</span>
+<span class="sd">            the parent, make this argument&#39;s value &#39;end&#39;.</span>
+<span class="sd">        iid : str = None</span>
+<span class="sd">            You may supply an iid for the item as a string value. If you don&#39;t supply an</span>
+<span class="sd">            iid, one will be generated automatically and returned by the method.</span>
+<span class="sd">        open : bool</span>
+<span class="sd">            This option specifies whether this item will be open initially. If you</span>
+<span class="sd">            supply open=False, this item will be closed. If you supply open=True, the</span>
+<span class="sd">            item&#39;s children will be visible whenever the item itself is visible. The</span>
+<span class="sd">            default value is False.</span>
+<span class="sd">        selected : bool = False</span>
+<span class="sd">            Whether the item is initially selected.</span>
+<span class="sd">        state : bool = True</span>
+<span class="sd">            Whether to correct the state of the tree, default=True</span>
+<span class="sd">        tags : [str] = []</span>
+<span class="sd">            You may supply one or more tag strings to be associated with this item. The</span>
+<span class="sd">            value may be either a single string or a sequence of strings.</span>
+<span class="sd">        text : str = &quot;&quot;</span>
+<span class="sd">            You may supply text to be displayed within the icon column of this item. If</span>
+<span class="sd">            given, this text will appear just to the right of the icon, and also to the</span>
+<span class="sd">            right of the image if provided.</span>
+<span class="sd">        values : [str] = []</span>
+<span class="sd">            This argument supplies the data items to be displayed in each column of the</span>
+<span class="sd">            item. The values are supplied in logical column order. If too few values are</span>
+<span class="sd">            supplied, the remaining columns will be blank in this item; if too many</span>
+<span class="sd">            values are supplied, the extras will be discarded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tmp_tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">tags</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;_node_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tmp_tags</span><span class="p">:</span>
+            <span class="n">tmp_tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;_node_&quot;</span><span class="p">)</span>
+
+        <span class="n">iid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">iid</span><span class="o">=</span><span class="n">iid</span><span class="p">,</span>
+            <span class="nb">open</span><span class="o">=</span><span class="nb">open</span><span class="p">,</span>
+            <span class="n">tags</span><span class="o">=</span><span class="n">tmp_tags</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked_image</span> <span class="k">if</span> <span class="n">selected</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">unchecked_image</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection_add</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">state</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iid</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.invoke">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.invoke">[docs]</a>
+    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; just as if clicked.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iid : str</span>
+<span class="sd">            The unique id of the item in the tree.</span>
+<span class="sd">        recursive : bool</span>
+<span class="sd">            Change all children, grandchildren, etc. if True</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        any</span>
+<span class="sd">            The return from any command invoked by changing the state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_deselect</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.item">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.item">[docs]</a>
+    <span class="k">def</span> <span class="nf">item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to set or retrieve the options within the item specified by</span>
+<span class="sd">        iid. Refer to the .insert() method above for the names of the item options.</span>
+
+<span class="sd">        With no arguments, it returns a dictionary whose keys are the option names and</span>
+<span class="sd">        the corresponding values are the settings of those options. To retrieve the</span>
+<span class="sd">        value of a given option, pass the option&#39;s name as its second argument. To set</span>
+<span class="sd">        one or more options, pass them as keyword arguments to the method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.move">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.move">[docs]</a>
+    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Move the item specified by iid to the values under the item specified by</span>
+<span class="sd">        parent at position index. The parent and index arguments work the same as those</span>
+<span class="sd">        arguments to the .index() method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.next">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.next">[docs]</a>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is not the last child of its parent, this method</span>
+<span class="sd">        returns the iid of the following child; if it is the last child of its parent,</span>
+<span class="sd">        this method returns an empty string. If the specified item is a top-level item,</span>
+<span class="sd">        the method returns the iid of the next top-level item, or an empty string if the</span>
+<span class="sd">        specified item is the last top-level item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.parent">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.parent">[docs]</a>
+    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is a top-level item, this method returns an</span>
+<span class="sd">        empty string; otherwise it returns the iid of that item&#39;s parent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.prev">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.prev">[docs]</a>
+    <span class="k">def</span> <span class="nf">prev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is not the first child of its parent, this</span>
+<span class="sd">        method returns the iid of the previous child; otherwise it returns an empty</span>
+<span class="sd">        string. If the specified item is a top-level item, this method returns the iid</span>
+<span class="sd">        of the previous top-level item, or an empty string if it is the first top-level</span>
+<span class="sd">        item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">prev</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.see">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.see">[docs]</a>
+    <span class="k">def</span> <span class="nf">see</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method ensures that the item specified by iid is visible. Any of its</span>
+<span class="sd">        ancestors that are closed are opened. The widget is scrolled, if necessary, so</span>
+<span class="sd">        that the item appears.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">see</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.selection_add">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">selection_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;In addition to any items already selected, add the specified items. The</span>
+<span class="sd">        argument may be either a single iid or a sequence of iids.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.selection_clear">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">selection_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all selections from the subtree(s)&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection_remove</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">items</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.selection_remove">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_remove">[docs]</a>
+    <span class="k">def</span> <span class="nf">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unselect any items specified by the argument, which may be a single iid or a</span>
+<span class="sd">        sequence of iids.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_deselect</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_deselect</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.selection_set">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_set">[docs]</a>
+    <span class="k">def</span> <span class="nf">selection_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Only the specified items will be selected; if any other items were selected</span>
+<span class="sd">        before, they will become unselected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_leaves</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection_add</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.selection_toggle">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_toggle">[docs]</a>
+    <span class="k">def</span> <span class="nf">selection_toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The argument may be a single iid or a sequence of iids. For each item</span>
+<span class="sd">        specified by the argument, if it was selected, unselect it; if it was</span>
+<span class="sd">        unselected, select it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; to checked.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iid : str</span>
+<span class="sd">            The unique id of the item in the tree.</span>
+<span class="sd">        recursive : bool</span>
+<span class="sd">            Whether to select all children</span>
+<span class="sd">        check_parents: bool</span>
+<span class="sd">            Whether to set the state of parents</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        any</span>
+<span class="sd">            The return from any command invoked by changing the state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)]</span>
+        <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked_image</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+
+        <span class="c1"># If this is a branch node, i.e. it has children, change them too</span>
+        <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check_parents</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_parents</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CheckTree.set">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.set">[docs]</a>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to retrieve or set the column values of the item specified by</span>
+<span class="sd">        iid. With one argument, the method returns a dictionary: the keys are the column</span>
+<span class="sd">        identifiers, and each related value is the text in the corresponding column.</span>
+
+<span class="sd">        With two arguments, the method returns the data value from the column of the</span>
+<span class="sd">        selected item whose column identifier is the column argument. With three</span>
+<span class="sd">        arguments, the item&#39;s value for the specified column is set to the third</span>
+<span class="sd">        argument.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.set_children">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.set_children">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="n">newChildren</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to change the set of children of the item whose iid is</span>
+<span class="sd">        item. The newChildren argument is a sequence of iid strings. Any current</span>
+<span class="sd">        children of item that are not in newChildren are removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">set_children</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="n">newChildren</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.state">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.state">[docs]</a>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the state of this item, and optionally its subtree.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iid : str</span>
+<span class="sd">            The item to check, or entire tree if &quot;&quot;</span>
+<span class="sd">        recursive : bool</span>
+<span class="sd">            Whether to check the subtree</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            &quot;checked&quot;, &quot;unchecked&quot;, or &quot;mixed&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> state for </span><span class="si">{</span><span class="n">iid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">recursive</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">iid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_children</span><span class="p">(</span><span class="n">iid</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="n">tmp</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">child</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">state</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">state</span> <span class="o">!=</span> <span class="n">tmp</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">child</span><span class="si">=}</span><span class="s2"> returning &#39;mixed&#39;&quot;</span><span class="p">)</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;mixed&quot;</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)]</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">state</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">tags</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;checked&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s2">&quot;mixed&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;mixed&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checked_image</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;unchecked&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s2">&quot;mixed&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;mixed&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unchecked_image</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s2">&quot;mixed&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+                        <span class="n">tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mixed&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mixed_image</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;returning </span><span class="si">{</span><span class="n">state</span><span class="si">=}</span><span class="s2"> from branch node </span><span class="si">{</span><span class="n">iid</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">state</span>
+
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">iid</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">)]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">tags</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;checked&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;checked&quot;</span>
+        <span class="k">elif</span> <span class="s2">&quot;mixed&quot;</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;mixed&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;unchecked&quot;</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;returning </span><span class="si">{</span><span class="n">state</span><span class="si">=}</span><span class="s2"> from leaf node </span><span class="si">{</span><span class="n">iid</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">state</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.tag_bind">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_bind">[docs]</a>
+    <span class="k">def</span> <span class="nf">tag_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method binds the event handler specified by the callback argument to all</span>
+<span class="sd">        items that have tag tagName. The sequence and callback arguments work the same</span>
+<span class="sd">        as the sequence and func arguments of the .bind() method described in Section</span>
+<span class="sd">        26, “Universal widget methods”.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_bind</span><span class="p">(</span><span class="n">tagName</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.tag_configure">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_configure">[docs]</a>
+    <span class="k">def</span> <span class="nf">tag_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This method can either interrogate or set options that affect the appearance</span>
+<span class="sd">        of all the items that have tag tagName. Tag options include:</span>
+
+<span class="sd">        &#39;background&#39;</span>
+<span class="sd">            The background color.</span>
+<span class="sd">        &#39;font&#39;</span>
+<span class="sd">            The text font.</span>
+<span class="sd">        &#39;foreground&#39;</span>
+<span class="sd">            The foreground color.</span>
+<span class="sd">        &#39;image&#39;</span>
+<span class="sd">            An image to be displayed in items with the given tag.</span>
+
+<span class="sd">        When called with one argument, it returns a dictionary of the current tag</span>
+<span class="sd">        options. To return the value of a specific option X, use X as the second</span>
+<span class="sd">        argument.</span>
+
+<span class="sd">        To set one or more options, use keyword arguments such as foreground=&#39;red&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_configure</span><span class="p">(</span><span class="n">tagName</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CheckTree.tag_has">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_has">[docs]</a>
+    <span class="k">def</span> <span class="nf">tag_has</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called with one argument, this method returns a list of the iid values for</span>
+<span class="sd">        all items that carry tag tagName. If you provide an iid as the second argument,</span>
+<span class="sd">        the method returns True if the item with that iid has tag tagName, False</span>
+<span class="sd">        otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">tag_has</span><span class="p">(</span><span class="n">tagName</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="n">iid</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="kn">import</span> <span class="nn">pprint</span>  <span class="c1"># noqa: F401</span>
+
+    <span class="c1"># logging.basicConfig(level=&quot;INFO&quot;)</span>
+
+    <span class="k">def</span> <span class="nf">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Custom code to load the dictionary in the test.</span>
+<span class="sd">        NB. the &#39;state=False&#39; argument prevents insert from working out the</span>
+<span class="sd">        state of the parent nodes every time an item is inserted. This is done</span>
+<span class="sd">        at the end with &#39;tree.state()&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Get any data in the columns</span>
+            <span class="n">checked</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;checked&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">iid</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">selected</span><span class="o">=</span><span class="n">checked</span><span class="p">,</span>
+                <span class="n">state</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="nb">open</span><span class="o">=</span><span class="s2">&quot;open&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">],</span>
+                <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;description&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="c1"># Recurse if a branch node</span>
+            <span class="k">if</span> <span class="s2">&quot;items&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Set the state of intermediate nodes</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Search Criteria&quot;</span><span class="p">)</span>
+
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">CheckTree</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">labeltext</span><span class="o">=</span><span class="s2">&quot;Features&quot;</span><span class="p">,</span> <span class="n">labelpos</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Description&quot;</span><span class="p">])</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;1-D&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;open&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;D1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;This describes D1&quot;</span><span class="p">},</span>
+                <span class="s2">&quot;D2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;checked&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;This describes D2&quot;</span><span class="p">},</span>
+                <span class="s2">&quot;Sub1&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;S1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;This describes S1&quot;</span><span class="p">},</span>
+                        <span class="s2">&quot;S2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;alias for S2&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Ain&#39;t none!&quot;</span><span class="p">},</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;D3&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;item&quot;</span><span class="p">:</span> <span class="s2">&quot;D3&quot;</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;2-D&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{}}</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;2-D&quot;</span><span class="p">][</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+            <span class="n">tmp</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;E</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;And a super E</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> thingamajig&quot;</span><span class="p">}</span>
+        <span class="n">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="p">)</span>
+        <span class="n">twoD</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;2-D&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Two dimensional features&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">twoD</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                <span class="n">twoD</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;2-D Descriptor </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Fancy 2-D descriptor #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+
+    <span class="c1"># enter the event loop</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+
+<p>
+<div class="row">
+  <div class="column_left">
+    <a href="https://molssi.org/" target="_blank" title="Go to MolSSI in a new tab">
+      <img src="/_images/MolSSI.jpg" alt="The MolSSI" style="border:0;">
+    </a>
+  </div>
+  <div class="column">
+    &copy; Copyright 2019-2021, the Molecular Sciences Software Institute,
+    which receives funding from the National Science Foundation under awards OAC-1547580
+    and CHE-2136142.
+  </div>
+  <div class="column_right">
+    <a href="https://nsf.gov/" target="_blank" title="Go to the NSF in a new tab">
+      <img src="/_images/NSF_4-Color_bitmap_Logo.png" alt="The NSF" style="border:0;">
+    </a>
+  </div>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

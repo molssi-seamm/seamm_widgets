@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>seamm_widgets.periodic_table &mdash; SEAMM Widgets 2022.10.28+2.g6052342 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+
+  
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
+<!-- End Google Tag Manager -->
+
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=238f36e4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQXXTJ2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+ 
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SEAMM Widgets
+          </a>
+              <div class="version">
+                2022.10.28+2.g6052342
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">SEAMM Widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://molssi-seamm.github.io">Main SEAMM documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SEAMM Widgets</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">seamm_widgets.periodic_table</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for seamm_widgets.periodic_table</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;A Tk scrolled frame with a periodic table of elements</span>
+
+<span class="sd">This megawidget displays a periodic table for selecting one or optionally</span>
+<span class="sd">several elements. It works with a list of element symbols.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">seamm_widgets</span> <span class="k">as</span> <span class="nn">sw</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
+
+<span class="n">module_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">element_layout</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;H&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;He&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501, E201</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;Li&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Be&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;B&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;O&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ne&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;Na&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Al&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Si&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;P&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cl&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ar&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;K&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ca&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ti&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;V&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Fe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Co&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ni&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Zn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ga&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ge&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;As&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Se&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Br&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Kr&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501, E201</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;Rb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Zr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Nb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Tc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ru&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Rh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ag&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;In&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Te&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;I&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Xe&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;Cs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ba&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Lu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Hf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ta&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;W&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Re&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Os&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ir&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Au&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Hg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Tl&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Po&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;At&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Rn&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;Fr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ra&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Lr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Rf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Db&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Hs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Rg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cn&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Nh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Fl&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Mc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Lv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ts&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Og&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501</span>
+    <span class="p">[],</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;La&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Nd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Eu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Tb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Dy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ho&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Er&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Tm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Yb&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501, E201</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ac&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Th&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Np&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Am&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Bk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Es&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Fm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Md&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;No&quot;</span><span class="p">,</span>
+    <span class="p">],</span>  <span class="c1"># noqa: E501, E201</span>
+<span class="p">]</span>  <span class="c1"># yapf: disable</span>
+
+
+<div class="viewcode-block" id="PeriodicTable">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable">[docs]</a>
+<span class="k">class</span> <span class="nc">PeriodicTable</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledWidget</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A widget to handle manual input of keywords with optional values&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">,</span> <span class="n">labelanchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">module_logger</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_selected</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="n">command</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MPeriodicTable&quot;</span><span class="p">)</span>
+
+        <span class="c1"># s = ttk.Style()</span>
+        <span class="c1"># s.configure(&#39;Red.TEntry&#39;, foreground=&#39;red&#39;)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">,</span> <span class="n">labelanchor</span><span class="o">=</span><span class="n">labelanchor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Create the widgets</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span>
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">elements</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_layout</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                        <span class="n">frame</span><span class="p">,</span>
+                        <span class="n">text</span><span class="o">=</span><span class="n">element</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">,</span>
+                        <span class="n">command</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="o">=</span><span class="n">element</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_button</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">x</span><span class="p">),</span>
+                    <span class="p">)</span>
+
+        <span class="c1"># Setup the graphical table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_widgets</span><span class="p">()</span>
+
+        <span class="c1"># After everything is set up can put</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A command to execute when an element is selected.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span>
+
+    <span class="nd">@command</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="n">command</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The elements that are disabled.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span>
+
+    <span class="nd">@disabled</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+                    <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span> <span class="o">=</span> <span class="n">elements</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="n">element_layout</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">period</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">elements</span>
+
+<div class="viewcode-block" id="PeriodicTable.disable">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.disable">[docs]</a>
+    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disable the buttons for the given elements&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">elements</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="p">:</span>
+                <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.enable">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.enable">[docs]</a>
+    <span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disable the buttons for the given elements&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">elements</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="p">:</span>
+                <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.set_text_color">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.set_text_color">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_text_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the color of the text in the button for the given elements&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">elements</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">fg</span><span class="o">=</span><span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.reset_widgets">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.reset_widgets">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Layout the widgets for the current state.&quot;&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span>
+
+        <span class="c1"># Unpack any widgets</span>
+        <span class="k">for</span> <span class="n">slave</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">grid_slaves</span><span class="p">():</span>
+            <span class="n">slave</span><span class="o">.</span><span class="n">grid_forget</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">elements</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_layout</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">element</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
+
+        <span class="n">frame</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">minsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">grid_rowconfigure</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">minsize</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_activebackground</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;activebackground&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_background</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;background&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.handle_button">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.handle_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">handle_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+        <span class="n">relief</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;relief&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">relief</span> <span class="o">==</span> <span class="s2">&quot;sunken&quot;</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;sunken&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.get">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of selected elements.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">:</span>
+            <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;relief&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;sunken&quot;</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="PeriodicTable.set">
+<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.periodic_table.PeriodicTable.set">[docs]</a>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of selected elements.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">:</span>
+            <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;sunken&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;raised&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_command</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">())</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">Pmw</span>
+
+    <span class="k">def</span> <span class="nf">handle_dialog</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">gElements</span>
+        <span class="k">global</span> <span class="n">w</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;result = </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;Update&quot;</span><span class="p">:</span>
+            <span class="c1"># w.set(gElements)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;Li&quot;</span><span class="p">,</span> <span class="s2">&quot;Na&quot;</span><span class="p">,</span> <span class="s2">&quot;K&quot;</span><span class="p">])</span>
+            <span class="k">return</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+            <span class="n">gElements</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">gElements</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">open_dialog</span><span class="p">():</span>
+        <span class="k">global</span> <span class="n">gElements</span>
+        <span class="k">global</span> <span class="n">w</span>
+        <span class="k">global</span> <span class="n">dialog</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;open dialog&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">gElements</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">PeriodicTable</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">interior</span><span class="p">())</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+        <span class="n">w</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">gElements</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+    <span class="c1">##################################################</span>
+    <span class="c1"># Initialize Tk</span>
+    <span class="c1">##################################################</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;darwin&quot;</span><span class="p">):</span>
+        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">&quot;Command-&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">&quot;Control-&quot;</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+    <span class="n">Pmw</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="n">dialog</span> <span class="o">=</span> <span class="n">Pmw</span><span class="o">.</span><span class="n">Dialog</span><span class="p">(</span>
+        <span class="n">root</span><span class="p">,</span>
+        <span class="n">buttons</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="s2">&quot;Update&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancel&quot;</span><span class="p">),</span>
+        <span class="n">defaultbutton</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">master</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Periodic Table&quot;</span><span class="p">,</span>
+        <span class="n">command</span><span class="o">=</span><span class="n">handle_dialog</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;500x400&quot;</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">PeriodicTable</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">interior</span><span class="p">())</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+    <span class="n">gElements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">]</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">gElements</span><span class="p">)</span>
+    <span class="n">exit_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Exit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">exit</span><span class="p">)</span>
+    <span class="n">post_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Edit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">open_dialog</span><span class="p">)</span>
+    <span class="n">post_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">exit_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;centerscreenfirst&quot;</span><span class="p">)</span>
+
+    <span class="c1"># enter the event loop</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  
+
+<p>
+<div class="row">
+  <div class="column_left">
+    <a href="https://molssi.org/" target="_blank" title="Go to MolSSI in a new tab">
+      <img src="/_images/MolSSI.jpg" alt="The MolSSI" style="border:0;">
+    </a>
+  </div>
+  <div class="column">
+    &copy; Copyright 2019-2021, the Molecular Sciences Software Institute,
+    which receives funding from the National Science Foundation under awards OAC-1547580
+    and CHE-2136142.
+  </div>
+  <div class="column_right">
+    <a href="https://nsf.gov/" target="_blank" title="Go to the NSF in a new tab">
+      <img src="/_images/NSF_4-Color_bitmap_Logo.png" alt="The NSF" style="border:0;">
+    </a>
+  </div>
+</div>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

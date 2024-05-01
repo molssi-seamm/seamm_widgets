@@ -1,0 +1,133 @@
+seamm\_widgets package
+======================
+
+Submodules
+----------
+
+seamm\_widgets.check\_tree module
+---------------------------------
+
+.. automodule:: seamm_widgets.check_tree
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.html\_widgets module
+-----------------------------------
+
+.. automodule:: seamm_widgets.html_widgets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.keywords module
+------------------------------
+
+.. automodule:: seamm_widgets.keywords
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.labeled\_combobox module
+---------------------------------------
+
+.. automodule:: seamm_widgets.labeled_combobox
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.labeled\_entry module
+------------------------------------
+
+.. automodule:: seamm_widgets.labeled_entry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.labeled\_widget module
+-------------------------------------
+
+.. automodule:: seamm_widgets.labeled_widget
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.mousewheel\_support module
+-----------------------------------------
+
+.. automodule:: seamm_widgets.mousewheel_support
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.periodic\_table module
+-------------------------------------
+
+.. automodule:: seamm_widgets.periodic_table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.property\_table module
+-------------------------------------
+
+.. automodule:: seamm_widgets.property_table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.scrolled\_columns module
+---------------------------------------
+
+.. automodule:: seamm_widgets.scrolled_columns
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.scrolled\_frame module
+-------------------------------------
+
+.. automodule:: seamm_widgets.scrolled_frame
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.scrolled\_labelframe module
+------------------------------------------
+
+.. automodule:: seamm_widgets.scrolled_labelframe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.search\_criteria module
+--------------------------------------
+
+.. automodule:: seamm_widgets.search_criteria
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.unit\_combobox module
+------------------------------------
+
+.. automodule:: seamm_widgets.unit_combobox
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+seamm\_widgets.unit\_entry module
+---------------------------------
+
+.. automodule:: seamm_widgets.unit_entry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: seamm_widgets
+   :members:
+   :undoc-members:
+   :show-inheritance:
