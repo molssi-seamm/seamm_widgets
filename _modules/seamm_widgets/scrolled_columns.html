@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.scrolled_columns &mdash; SEAMM Widgets 2022.10.28+3.g0582717 documentation</title>
+  <title>seamm_widgets.scrolled_columns &mdash; SEAMM Widgets 2024.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -23,7 +23,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=1769d1a9"></script>
+        <script src="../../_static/documentation_options.js?v=20db43be"></script>
         <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -50,7 +50,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             SEAMM Widgets
           </a>
               <div class="version">
-                2022.10.28+3.g0582717
+                2024.5.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -111,7 +111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="viewcode-block" id="ScrolledColumns">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns">[docs]</a>
 <span class="k">class</span> <span class="nc">ScrolledColumns</span><span class="p">(</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the widget&quot;&quot;&quot;</span>
@@ -168,7 +168,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="bp">self</span><span class="o">.</span><span class="n">_header_widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScrolledColumns.cell">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.cell">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.cell">[docs]</a>
     <span class="k">def</span> <span class="nf">cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return or set the widget at the given cell&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -207,7 +207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="viewcode-block" id="ScrolledColumns.clear">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.clear">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.clear">[docs]</a>
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear the contents of the widget.</span>
 
@@ -223,7 +223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="viewcode-block" id="ScrolledColumns.delete_row">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.delete_row">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.delete_row">[docs]</a>
     <span class="k">def</span> <span class="nf">delete_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -234,7 +234,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <div class="viewcode-block" id="ScrolledColumns.delete_column">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.delete_column">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.delete_column">[docs]</a>
     <span class="k">def</span> <span class="nf">delete_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">:</span>
             <span class="n">item</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
@@ -325,14 +325,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">5</span>
 
 <div class="viewcode-block" id="ScrolledColumns.interior">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.interior">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.interior">[docs]</a>
     <span class="k">def</span> <span class="nf">interior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Where the user packs widgets&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">interior</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="ScrolledColumns.xview">
-<a class="viewcode-back" href="../../developer/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.xview">[docs]</a>
+<a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_columns.ScrolledColumns.xview">[docs]</a>
     <span class="k">def</span> <span class="nf">xview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect the subwidgets to the single scrollbar&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">xview</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
