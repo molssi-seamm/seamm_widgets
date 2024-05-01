@@ -28,6 +28,9 @@ class ScrolledColumns(ttk.Frame):
         # list of lists (row x column) of widgets in the table
         self._widgets = []
 
+        # Columns that are separators
+        self._column_separators = set()
+
         # Create the two subframes, linking them both to the
         # horizontal scrollbar at the bottom
         # self.headers = ttk.Frame(self)
@@ -56,6 +59,8 @@ class ScrolledColumns(ttk.Frame):
         header = self.headers.interior()
         for item in columns:
             if isinstance(item, str):
+                if item == "|":
+                    self._column_separators.add(col)
                 item = ttk.Label(header, text=item)
             item.grid(row=0, column=col)
             col += 1
@@ -78,8 +83,15 @@ class ScrolledColumns(ttk.Frame):
                     row_of_widgets.extend(extra)
             if row >= self.nrows:
                 # add rows 'till we get there
-                extra = [None] * self.ncolumns
                 for i in range(self.nrows, row + 1):
+                    extra = []
+                    for col in range(self.ncolumns):
+                        if col in self._column_separators:
+                            tmp = ttk.Label(self.table.interior(), text="|")
+                            tmp.grid(row=i, column=col)
+                            extra.append(tmp)
+                        else:
+                            extra.append(None)
                     self._widgets.append(extra)
 
             if isinstance(value, str):
