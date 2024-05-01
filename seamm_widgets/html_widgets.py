@@ -68,10 +68,7 @@ class _ScrolledText(tk.Text):
 
 
 class HTMLScrolledText(_ScrolledText):
-
-    """
-    HTML scrolled text widget
-    """
+    """HTML scrolled text widget"""
 
     def __init__(self, *args, html=None, **kwargs):
         super().__init__(*args, **kwargs)
