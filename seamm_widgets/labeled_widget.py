@@ -40,10 +40,10 @@ options = {
 }
 
 
-def align_labels(widgets, sticky=None):
+def align_labels(widgets, sticky=tk.E):
     """Align the labels of a given list of widgets"""
-    if len(widgets) <= 1:
-        return
+    if len(widgets) == 0:
+        return 0
 
     widgets[0].update_idletasks()
 
@@ -56,10 +56,13 @@ def align_labels(widgets, sticky=None):
 
     # Adjust the margins for the labels such that the child sites and
     # labels line up.
-    for widget in widgets:
-        if sticky is not None:
-            widget.label.grid(sticky=sticky)
-        widget.grid_columnconfigure(0, minsize=max_width)
+    if len(widgets) > 1:
+        for widget in widgets:
+            if sticky is not None:
+                widget.label.grid(sticky=sticky)
+            widget.grid_columnconfigure(0, minsize=max_width)
+
+    return max_width
 
 
 class LabeledWidget(ttk.Frame):
