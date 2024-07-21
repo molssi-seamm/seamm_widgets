@@ -1,7 +1,10 @@
 =======
 History
 =======
-
+2024.7.21 -- Return the width of aligned labels
+    * The align_labels procedure now returns the width of the labels. This is useful for
+      laying out indented widgets.
+      
 2024.5.1 -- Enhancement to ScrolledColumns
     * Added optional separator columns for dividing sections of the table.
       
