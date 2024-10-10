@@ -173,3 +173,9 @@ class UnitCombobox(sw.LabeledCombobox):
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def state(self, stateSpec=None):
+        """Set the state of the widget"""
+        result = super().state(stateSpec)
+        tmp = self.units.state(stateSpec)
+        return result + tmp

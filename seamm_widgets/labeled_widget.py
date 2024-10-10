@@ -173,3 +173,8 @@ class LabeledWidget(ttk.Frame):
                 # Since this is the base class, raise an error force
                 # unrecognized options
                 raise RuntimeError("Unknown option '{}'".format(k))
+
+    def state(self, stateSpec=None):
+        """Set the state of the widget"""
+        result = self.label.state(stateSpec)
+        return result

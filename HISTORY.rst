@@ -1,6 +1,10 @@
 =======
 History
 =======
+2024.10.10 -- Enhancement: Added state method for some widgets
+    * Added a state method to LabeledWidget, LabeledComboBox, LabeledEntry, UnitEntry
+      and UnitComboBox. This method sets or returns the state of the widget
+
 2024.7.21 -- Return the width of aligned labels
     * The align_labels procedure now returns the width of the labels. This is useful for
       laying out indented widgets.
