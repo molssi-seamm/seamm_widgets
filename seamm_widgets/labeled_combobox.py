@@ -114,3 +114,9 @@ class LabeledCombobox(sw.LabeledWidget):
 
     def configure(self, **kwargs):
         return self.config(**kwargs)
+
+    def state(self, stateSpec=None):
+        """Set the state of the widget"""
+        result = super().state(stateSpec)
+        tmp = self.combobox.state(stateSpec)
+        return result + tmp
