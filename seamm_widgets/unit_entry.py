@@ -81,9 +81,10 @@ class UnitEntry(sw.LabeledEntry):
         show_all = len(args) == 0 or args[0] == "all"
 
         if show_all or "units" in args:
-            self.units.grid(row=0, column=0, sticky=tk.EW)
+            self.units.grid_remove()
+            self.units.grid()
         else:
-            self.units.grid_forget()
+            self.units.grid_remove()
 
     def set(self, value, unit_string=None):
         """Set the the value and units"""

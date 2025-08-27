@@ -74,9 +74,10 @@ class LabeledEntry(sw.LabeledWidget):
         show_all = len(args) == 0 or args[0] == "all"
 
         if show_all or "entry" in args:
-            self.entry.grid(row=0, column=0, sticky=tk.EW)
+            self.entry.grid_remove()
+            self.entry.grid()
         else:
-            self.entry.grid_forget()
+            self.entry.grid_remove()
 
     def set(self, value):
         """Set the value of the entry widget"""

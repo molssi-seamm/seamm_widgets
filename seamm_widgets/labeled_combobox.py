@@ -72,16 +72,28 @@ class LabeledCombobox(sw.LabeledWidget):
 
     def show(self, *args):
         """Show only the specified subwidgets.
-        'all' or no arguments reverts to showing all"""
+        'all' or no arguments reverts to showing all
+
+        Parameters
+        ----------
+        *args : str
+            The names of the subwidgets to show, defaults to 'all'
+
+        Notes
+        -----
+        The subwidgets are 'label' and 'combobox', though 'entry' can be used as an
+        alias for 'combobox'. 'all' or no arguments results in show all the subwidgets.
+        """
 
         super().show(*args)
 
         show_all = len(args) == 0 or args[0] == "all"
 
-        if show_all or "combobox" in args:
-            self.combobox.grid(row=0, column=0, sticky=tk.EW)
+        if show_all or "combobox" in args or "entry" in args:
+            self.combobox.grid_remove()
+            self.combobox.grid()
         else:
-            self.combobox.grid_forget()
+            self.combobox.grid_remove()
 
     def set(self, value):
         """Set the value of the widget"""

@@ -149,9 +149,10 @@ class LabeledWidget(ttk.Frame):
         show_all = len(args) == 0 or args[0] == "all"
 
         if show_all or "label" in args:
-            self.label.grid(row=0, column=0, sticky=tk.E)
+            self.label.grid_remove()
+            self.label.grid()
         else:
-            self.label.grid_forget()
+            self.label.grid_remove()
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
