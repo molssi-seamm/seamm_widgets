@@ -1,7 +1,7 @@
 =======
 History
 =======
-2025.8.27 -- Bugfix: fixed error showing selected subwidgets of compound widgets
+2025.8.27 -- Bugfix: fixed an error showing selected subwidgets of compound widgets
     * The compound widgets 'show' methods did not correctly display the requested
       subwidgets.
 
