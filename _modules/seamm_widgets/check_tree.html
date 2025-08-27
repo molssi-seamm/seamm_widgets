@@ -5,8 +5,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.check_tree &mdash; SEAMM Widgets 2024.10.10 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+  <title>seamm_widgets.check_tree &mdash; SEAMM Widgets 2025.8.27 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
 
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=15d57538"></script>
+      <script src="../../_static/documentation_options.js?v=61b355ac"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,18 +94,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.check_tree</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;A Tk widget for a tree of checkboxes.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;A Tk widget for a tree of checkboxes.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">pkg_resources</span>
-<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pkg_resources</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">ttk</span>
 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageTk</span><span class="p">,</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageTk</span><span class="p">,</span> <span class="n">Image</span>
 
-<span class="kn">import</span> <span class="nn">seamm_widgets</span> <span class="k">as</span> <span class="nn">sw</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seamm_widgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sw</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -125,10 +124,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckTree</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledWidget</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CheckTree</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledWidget</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to provide a tree of checkboxes.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MCheckTree&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">)</span>
 
@@ -170,7 +169,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.bbox">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.bbox">[docs]</a>
-    <span class="k">def</span> <span class="nf">bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bonding box for the item.</span>
 
 <span class="sd">        For the item with iid item, if the item is currently visible, this method</span>
@@ -189,7 +188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.column">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.column">[docs]</a>
-    <span class="k">def</span> <span class="nf">column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method configures the appearance of the logical column specified by cid,</span>
 <span class="sd">        which may be either a column index or a column identifier. To configure the icon</span>
@@ -229,7 +228,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.config">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.config">[docs]</a>
-    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the configuration of the megawidget&quot;&quot;&quot;</span>
 
         <span class="c1"># our options that we deal with</span>
@@ -248,12 +247,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.configure">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.configure">[docs]</a>
-    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for config()&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_check_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Correct the state of all parents up the tree to make their state correct.</span>
 
 <span class="sd">        Parameters</span>
@@ -268,7 +267,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_parents</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_click_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_click_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">iid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_row</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
 
         <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">identify_element</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
@@ -280,14 +279,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.delete">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.delete">[docs]</a>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The arguments are iid values. All the items in the widget that have matching</span>
 <span class="sd">        iid values are destroyed, along with all their descendants.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_deselect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_deselect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; to unchecked.</span>
 
 <span class="sd">        Parameters</span>
@@ -320,7 +319,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.detach">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.detach">[docs]</a>
-    <span class="k">def</span> <span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The arguments are iid values. All the items in the widget that have matching</span>
 <span class="sd">        iid values are removed from the visible widget, along with all their</span>
 <span class="sd">        descendants.</span>
@@ -333,7 +332,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.exists">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.exists">[docs]</a>
-    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns True if there exists an item in the widget with the given iid, or</span>
 <span class="sd">        False otherwise. If an item is not currently visible because it was removed with</span>
 <span class="sd">        the .detach() method, it is still considered to exist for the purposes of the</span>
@@ -344,7 +343,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.from_dict">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.from_dict">[docs]</a>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="c1"># Get any data in the columns</span>
             <span class="n">column_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -383,7 +382,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.focus">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.focus">[docs]</a>
-    <span class="k">def</span> <span class="nf">focus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">focus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If you don&#39;t provide an argument to this method, you get back either the iid</span>
 <span class="sd">        of the item that currently has focus, or &#39;&#39; if no item has focus.</span>
 
@@ -394,7 +393,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.get">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get">[docs]</a>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the selected items.</span>
 
 <span class="sd">        Parameters</span>
@@ -430,7 +429,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.get_children">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get_children">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a tuple of the iid values of the children of the item specified by</span>
 <span class="sd">        the item argument. If the argument is omitted, you get a tuple containing the</span>
 <span class="sd">        iid values of the top-level items.</span>
@@ -440,7 +439,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.get_leaves">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.get_leaves">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_leaves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the iid values of all leaves of the tree belove of the item specified</span>
 <span class="sd">        by the item argument. If the argument is omitted, it gives the leaves for the</span>
 <span class="sd">        entire tree.</span>
@@ -457,7 +456,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.heading">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.heading">[docs]</a>
-    <span class="k">def</span> <span class="nf">heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to configure the column heading that appears at the top of</span>
 <span class="sd">        the widget for the column specified by cid, which may be either a column index</span>
 <span class="sd">        or a column identifier. Use a cid argument value of &#39;#0&#39; to configure the</span>
@@ -491,7 +490,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.identify_column">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_column">[docs]</a>
-    <span class="k">def</span> <span class="nf">identify_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">identify_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Given an x coordinate, this method returns a string of the form &#39;#n&#39; that</span>
 <span class="sd">        identifies the column that contains that x coordinate.</span>
 
@@ -509,7 +508,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.identify_element">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_element">[docs]</a>
-    <span class="k">def</span> <span class="nf">identify_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">identify_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the name of the element at location (x, y) relative to the widget, or</span>
 <span class="sd">        &#39;&#39; if no element appears at that position. Element names are discussed in</span>
 <span class="sd">        Section 50, “The ttk element layer”.</span>
@@ -519,7 +518,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.identify_region">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_region">[docs]</a>
-    <span class="k">def</span> <span class="nf">identify_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">identify_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Given the coordinates of a point relative to the widget, this method returns</span>
 <span class="sd">        a string indicating what part of the widget contains that point. Return values</span>
 <span class="sd">        may include:</span>
@@ -542,7 +541,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.identify_row">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.identify_row">[docs]</a>
-    <span class="k">def</span> <span class="nf">identify_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">identify_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If y-coordinate y is within one of the items, this method returns the iid of</span>
 <span class="sd">        that item. If that vertical coordinate is not within an item, this method</span>
 <span class="sd">        returns an empty string.</span>
@@ -552,7 +551,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.index">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.index">[docs]</a>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns the index of the item with the specified iid relative to</span>
 <span class="sd">        its parent, counting from zero.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -561,7 +560,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.insert">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.insert">[docs]</a>
-    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">parent</span><span class="p">,</span>
         <span class="n">index</span><span class="p">,</span>
@@ -637,7 +636,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.invoke">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.invoke">[docs]</a>
-    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; just as if clicked.</span>
 
 <span class="sd">        Parameters</span>
@@ -661,7 +660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.item">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.item">[docs]</a>
-    <span class="k">def</span> <span class="nf">item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to set or retrieve the options within the item specified by</span>
 <span class="sd">        iid. Refer to the .insert() method above for the names of the item options.</span>
 
@@ -675,7 +674,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.move">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.move">[docs]</a>
-    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Move the item specified by iid to the values under the item specified by</span>
 <span class="sd">        parent at position index. The parent and index arguments work the same as those</span>
 <span class="sd">        arguments to the .index() method.</span>
@@ -685,7 +684,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.next">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.next">[docs]</a>
-    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is not the last child of its parent, this method</span>
 <span class="sd">        returns the iid of the following child; if it is the last child of its parent,</span>
 <span class="sd">        this method returns an empty string. If the specified item is a top-level item,</span>
@@ -697,7 +696,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.parent">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.parent">[docs]</a>
-    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is a top-level item, this method returns an</span>
 <span class="sd">        empty string; otherwise it returns the iid of that item&#39;s parent.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -706,7 +705,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.prev">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.prev">[docs]</a>
-    <span class="k">def</span> <span class="nf">prev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If the item specified by iid is not the first child of its parent, this</span>
 <span class="sd">        method returns the iid of the previous child; otherwise it returns an empty</span>
 <span class="sd">        string. If the specified item is a top-level item, this method returns the iid</span>
@@ -718,7 +717,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.see">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.see">[docs]</a>
-    <span class="k">def</span> <span class="nf">see</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">see</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method ensures that the item specified by iid is visible. Any of its</span>
 <span class="sd">        ancestors that are closed are opened. The widget is scrolled, if necessary, so</span>
 <span class="sd">        that the item appears.</span>
@@ -728,7 +727,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.selection_add">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_add">[docs]</a>
-    <span class="k">def</span> <span class="nf">selection_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selection_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;In addition to any items already selected, add the specified items. The</span>
 <span class="sd">        argument may be either a single iid or a sequence of iids.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -741,7 +740,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.selection_clear">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_clear">[docs]</a>
-    <span class="k">def</span> <span class="nf">selection_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selection_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all selections from the subtree(s)&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selection_remove</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -754,7 +753,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.selection_remove">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_remove">[docs]</a>
-    <span class="k">def</span> <span class="nf">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selection_remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Unselect any items specified by the argument, which may be a single iid or a</span>
 <span class="sd">        sequence of iids.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -767,7 +766,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.selection_set">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_set">[docs]</a>
-    <span class="k">def</span> <span class="nf">selection_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selection_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Only the specified items will be selected; if any other items were selected</span>
 <span class="sd">        before, they will become unselected.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -777,7 +776,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.selection_toggle">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.selection_toggle">[docs]</a>
-    <span class="k">def</span> <span class="nf">selection_toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selection_toggle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The argument may be a single iid or a sequence of iids. For each item</span>
 <span class="sd">        specified by the argument, if it was selected, unselect it; if it was</span>
 <span class="sd">        unselected, select it.</span>
@@ -789,7 +788,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_parents</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the state of the item &#39;iid&#39; to checked.</span>
 
 <span class="sd">        Parameters</span>
@@ -821,7 +820,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.set">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.set">[docs]</a>
-    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to retrieve or set the column values of the item specified by</span>
 <span class="sd">        iid. With one argument, the method returns a dictionary: the keys are the column</span>
 <span class="sd">        identifiers, and each related value is the text in the corresponding column.</span>
@@ -836,7 +835,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.set_children">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.set_children">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="n">newChildren</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="o">*</span><span class="n">newChildren</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Use this method to change the set of children of the item whose iid is</span>
 <span class="sd">        item. The newChildren argument is a sequence of iid strings. Any current</span>
 <span class="sd">        children of item that are not in newChildren are removed.</span>
@@ -846,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.state">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.state">[docs]</a>
-    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the state of this item, and optionally its subtree.</span>
 
 <span class="sd">        Parameters</span>
@@ -917,7 +916,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.tag_bind">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_bind">[docs]</a>
-    <span class="k">def</span> <span class="nf">tag_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method binds the event handler specified by the callback argument to all</span>
 <span class="sd">        items that have tag tagName. The sequence and callback arguments work the same</span>
 <span class="sd">        as the sequence and func arguments of the .bind() method described in Section</span>
@@ -928,7 +927,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.tag_configure">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_configure">[docs]</a>
-    <span class="k">def</span> <span class="nf">tag_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag_configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method can either interrogate or set options that affect the appearance</span>
 <span class="sd">        of all the items that have tag tagName. Tag options include:</span>
 
@@ -952,7 +951,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="CheckTree.tag_has">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.check_tree.CheckTree.tag_has">[docs]</a>
-    <span class="k">def</span> <span class="nf">tag_has</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tag_has</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tagName</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Called with one argument, this method returns a list of the iid values for</span>
 <span class="sd">        all items that carry tag tagName. If you provide an iid as the second argument,</span>
 <span class="sd">        the method returns True if the item with that iid has tag tagName, False</span>
@@ -964,11 +963,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-    <span class="kn">import</span> <span class="nn">pprint</span>  <span class="c1"># noqa: F401</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pprint</span>  <span class="c1"># noqa: F401</span>
 
     <span class="c1"># logging.basicConfig(level=&quot;INFO&quot;)</span>
 
-    <span class="k">def</span> <span class="nf">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_dict</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Custom code to load the dictionary in the test.</span>
 <span class="sd">        NB. the &#39;state=False&#39; argument prevents insert from working out the</span>
 <span class="sd">        state of the parent nodes every time an item is inserted. This is done</span>

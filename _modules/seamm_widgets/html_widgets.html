@@ -5,8 +5,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.html_widgets &mdash; SEAMM Widgets 2024.10.10 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+  <title>seamm_widgets.html_widgets &mdash; SEAMM Widgets 2025.8.27 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
 
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=15d57538"></script>
+      <script src="../../_static/documentation_options.js?v=61b355ac"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -122,23 +122,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
 <span class="c1"># SOFTWARE.</span>
 
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
-<span class="kn">import</span> <span class="nn">tkinter.font</span> <span class="k">as</span> <span class="nn">font</span>
-<span class="kn">import</span> <span class="nn">tkinter.ttk</span> <span class="k">as</span> <span class="nn">ttk</span>
-<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">html.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTMLParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter.font</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">font</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tkinter.ttk</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ttk</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageTk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageTk</span>
 
 
-<span class="k">class</span> <span class="nc">_ScrolledText</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_ScrolledText</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">vbar</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
@@ -157,23 +157,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;_&quot;</span> <span class="ow">and</span> <span class="n">m</span> <span class="o">!=</span> <span class="s2">&quot;config&quot;</span> <span class="ow">and</span> <span class="n">m</span> <span class="o">!=</span> <span class="s2">&quot;configure&quot;</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="HTMLScrolledText">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLScrolledText">[docs]</a>
-<span class="k">class</span> <span class="nc">HTMLScrolledText</span><span class="p">(</span><span class="n">_ScrolledText</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTMLScrolledText</span><span class="p">(</span><span class="n">_ScrolledText</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;HTML scrolled text widget&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w_init</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">html_parser</span> <span class="o">=</span> <span class="n">HTMLTextParser</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_html</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="s2">&quot;wrap&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">wrap</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;background&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -184,7 +184,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLScrolledText.fit_height">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLScrolledText.fit_height">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit widget height to wrapped lines</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -199,7 +199,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLScrolledText.set_html">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLScrolledText.set_html">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set HTML widget text. If strip is enabled (default) it ignores spaces and new</span>
 <span class="sd">        lines.</span>
@@ -216,18 +216,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLText">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLText">[docs]</a>
-<span class="k">class</span> <span class="nc">HTMLText</span><span class="p">(</span><span class="n">HTMLScrolledText</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTMLText</span><span class="p">(</span><span class="n">HTMLScrolledText</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    HTML text widget</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_w_init</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vbar</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
 
 <div class="viewcode-block" id="HTMLText.fit_height">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLText.fit_height">[docs]</a>
-    <span class="k">def</span> <span class="nf">fit_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit_height</span><span class="p">()</span>
         <span class="c1"># self.master.update()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vbar</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span></div>
@@ -237,12 +237,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLLabel">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLLabel">[docs]</a>
-<span class="k">class</span> <span class="nc">HTMLLabel</span><span class="p">(</span><span class="n">HTMLText</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTMLLabel</span><span class="p">(</span><span class="n">HTMLText</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    HTML label widget</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_w_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_w_init</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;background&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;win&quot;</span><span class="p">):</span>
@@ -258,7 +258,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLLabel.set_html">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLLabel.set_html">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_html</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">)</span></div>
 </div>
@@ -270,7 +270,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="c1"># ---------------------------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Defs">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.Defs">[docs]</a>
-<span class="k">class</span> <span class="nc">Defs</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Defs</span><span class="p">:</span>
     <span class="n">DEFAULT_TEXT_FONT_FAMILY</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Segoe ui&quot;</span><span class="p">,</span> <span class="s2">&quot;Calibri&quot;</span><span class="p">,</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span> <span class="s2">&quot;TkTextFont&quot;</span><span class="p">)</span>
     <span class="n">FONT_SIZE</span> <span class="o">=</span> <span class="mi">14</span>
     <span class="n">PREFORMATTED_FONT_FAMILY</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Courier&quot;</span><span class="p">,</span> <span class="s2">&quot;DejaVu Sans Mono&quot;</span><span class="p">,</span> <span class="s2">&quot;TkFixedFont&quot;</span><span class="p">)</span>
@@ -287,14 +287,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTML">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML">[docs]</a>
-<span class="k">class</span> <span class="nc">HTML</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTML</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List of supported HTML tags and attrs</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HTML.Tag">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML.Tag">[docs]</a>
-    <span class="k">class</span> <span class="nc">Tag</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Tag</span><span class="p">:</span>
         <span class="n">BR</span> <span class="o">=</span> <span class="s2">&quot;br&quot;</span>
         <span class="n">UL</span> <span class="o">=</span> <span class="s2">&quot;ul&quot;</span>
         <span class="n">OL</span> <span class="o">=</span> <span class="s2">&quot;ol&quot;</span>
@@ -322,7 +322,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTML.Attrs">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML.Attrs">[docs]</a>
-    <span class="k">class</span> <span class="nc">Attrs</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Attrs</span><span class="p">:</span>
         <span class="n">STYLE</span> <span class="o">=</span> <span class="s2">&quot;style&quot;</span>
         <span class="n">HREF</span> <span class="o">=</span> <span class="s2">&quot;href&quot;</span>
         <span class="n">SRC</span> <span class="o">=</span> <span class="s2">&quot;src&quot;</span>
@@ -333,7 +333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTML.TypeOrderedList">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML.TypeOrderedList">[docs]</a>
-    <span class="k">class</span> <span class="nc">TypeOrderedList</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">TypeOrderedList</span><span class="p">:</span>
         <span class="n">_1</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
         <span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
         <span class="n">A</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span></div>
@@ -341,7 +341,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTML.Style">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML.Style">[docs]</a>
-    <span class="k">class</span> <span class="nc">Style</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Style</span><span class="p">:</span>
         <span class="n">COLOR</span> <span class="o">=</span> <span class="s2">&quot;color&quot;</span>
         <span class="n">BACKGROUND_COLOR</span> <span class="o">=</span> <span class="s2">&quot;background-color&quot;</span>
         <span class="n">FONT_FAMILY</span> <span class="o">=</span> <span class="s2">&quot;font-family&quot;</span>
@@ -352,7 +352,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTML.StyleTextDecoration">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTML.StyleTextDecoration">[docs]</a>
-    <span class="k">class</span> <span class="nc">StyleTextDecoration</span><span class="p">:</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">StyleTextDecoration</span><span class="p">:</span>
         <span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s2">&quot;underline&quot;</span>
         <span class="n">LINE_THROUGH</span> <span class="o">=</span> <span class="s2">&quot;line-through&quot;</span></div>
 
@@ -404,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="WCfg">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.WCfg">[docs]</a>
-<span class="k">class</span> <span class="nc">WCfg</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WCfg</span><span class="p">:</span>
     <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&quot;config&quot;</span>
     <span class="n">BACKGROUND</span> <span class="o">=</span> <span class="s2">&quot;background&quot;</span>
     <span class="n">FOREGROUND</span> <span class="o">=</span> <span class="s2">&quot;foreground&quot;</span>
@@ -415,7 +415,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="Fnt">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.Fnt">[docs]</a>
-<span class="k">class</span> <span class="nc">Fnt</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Fnt</span><span class="p">:</span>
     <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&quot;font&quot;</span>
     <span class="n">FAMILY</span> <span class="o">=</span> <span class="s2">&quot;family&quot;</span>
     <span class="n">SIZE</span> <span class="o">=</span> <span class="s2">&quot;size&quot;</span>
@@ -428,7 +428,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="Bind">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.Bind">[docs]</a>
-<span class="k">class</span> <span class="nc">Bind</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bind</span><span class="p">:</span>
     <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&quot;bind&quot;</span>
     <span class="n">LINK</span> <span class="o">=</span> <span class="s2">&quot;link&quot;</span>
     <span class="n">IMAGE</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span></div>
@@ -437,7 +437,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="WTag">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.WTag">[docs]</a>
-<span class="k">class</span> <span class="nc">WTag</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WTag</span><span class="p">:</span>
     <span class="n">START_INDEX</span> <span class="o">=</span> <span class="s2">&quot;start_index&quot;</span>
     <span class="n">END_INDEX</span> <span class="o">=</span> <span class="s2">&quot;end_index&quot;</span></div>
 
@@ -466,7 +466,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="get_existing_font">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.get_existing_font">[docs]</a>
-<span class="k">def</span> <span class="nf">get_existing_font</span><span class="p">(</span><span class="n">font_families</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_existing_font</span><span class="p">(</span><span class="n">font_families</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">next</span><span class="p">(</span>
             <span class="nb">filter</span><span class="p">(</span>
@@ -481,28 +481,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HLinkSlot">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HLinkSlot">[docs]</a>
-<span class="k">class</span> <span class="nc">HLinkSlot</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">tag_name</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HLinkSlot</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">tag_name</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="n">w</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tag_name</span> <span class="o">=</span> <span class="n">tag_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">URL</span> <span class="o">=</span> <span class="n">url</span>
 
 <div class="viewcode-block" id="HLinkSlot.call">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HLinkSlot.call">[docs]</a>
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">URL</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">tag_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="HLinkSlot.enter">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HLinkSlot.enter">[docs]</a>
-    <span class="k">def</span> <span class="nf">enter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;hand2&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="HLinkSlot.leave">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HLinkSlot.leave">[docs]</a>
-    <span class="k">def</span> <span class="nf">leave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">leave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 </div>
 
@@ -510,22 +510,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="ListTag">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.ListTag">[docs]</a>
-<span class="k">class</span> <span class="nc">ListTag</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">list_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ListTag</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordered</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">list_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ordered</span> <span class="o">=</span> <span class="n">ordered</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">list_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="ListTag.add">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.ListTag.add">[docs]</a>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordered</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
 
 <div class="viewcode-block" id="ListTag.line_index">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.ListTag.line_index">[docs]</a>
-    <span class="k">def</span> <span class="nf">line_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">line_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordered</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">HTML</span><span class="o">.</span><span class="n">TypeOrderedList</span><span class="o">.</span><span class="n">_1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -537,7 +537,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">8226</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_index_to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_index_to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">26</span><span class="p">:</span>
             <span class="n">prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_index_to_str</span><span class="p">(</span><span class="n">index</span> <span class="o">//</span> <span class="mi">26</span><span class="p">)</span>
@@ -549,8 +549,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser">[docs]</a>
-<span class="k">class</span> <span class="nc">HTMLTextParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTMLTextParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># set list tabs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cached_images</span> <span class="o">=</span> <span class="p">{}</span>
@@ -558,7 +558,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_TEXT_FONT_FAMILY</span> <span class="o">=</span> <span class="n">get_existing_font</span><span class="p">(</span><span class="n">Defs</span><span class="o">.</span><span class="n">DEFAULT_TEXT_FONT_FAMILY</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">PREFORMATTED_FONT_FAMILY</span> <span class="o">=</span> <span class="n">get_existing_font</span><span class="p">(</span><span class="n">Defs</span><span class="o">.</span><span class="n">PREFORMATTED_FONT_FAMILY</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_parse_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
         <span class="n">attrs_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">HTML</span><span class="o">.</span><span class="n">Attrs</span><span class="o">.</span><span class="n">STYLE</span><span class="p">:</span> <span class="p">{},</span>
             <span class="n">HTML</span><span class="o">.</span><span class="n">Attrs</span><span class="o">.</span><span class="n">HREF</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -587,7 +587,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="n">attrs_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
         <span class="k">return</span> <span class="n">attrs_dict</span>
 
-    <span class="k">def</span> <span class="nf">_w_tags_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_w_tags_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">tag</span> <span class="o">=</span> <span class="p">{</span><span class="n">WCfg</span><span class="o">.</span><span class="n">KEY</span><span class="p">:</span> <span class="p">{},</span> <span class="n">Fnt</span><span class="o">.</span><span class="n">KEY</span><span class="p">:</span> <span class="p">{},</span> <span class="n">Bind</span><span class="o">.</span><span class="n">KEY</span><span class="p">:</span> <span class="p">{}}</span>
 
         <span class="k">for</span> <span class="n">k1</span> <span class="ow">in</span> <span class="p">(</span><span class="n">WCfg</span><span class="o">.</span><span class="n">KEY</span><span class="p">,</span> <span class="n">Fnt</span><span class="o">.</span><span class="n">KEY</span><span class="p">,</span> <span class="n">Bind</span><span class="o">.</span><span class="n">KEY</span><span class="p">):</span>
@@ -596,7 +596,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_w_tags</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;end-1c&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tag</span>
 
-    <span class="k">def</span> <span class="nf">_stack_get_main_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stack_get_main_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">WCfg</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">main_key</span> <span class="o">=</span> <span class="n">WCfg</span><span class="o">.</span><span class="n">KEY</span>
         <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">Fnt</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -608,7 +608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="k">return</span> <span class="n">main_key</span>
 
-    <span class="k">def</span> <span class="nf">_stack_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stack_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">main_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_get_main_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -617,7 +617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="n">main_key</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">tag</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">_stack_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stack_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">main_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_get_main_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="n">main_key</span><span class="p">][</span><span class="n">key</span><span class="p">]):</span>
@@ -626,7 +626,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="k">return</span> <span class="n">index</span>
 
-    <span class="k">def</span> <span class="nf">_stack_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_stack_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="n">main_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_get_main_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
@@ -636,7 +636,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="n">main_key</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_parse_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
         <span class="c1"># [ COLOR ]</span>
         <span class="k">if</span> <span class="n">HTML</span><span class="o">.</span><span class="n">Style</span><span class="o">.</span><span class="n">COLOR</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">[</span><span class="n">HTML</span><span class="o">.</span><span class="n">Attrs</span><span class="o">.</span><span class="n">STYLE</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_stack_add</span><span class="p">(</span>
@@ -738,7 +738,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser.handle_starttag">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser.handle_starttag">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
         <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_attrs</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
 
@@ -866,7 +866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser.handle_charref">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser.handle_charref">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_charref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_charref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">char</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">INSERT</span><span class="p">,</span> <span class="n">char</span><span class="p">)</span>
@@ -874,7 +874,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="k">pass</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_insert_new_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">double</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_insert_new_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">double</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_remove_last_space</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end-3c&quot;</span><span class="p">,</span> <span class="s2">&quot;end-1c&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">:</span>
             <span class="k">pass</span>
@@ -887,16 +887,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">tk</span><span class="o">.</span><span class="n">INSERT</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_text_rstrip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_text_rstrip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end-2c&quot;</span><span class="p">,</span> <span class="s2">&quot;end-1c&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;end-2c&quot;</span><span class="p">,</span> <span class="s2">&quot;end-1c&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_remove_last_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_last_space</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;end-2c&quot;</span><span class="p">,</span> <span class="s2">&quot;end-1c&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot; &quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&quot;end-2c&quot;</span><span class="p">,</span> <span class="s2">&quot;end-1c&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_remove_multi_spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_multi_spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;  &quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_multi_spaces</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -904,7 +904,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser.handle_data">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser.handle_data">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strip</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html_tags</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_tags</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span>
                 <span class="n">HTML</span><span class="o">.</span><span class="n">Tag</span><span class="o">.</span><span class="n">PRE</span><span class="p">,</span>
@@ -933,7 +933,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser.handle_endtag">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser.handle_endtag">[docs]</a>
-    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
         <span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
@@ -980,7 +980,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_insert_new_line</span><span class="p">(</span><span class="n">double</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_w_tags_apply_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_w_tags_apply_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># update indexes</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strip</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_text_rstrip</span><span class="p">()</span>
@@ -1005,7 +1005,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="HTMLTextParser.w_set_html">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.html_widgets.HTMLTextParser.w_set_html">[docs]</a>
-    <span class="k">def</span> <span class="nf">w_set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">strip</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">w_set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">strip</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_w</span> <span class="o">=</span> <span class="n">w</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_STACK</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">[</span><span class="n">WCfg</span><span class="o">.</span><span class="n">KEY</span><span class="p">][</span><span class="n">WCfg</span><span class="o">.</span><span class="n">BACKGROUND</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
