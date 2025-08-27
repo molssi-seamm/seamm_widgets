@@ -364,7 +364,6 @@ if __name__ == "__main__":  # pragma: no cover
 
     def handle_dialog(result):
         global gElements
-        global w
         print(f"result = {result}")
         if result == "Update":
             # w.set(gElements)
@@ -377,9 +376,7 @@ if __name__ == "__main__":  # pragma: no cover
         w.destroy()
 
     def open_dialog():
-        global gElements
         global w
-        global dialog
         print("open dialog")
         print(gElements)
 

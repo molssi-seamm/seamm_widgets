@@ -1,6 +1,10 @@
 =======
 History
 =======
+2025.8.27 -- Bugfix: fixed error showing selected subwidgets of compound widgets
+    * The compound widgets 'show' methods did not correctly display the requested
+      subwidgets.
+
 2024.10.10 -- Enhancement: Added state method for some widgets
     * Added a state method to LabeledWidget, LabeledComboBox, LabeledEntry, UnitEntry
       and UnitComboBox. This method sets or returns the state of the widget

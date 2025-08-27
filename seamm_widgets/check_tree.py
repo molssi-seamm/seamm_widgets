@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""A Tk widget for a tree of checkboxes.
-"""
+"""A Tk widget for a tree of checkboxes."""
 
 import logging
 from pathlib import Path
