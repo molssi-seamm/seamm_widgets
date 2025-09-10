@@ -67,30 +67,29 @@ def align_labels(widgets, sticky=tk.E):
 
 class LabeledWidget(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
-        """Initialize the instance"""
+        # Pull out any options specific to the label
+        labelpos = kwargs.pop("labelpos", "w")
+        myoptions = {
+            "justify": "right",
+            "padding": 0,
+        }
+        for option, myoption in options["label"].items():
+            if option in kwargs:
+                myoptions[myoption] = kwargs.pop(option)
+
+        # Create our parent
         class_ = kwargs.pop("class_", "MLabeledWidget")
-        super().__init__(parent, class_=class_)
+        super().__init__(parent, class_=class_, *args, **kwargs)
 
+        # Put the label in
         self._labelpos = None
-
-        # label
-        labeltext = kwargs.pop("labeltext", "")
-        # labeltextvariable = kwargs.pop('labeltextvariable', None)
-        labeljustify = kwargs.pop("labeljustify", "right")
-        labelpadding = kwargs.pop("labelpadding", 0)
-
-        self.label = ttk.Label(
-            self, text=labeltext, justify=labeljustify, padding=labelpadding
-        )
+        self.label = ttk.Label(self, **myoptions)
 
         # interior frame
         self.interior = ttk.Frame(self)
 
         # Set the label position to the default if needed.
-        if "labelpos" not in kwargs:
-            self.labelpos = "w"
-
-        self.config(**kwargs)
+        self.labelpos = labelpos
 
     @property
     def labelpos(self):

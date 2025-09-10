@@ -1,6 +1,10 @@
 =======
 History
 =======
+2025.9.10 -- Bugfix: options such as width not correctly applied
+    * The handling of options for widgets was not robust. This is now fixed and options
+      are applied as requested.
+      
 2025.8.27 -- Bugfix: fixed an error showing selected subwidgets of compound widgets
     * The compound widgets 'show' methods did not correctly display the requested
       subwidgets.

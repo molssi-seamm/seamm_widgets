@@ -20,7 +20,6 @@ options = {
         "as_quantity": "as_quantity",
     },
     "units": {
-        "class_": "class_",
         "cursor": "cursor",
         "exportselection": "exportselection",
         "unitsheight": "height",
@@ -33,6 +32,7 @@ options = {
         "unitsvalidatecommand": "validatecommand",
         "unitswidth": "width",
         "unitsxscrollcommand": "xscrollcommand",
+        "unitsstate": "state",
     },
 }
 
@@ -40,29 +40,32 @@ options = {
 class UnitCombobox(sw.LabeledCombobox):
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance"""
+        # Pull out the specific unitcombobox options
+        self.as_quantity = kwargs.pop("as_quantity", False)
+
+        myoptions = {
+            "height": 7,
+            "width": 10,
+            "state": "readonly",
+        }
+        for option, myoption in options["units"].items():
+            if option in kwargs:
+                myoptions[myoption] = kwargs.pop(option)
+
+        # Create our parent
         class_ = kwargs.pop("class_", "MUnitCombobox")
-        super().__init__(parent, class_=class_)
+        super().__init__(parent, class_=class_, *args, **kwargs)
 
         interior = self.interior
 
-        # unitcombobox options
-        self.as_quantity = kwargs.pop("as_quantity", False)
-
-        # units combobox
-        unitsheight = kwargs.pop("unitsheight", 7)
-        unitswidth = kwargs.pop("unitswidth", 10)
-        unitsstate = kwargs.pop("unitsstate", "readonly")
-
-        self.units = ttk.Combobox(
-            interior, height=unitsheight, width=unitswidth, state=unitsstate
-        )
+        # And put our widget in
+        self.units = ttk.Combobox(interior, **myoptions)
         self.units.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
         self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
-
-        self.config(**kwargs)
+        interior.columnconfigure(0, weight=1)
 
     @property
     def value(self):
@@ -159,6 +162,7 @@ class UnitCombobox(sw.LabeledCombobox):
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
+
         unitcombobox = options["unitcombobox"]
         units = options["units"]
 
@@ -174,6 +178,9 @@ class UnitCombobox(sw.LabeledCombobox):
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
 
     def state(self, stateSpec=None):
         """Set the state of the widget"""

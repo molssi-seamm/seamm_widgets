@@ -37,25 +37,30 @@ options = {
 class LabeledEntry(sw.LabeledWidget):
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance"""
+        # Pull out any options specific to the entry
+        myoptions = {
+            "justify": tk.LEFT,
+            "width": 15,
+            "state": "normal",
+        }
+        for option, myoption in options["entry"].items():
+            if option in kwargs:
+                myoptions[myoption] = kwargs.pop(option)
+
+        # Create our parent
         class_ = kwargs.pop("class_", "MLabeledEntry")
         super().__init__(parent, class_=class_)
 
         interior = self.interior
 
-        # entry
-        justify = kwargs.pop("justify", tk.LEFT)
-        entrywidth = kwargs.pop("width", 15)
-
-        self.entry = ttk.Entry(interior, justify=justify, width=entrywidth)
+        # and put our widget in
+        self.entry = ttk.Entry(interior, **myoptions)
         self.entry.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
         self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
-
         interior.columnconfigure(0, weight=1)
-
-        self.config(**kwargs)
 
     @property
     def value(self):
