@@ -35,17 +35,24 @@ options = {
 class LabeledCombobox(sw.LabeledWidget):
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance"""
+        # Pull out any options specific to the label
+        myoptions = {
+            "height": 7,
+            "width": 20,
+            "state": "normal",
+        }
+        for option, myoption in options["combobox"].items():
+            if option in kwargs:
+                myoptions[myoption] = kwargs.pop(option)
+
+        # Create our parent
         class_ = kwargs.pop("class_", "MLabeledCombobox")
-        super().__init__(parent, class_=class_)
+        super().__init__(parent, class_=class_, *args, **kwargs)
 
         interior = self.interior
 
-        # combobox
-        height = kwargs.pop("height", 7)
-        width = kwargs.pop("width", 20)
-        state = kwargs.pop("state", "normal")
-
-        self.combobox = ttk.Combobox(interior, height=height, width=width, state=state)
+        # and put our widget in
+        self.combobox = ttk.Combobox(interior, **myoptions)
         self.combobox.grid(row=0, column=0, sticky=tk.EW)
 
         # Add the main widget to the bind tags for the combobox so its events
@@ -57,10 +64,7 @@ class LabeledCombobox(sw.LabeledWidget):
         # interior frame
         self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
-
         interior.columnconfigure(0, weight=1)
-
-        self.config(**kwargs)
 
     @property
     def value(self):
@@ -110,7 +114,6 @@ class LabeledCombobox(sw.LabeledWidget):
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
-
         # our options that we deal with
         combobox = options["combobox"]
 

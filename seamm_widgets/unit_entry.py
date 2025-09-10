@@ -40,29 +40,30 @@ options = {
 class UnitEntry(sw.LabeledEntry):
     def __init__(self, parent, *args, **kwargs):
         """Initialize the instance"""
+        self.as_quantity = kwargs.pop("as_quantity", False)
+
+        myoptions = {
+            "height": 7,
+            "width": 10,
+            "state": "readonly",
+        }
+        for option, myoption in options["units"].items():
+            if option in kwargs:
+                myoptions[myoption] = kwargs.pop(option)
+
+        # Create our parent
         class_ = kwargs.pop("class_", "MUnitEntry")
-        super().__init__(parent, class_=class_)
+        super().__init__(parent, class_=class_, *args, **kwargs)
 
         interior = self.interior
 
-        # unitentry options
-        self.as_quantity = kwargs.pop("as_quantity", False)
-
-        # units combobox
-        unitsheight = kwargs.pop("unitsheight", 7)
-        unitswidth = kwargs.pop("unitswidth", 10)
-        unitsstate = kwargs.pop("unitsstate", "readonly")
-
-        self.units = ttk.Combobox(
-            interior, height=unitsheight, width=unitswidth, state=unitsstate
-        )
+        # And put our widget in
+        self.units = ttk.Combobox(interior, **myoptions)
         self.units.grid(row=0, column=0, sticky=tk.EW)
 
         # interior frame
         self.interior = ttk.Frame(interior)
         self.interior.grid(row=0, column=1, sticky=tk.NSEW)
-
-        self.config(**kwargs)
 
     @property
     def value(self):
