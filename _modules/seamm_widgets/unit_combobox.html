@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.unit_combobox &mdash; SEAMM Widgets 2025.9.10 documentation</title>
+  <title>seamm_widgets.unit_combobox &mdash; SEAMM Widgets 2025.9.20 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=15ac89b7"></script>
+      <script src="../../_static/documentation_options.js?v=b8fcf97b"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -119,6 +119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="s2">&quot;unitsheight&quot;</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
         <span class="s2">&quot;unitsjustify&quot;</span><span class="p">:</span> <span class="s2">&quot;justify&quot;</span><span class="p">,</span>
         <span class="s2">&quot;postcommand&quot;</span><span class="p">:</span> <span class="s2">&quot;postcommand&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">,</span>
         <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span>
         <span class="s2">&quot;unitstakefocus&quot;</span><span class="p">:</span> <span class="s2">&quot;takefocus&quot;</span><span class="p">,</span>
         <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;textvariable&quot;</span><span class="p">,</span>
@@ -142,10 +143,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">myoptions</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
             <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;readonly&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">myoption</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">&quot;class_&quot;</span> <span class="ow">and</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="n">myoptions</span><span class="p">[</span><span class="n">myoption</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
 
         <span class="c1"># Create our parent</span>
