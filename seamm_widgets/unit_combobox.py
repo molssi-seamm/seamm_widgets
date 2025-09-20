@@ -25,6 +25,7 @@ options = {
         "unitsheight": "height",
         "unitsjustify": "justify",
         "postcommand": "postcommand",
+        "state": "state",
         "style": "style",
         "unitstakefocus": "takefocus",
         "variable": "textvariable",
@@ -46,10 +47,9 @@ class UnitCombobox(sw.LabeledCombobox):
         myoptions = {
             "height": 7,
             "width": 10,
-            "state": "readonly",
         }
         for option, myoption in options["units"].items():
-            if option in kwargs:
+            if option != "class_" and option in kwargs:
                 myoptions[myoption] = kwargs.pop(option)
 
         # Create our parent

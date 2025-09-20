@@ -8,6 +8,7 @@ standardize the user interface presented to the user.
 """
 
 import logging
+
 import seamm_widgets as sw
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -23,6 +24,7 @@ options = {
         "invalidcommand": "invalidcommand",
         "justify": "justify",
         "show": "show",
+        "state": "state",
         "style": "style",
         "takefocus": "takefocus",
         "variable": "textvariable",
@@ -44,7 +46,7 @@ class LabeledEntry(sw.LabeledWidget):
             "state": "normal",
         }
         for option, myoption in options["entry"].items():
-            if option in kwargs:
+            if option != "class_" and option in kwargs:
                 myoptions[myoption] = kwargs.pop(option)
 
         # Create our parent
@@ -56,6 +58,12 @@ class LabeledEntry(sw.LabeledWidget):
         # and put our widget in
         self.entry = ttk.Entry(interior, **myoptions)
         self.entry.grid(row=0, column=0, sticky=tk.EW)
+
+        # Add the main widget to the bind tags for the combobox so its events
+        # are passed to the main LabeledCombobox.
+        tags = [*self.entry.bindtags()]
+        tags.insert(2, self)
+        self.entry.bindtags(tags)
 
         # interior frame
         self.interior = ttk.Frame(interior)
@@ -102,17 +110,29 @@ class LabeledEntry(sw.LabeledWidget):
         """Set the configuration of the megawidget"""
 
         # our options that we deal with
-        entry = options["entry"]
+        opts = options["entry"]
+
+        if len(kwargs) == 0:
+            # Querying the configuration
+            result = super().config()
+            for key, value in self.entry.config().items():
+                for k, v in opts.items():
+                    if key == v:
+                        result[k] = value
+            return result
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]
         for k in keys:
-            if k in entry:
+            if k in opts:
                 v = kwargs.pop(k)
-                self.entry.config(**{entry[k]: v})
+                self.entry.config(**{opts[k]: v})
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
 
     def state(self, stateSpec=None):
         """Set the state of the widget"""

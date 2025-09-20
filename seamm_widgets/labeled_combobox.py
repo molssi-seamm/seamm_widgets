@@ -39,10 +39,9 @@ class LabeledCombobox(sw.LabeledWidget):
         myoptions = {
             "height": 7,
             "width": 20,
-            "state": "normal",
         }
         for option, myoption in options["combobox"].items():
-            if option in kwargs:
+            if option != "class_" and option in kwargs:
                 myoptions[myoption] = kwargs.pop(option)
 
         # Create our parent

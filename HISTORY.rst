@@ -1,6 +1,10 @@
 =======
 History
 =======
+2925.9.20 -- Bugfix: Fixed error typing into entry widgets
+    * The last release inadvertently caused issues with the bindings for the entry
+      widgets, which made it impossible to type text into them. This is fixed.
+      
 2025.9.10 -- Bugfix: options such as width not correctly applied
     * The handling of options for widgets was not robust. This is now fixed and options
       are applied as requested.
