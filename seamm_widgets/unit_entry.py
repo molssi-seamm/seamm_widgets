@@ -8,6 +8,7 @@ standardize the user interface presented to the user.
 """
 
 import logging
+
 from seamm_util import Q_, units_class, default_units
 import seamm_widgets as sw
 import tkinter as tk
@@ -26,6 +27,7 @@ options = {
         "unitsheight": "height",
         "unitsjustify": "justify",
         "postcommand": "postcommand",
+        "state": "state",
         "style": "style",
         "unitstakefocus": "takefocus",
         "variable": "textvariable",
@@ -33,6 +35,7 @@ options = {
         "unitsvalidatecommand": "validatecommand",
         "unitswidth": "width",
         "unitsxscrollcommand": "xscrollcommand",
+        "unitsstate": "state",
     },
 }
 
@@ -45,10 +48,9 @@ class UnitEntry(sw.LabeledEntry):
         myoptions = {
             "height": 7,
             "width": 10,
-            "state": "readonly",
         }
         for option, myoption in options["units"].items():
-            if option in kwargs:
+            if option != "class_" and option in kwargs:
                 myoptions[myoption] = kwargs.pop(option)
 
         # Create our parent
@@ -158,7 +160,16 @@ class UnitEntry(sw.LabeledEntry):
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
         unitentry = options["unitentry"]
-        units = options["units"]
+        opts = options["units"]
+
+        if len(kwargs) == 0:
+            # Querying the configuration
+            result = super().config()
+            for key, value in self.units.config().items():
+                for k, v in opts.items():
+                    if key == v:
+                        result[k] = value
+            return result
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]
@@ -166,12 +177,15 @@ class UnitEntry(sw.LabeledEntry):
             if k in unitentry and unitentry[k] in self.__dict__:
                 v = kwargs.pop(k)
                 self.__dict__[unitentry[k]] = v
-            elif k in units:
+            elif k in opts:
                 v = kwargs.pop(k)
-                self.units.config(**{units[k]: v})
+                self.units.config(**{opts[k]: v})
 
         # having removed our options, pass rest to parent
         super().config(**kwargs)
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
 
     def state(self, stateSpec=None):
         """Set the state of the widget"""

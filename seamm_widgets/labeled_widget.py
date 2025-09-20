@@ -74,7 +74,7 @@ class LabeledWidget(ttk.Frame):
             "padding": 0,
         }
         for option, myoption in options["label"].items():
-            if option in kwargs:
+            if option != "class_" and option in kwargs:
                 myoptions[myoption] = kwargs.pop(option)
 
         # Create our parent
@@ -155,24 +155,35 @@ class LabeledWidget(ttk.Frame):
 
     def config(self, **kwargs):
         """Set the configuration of the megawidget"""
-
         logger.debug("LabeledWidget options")
         # The options that we deal with this
-        label = options["label"]
+        opts = options["label"]
+
+        if len(kwargs) == 0:
+            # Querying the configuration
+            result = {}
+            for key, value in self.label.config().items():
+                for k, v in opts.items():
+                    if key == v:
+                        result[k] = value
+            return result
 
         # cannot modify kwargs while iterating over it...
         keys = [*kwargs.keys()]
         for k in keys:
-            if k in label:
+            if k in opts:
                 v = kwargs.pop(k)
-                logger.debug("   {} --> {}: {}".format(k, label[k], v))
-                self.label.config(**{label[k]: v})
+                logger.debug("   {} --> {}: {}".format(k, opts[k], v))
+                self.label.config(**{opts[k]: v})
             elif k == "labelpos":
                 self.labelpos = kwargs.pop(k)
             else:
                 # Since this is the base class, raise an error force
                 # unrecognized options
                 raise RuntimeError("Unknown option '{}'".format(k))
+
+    def configure(self, **kwargs):
+        return self.config(**kwargs)
 
     def state(self, stateSpec=None):
         """Set the state of the widget"""
