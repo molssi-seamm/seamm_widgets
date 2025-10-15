@@ -51,7 +51,7 @@ class LabeledEntry(sw.LabeledWidget):
 
         # Create our parent
         class_ = kwargs.pop("class_", "MLabeledEntry")
-        super().__init__(parent, class_=class_)
+        super().__init__(parent, class_=class_, *args, **kwargs)
 
         interior = self.interior
 
