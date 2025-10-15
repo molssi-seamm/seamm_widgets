@@ -1,7 +1,10 @@
 =======
 History
 =======
-2925.9.20 -- Bugfix: Fixed error typing into entry widgets
+2025.10.15 -- Bugfix: Fixed error with labels on labeled entries
+    * The label for labeled entries was not displayed. This fixes this.
+      
+2025.9.20 -- Bugfix: Fixed error typing into entry widgets
     * The last release inadvertently caused issues with the bindings for the entry
       widgets, which made it impossible to type text into them. This is fixed.
       
