@@ -1,6 +1,10 @@
 =======
 History
 =======
+2025.10.22 -- Enhancement for extra keywords
+    * Small enhancement to the GUI code to allow a code, such as VASP, that always has
+      keyword = value to let the extra keywords tab know there will always be a value.
+
 2025.10.15 -- Bugfix: Fixed error with labels on labeled entries
     * The label for labeled entries was not displayed. This fixes this.
       
