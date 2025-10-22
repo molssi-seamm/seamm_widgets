@@ -40,7 +40,8 @@ class Keywords(sw.ScrolledFrame):
         yscrollbar=None,
         background=None,
         logger=module_logger,
-        **kwargs
+        default_number_values=None,
+        **kwargs,
     ):
         """ """
         self.logger = logger
@@ -53,6 +54,7 @@ class Keywords(sw.ScrolledFrame):
         self.value_cb = None
         self.set_keyword_cb = None
         self.popup_menu = None
+        self.default_number_values = default_number_values
 
         class_ = kwargs.pop("class_", "MKeywords")
 
@@ -72,7 +74,7 @@ class Keywords(sw.ScrolledFrame):
             yscrollbar=yscrollbar,
             background=background,
             inner_frame=ttk.Frame,
-            **kwargs
+            **kwargs,
         )
 
         # After everything is set up can put in the keywords and metadata
@@ -221,7 +223,7 @@ class Keywords(sw.ScrolledFrame):
             widgets["entry"].grid(row=row, column=col, stick=tk.EW)
             col += 1
 
-            if keyword == "":
+            if keyword == "" and self.default_number_values is None:
                 continue
 
             if keyword not in self._metadata:
@@ -233,33 +235,43 @@ class Keywords(sw.ScrolledFrame):
                 if len(possible_keywords) == 1:
                     keyword = possible_keywords[0]
 
+            if "value" in d:
+                value = d["value"]
+            else:
+                value = ""
             if keyword not in self._metadata:
-                continue
-            definition = self._metadata[keyword]
-            if "takes values" in definition:
+                if self.default_number_values is None:
+                    continue
+            else:
+                definition = self._metadata[keyword]
+                if (
+                    "takes values" not in definition
+                    and self.default_number_values is None
+                ):
+                    continue
                 if "value" not in d:
-                    d["value"] = definition["default"]
+                    value = definition["default"]
+            d["value"] = value
+            if "value" not in widgets:
+                widgets["value"] = ttk.Entry(
+                    frame,
+                    width=20,
+                    validate="key",
+                    validatecommand=(
+                        self.value_cb,
+                        keyword,
+                        "%W",
+                        "%P",
+                        "%s",
+                        "%d",
+                        "%S",
+                    ),
+                    takefocus=True,
+                )
+                widgets["value"].insert("end", value)
+            widgets["value"].focus_set()
 
-                if "value" not in widgets:
-                    widgets["value"] = ttk.Entry(
-                        frame,
-                        width=20,
-                        validate="key",
-                        validatecommand=(
-                            self.value_cb,
-                            keyword,
-                            "%W",
-                            "%P",
-                            "%s",
-                            "%d",
-                            "%S",
-                        ),
-                        takefocus=True,
-                    )
-                    widgets["value"].insert("end", d["value"])
-                    widgets["value"].focus_set()
-
-                widgets["value"].grid(row=row, column=col, sticky=tk.EW)
+            widgets["value"].grid(row=row, column=col, sticky=tk.EW)
 
         # The button to add a row...
         row += 1
@@ -295,18 +307,22 @@ class Keywords(sw.ScrolledFrame):
                 if len(possible_keywords) == 1:
                     keyword = possible_keywords[0]
 
-            if keyword in self._metadata:
-                definition = self._metadata[keyword]
-                if "takes values" in definition:
-                    value = widgets["value"].get().strip()
-                    if value == "":
-                        keywords.append(keyword)
-                    else:
-                        result = definition["format"].format(keyword, value)
-                        keywords.append(result)
-                else:
+            if "value" in widgets:
+                value = widgets["value"].get().strip()
+                if value == "":
                     keywords.append(keyword)
-
+                else:
+                    if (
+                        keyword in self._metadata
+                        and "format" in self._metadata[keyword]
+                    ):
+                        definition = self._metadata[keyword]
+                        result = definition["format"].format(keyword, value)
+                    else:
+                        result = f"{keyword}={value}"
+                    keywords.append(result)
+            else:
+                keywords.append(keyword)
         return keywords
 
     def handle_keyword(self, keyword, row, w_name, value, before, action, changed):
@@ -468,11 +484,17 @@ class Keywords(sw.ScrolledFrame):
         w = data["widgets"]["entry"]
         current = w.get()
 
+        if current == "":
+            return "break"
+
         defs = self._metadata
         keywords = []
         for keyword in defs:
             if keyword.startswith(current):
                 keywords.append(keyword)
+
+        if len(keywords) == 0:
+            return "break"
 
         prefix = lcp(*keywords)
         self.logger.debug('prefix = "{}", current = "{}"'.format(prefix, current))
@@ -590,13 +612,9 @@ if __name__ == "__main__":  # pragma: no cover
         dialog.deactivate(result)
         if result == "OK":
             keywords = w.get_keywords()
-            print("OK")
-            print(keywords)
             w.keywords = keywords
         else:
             w.reset()
-            print("Cancel")
-            print(w.keywords)
 
     ##################################################
     # Initialize Tk
