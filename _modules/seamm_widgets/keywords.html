@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.keywords &mdash; SEAMM Widgets 2025.10.15 documentation</title>
+  <title>seamm_widgets.keywords &mdash; SEAMM Widgets 2025.10.22 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=5d99d348"></script>
+      <script src="../../_static/documentation_options.js?v=3b403349"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -139,7 +139,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">yscrollbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">background</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">logger</span><span class="o">=</span><span class="n">module_logger</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
+        <span class="n">default_number_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
@@ -152,6 +153,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="bp">self</span><span class="o">.</span><span class="n">value_cb</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_keyword_cb</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">popup_menu</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="o">=</span> <span class="n">default_number_values</span>
 
         <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MKeywords&quot;</span><span class="p">)</span>
 
@@ -171,7 +173,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="n">yscrollbar</span><span class="o">=</span><span class="n">yscrollbar</span><span class="p">,</span>
             <span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">,</span>
             <span class="n">inner_frame</span><span class="o">=</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># After everything is set up can put in the keywords and metadata</span>
@@ -328,7 +330,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">stick</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
             <span class="n">col</span> <span class="o">+=</span> <span class="mi">1</span>
 
-            <span class="k">if</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
@@ -340,33 +342,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">keyword</span> <span class="o">=</span> <span class="n">possible_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
-            <span class="k">if</span> <span class="s2">&quot;takes values&quot;</span> <span class="ow">in</span> <span class="n">definition</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="s2">&quot;takes values&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">definition</span>
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span>
+                <span class="p">):</span>
+                    <span class="k">continue</span>
                 <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
+                    <span class="n">frame</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
+                    <span class="n">validatecommand</span><span class="o">=</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">value_cb</span><span class="p">,</span>
+                        <span class="n">keyword</span><span class="p">,</span>
+                        <span class="s2">&quot;%W&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;%P&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;%S&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
 
-                <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
-                    <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
-                        <span class="n">frame</span><span class="p">,</span>
-                        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                        <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
-                        <span class="n">validatecommand</span><span class="o">=</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">value_cb</span><span class="p">,</span>
-                            <span class="n">keyword</span><span class="p">,</span>
-                            <span class="s2">&quot;%W&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;%P&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-                            <span class="s2">&quot;%S&quot;</span><span class="p">,</span>
-                        <span class="p">),</span>
-                        <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="p">)</span>
-                    <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
-                    <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
-
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
 
         <span class="c1"># The button to add a row...</span>
         <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -405,18 +417,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">keyword</span> <span class="o">=</span> <span class="n">possible_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
-                <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
-                <span class="k">if</span> <span class="s2">&quot;takes values&quot;</span> <span class="ow">in</span> <span class="n">definition</span><span class="p">:</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">result</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-                        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                     <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
-
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">keyword</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+                        <span class="ow">and</span> <span class="s2">&quot;format&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
+                    <span class="p">):</span>
+                        <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">keywords</span></div>
 
 
@@ -605,11 +621,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">w</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
+        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;break&quot;</span>
+
         <span class="n">defs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
         <span class="n">keywords</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">defs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">keyword</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">current</span><span class="p">):</span>
                 <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;break&quot;</span>
 
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">(</span><span class="o">*</span><span class="n">keywords</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;prefix = &quot;</span><span class="si">{}</span><span class="s1">&quot;, current = &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
@@ -732,13 +754,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
             <span class="n">keywords</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_keywords</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span>
             <span class="n">w</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">w</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cancel&quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">keywords</span><span class="p">)</span>
 
     <span class="c1">##################################################</span>
     <span class="c1"># Initialize Tk</span>
