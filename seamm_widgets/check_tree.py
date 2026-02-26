@@ -3,8 +3,7 @@
 """A Tk widget for a tree of checkboxes."""
 
 import logging
-from pathlib import Path
-import pkg_resources
+import importlib
 import tkinter as tk
 from tkinter import ttk
 
@@ -63,7 +62,7 @@ class CheckTree(sw.LabeledWidget):
         self.frame.rowconfigure(0, weight=1)
         self.frame.columnconfigure(0, weight=1)
 
-        path = Path(pkg_resources.resource_filename(__name__, "data/"))
+        path = importlib.resources.files("seamm_widgets") / "data"
 
         self.checked_image = ImageTk.PhotoImage(Image.open(path / "checked.png"))
         self.unchecked_image = ImageTk.PhotoImage(Image.open(path / "unchecked.png"))
