@@ -24,6 +24,7 @@ in composing a reasonable natural language statement, such as:
     entries that contain a keyword like molecule
     entries that do not contain a author like Doe, John
 """
+
 import logging
 import tkinter as tk
 from tkinter import ttk
