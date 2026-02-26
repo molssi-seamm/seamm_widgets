@@ -4,7 +4,6 @@
 
 import logging
 import importlib
-from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
