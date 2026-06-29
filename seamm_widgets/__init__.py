@@ -18,6 +18,12 @@ from seamm_widgets.property_table import PropertyTable  # noqa: F401
 from seamm_widgets.labeled_entry import LabeledEntry  # noqa: F401
 from seamm_widgets.labeled_combobox import LabeledCombobox  # noqa: F401
 from seamm_widgets.periodic_table import PeriodicTable  # noqa: F401
+from seamm_widgets.basis_set_selector import (  # noqa: F401
+    BasisSetField,
+    BasisSetSelector,
+    filter_basis_names,
+    orbital_basis_metadata,
+)
 from seamm_widgets.unit_entry import UnitEntry  # noqa: F401
 from seamm_widgets.unit_combobox import UnitCombobox  # noqa: F401
 from seamm_widgets.search_criteria import Criterion  # noqa: F401

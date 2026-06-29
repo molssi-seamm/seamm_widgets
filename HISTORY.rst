@@ -1,6 +1,15 @@
 =======
 History
 =======
+2026.6.28 -- A Basis Set Exchange basis-set picker
+    * Added BasisSetField, a basis-set name field with a '...' button, and
+      BasisSetSelector, the dialog it opens: a periodic table to choose the
+      elements of interest, narrowing a searchable list to the basis sets that
+      cover all of them. A choice is returned as 'bse:NAME'.
+    * Shared by the quantum-chemistry plug-ins (ORCA, Gaussian, Psi4, ...). The
+      Basis Set Exchange is loaded only when the picker is opened, so the package
+      gains no required dependency on it.
+
 2026.2.26 -- Internal: moving from pkg_resources to importlib.resources
 
 2025.10.22 -- Enhancement for extra keywords
