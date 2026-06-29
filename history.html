@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>History &mdash; SEAMM Widgets 2026.2.26 documentation</title>
+  <title>History &mdash; SEAMM Widgets 2026.6.28 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=0cc0f2be"></script>
+      <script src="_static/documentation_options.js?v=0bba250d"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
@@ -95,6 +95,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
              
   <section id="history">
 <h1>History<a class="headerlink" href="#history" title="Link to this heading"></a></h1>
+<dl class="simple">
+<dt>2026.6.28 – A Basis Set Exchange basis-set picker</dt><dd><ul class="simple">
+<li><p>Added BasisSetField, a basis-set name field with a ‘…’ button, and
+BasisSetSelector, the dialog it opens: a periodic table to choose the
+elements of interest, narrowing a searchable list to the basis sets that
+cover all of them. A choice is returned as ‘bse:NAME’.</p></li>
+<li><p>Shared by the quantum-chemistry plug-ins (ORCA, Gaussian, Psi4, …). The
+Basis Set Exchange is loaded only when the picker is opened, so the package
+gains no required dependency on it.</p></li>
+</ul>
+</dd>
+</dl>
 <p>2026.2.26 – Internal: moving from pkg_resources to importlib.resources</p>
 <dl class="simple">
 <dt>2025.10.22 – Enhancement for extra keywords</dt><dd><ul class="simple">

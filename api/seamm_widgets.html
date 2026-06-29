@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.2.26 documentation</title>
+  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.6.28 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=0cc0f2be"></script>
+      <script src="../_static/documentation_options.js?v=0bba250d"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
@@ -96,6 +96,153 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h1>seamm_widgets package<a class="headerlink" href="#seamm-widgets-package" title="Link to this heading"></a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-seamm_widgets.basis_set_selector">
+<span id="seamm-widgets-basis-set-selector-module"></span><h2>seamm_widgets.basis_set_selector module<a class="headerlink" href="#module-seamm_widgets.basis_set_selector" title="Link to this heading"></a></h2>
+<p>A dialog for choosing a basis set from the Basis Set Exchange (BSE).</p>
+<p>The user picks the elements their calculations need on a periodic table; the list
+is narrowed to the basis sets that cover <em>all</em> of those elements, so a single
+basis can be chosen that works for every compound of interest. A text filter
+helps when the list is long.</p>
+<p>This widget is shared by the quantum-chemistry plug-ins (ORCA, Gaussian, Psi4,
+…). It returns the basis-set name; callers typically store it as <code class="docutils literal notranslate"><span class="pre">bse:NAME</span></code>
+so the consuming code fetches that exact definition from the Exchange.</p>
+<p>The Basis Set Exchange package is imported lazily (only when the dialog is
+actually opened), so <code class="docutils literal notranslate"><span class="pre">seamm_widgets</span></code> carries no hard dependency on it – the
+quantum-chemistry plug-ins that use this dialog provide it.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">seamm_widgets.basis_set_selector.</span></span><span class="sig-name descname"><span class="pre">BasisSetField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#seamm_widgets.labeled_widget.LabeledWidget" title="seamm_widgets.labeled_widget.LabeledWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabeledWidget</span></code></a></p>
+<p>A labeled basis-set name field with a <code class="docutils literal notranslate"><span class="pre">...</span></code> button.</p>
+<p>The field is an editable combobox: type a name the quantum-chemistry code
+knows internally (e.g. <code class="docutils literal notranslate"><span class="pre">def2-TZVP</span></code>), or pick one of the <code class="docutils literal notranslate"><span class="pre">values</span></code> a code
+offers as quick choices. Pressing <code class="docutils literal notranslate"><span class="pre">...</span></code> opens a <a class="reference internal" href="#seamm_widgets.basis_set_selector.BasisSetSelector" title="seamm_widgets.basis_set_selector.BasisSetSelector"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasisSetSelector</span></code></a>;
+the chosen basis is written back as <code class="docutils literal notranslate"><span class="pre">bse:NAME</span></code>, which forces that exact
+Basis Set Exchange definition (the consuming code fetches it from the
+Exchange). When no <code class="docutils literal notranslate"><span class="pre">values</span></code> are given it behaves as a plain entry + button.</p>
+<p>To preselect the current system’s elements in the dialog, set
+<a class="reference internal" href="#seamm_widgets.basis_set_selector.BasisSetField.elements_callback" title="seamm_widgets.basis_set_selector.BasisSetField.elements_callback"><code class="xref py py-attr docutils literal notranslate"><span class="pre">elements_callback</span></code></a> to a function returning their symbols.</p>
+<p>The value is a dict <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">&lt;basis&gt;,</span> <span class="pre">&quot;elements&quot;:</span> <span class="pre">[&lt;symbols&gt;]}</span></code> – the
+elements are remembered so the dialog can be reconstructed (the periodic-table
+selection restored, the basis re-highlighted) on reopen. <code class="docutils literal notranslate"><span class="pre">set</span></code> also accepts
+a plain string (a name with no remembered elements) for backward
+compatibility, and <code class="docutils literal notranslate"><span class="pre">get</span></code> always returns the dict.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.config">
+<span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField.config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.config" title="Link to this definition"></a></dt>
+<dd><p>Pass <code class="docutils literal notranslate"><span class="pre">state</span></code>/<code class="docutils literal notranslate"><span class="pre">values</span></code> to the combobox; everything else to parent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField.configure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.configure" title="Link to this definition"></a></dt>
+<dd><p>Configure resources of a widget.</p>
+<p>The values for resources are specified as keyword
+arguments. To get an overview about
+the allowed keyword arguments call the method keys.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.elements_callback">
+<span class="sig-name descname"><span class="pre">elements_callback</span></span><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.elements_callback" title="Link to this definition"></a></dt>
+<dd><p>A callable returning element symbols to preselect in the dialog.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.get" title="Link to this definition"></a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">&lt;text&gt;,</span> <span class="pre">&quot;elements&quot;:</span> <span class="pre">[&lt;symbols&gt;]}</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.get_name" title="Link to this definition"></a></dt>
+<dd><p>Return just the basis name (convenience for callers that ignore the
+remembered elements).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetField.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.set" title="Link to this definition"></a></dt>
+<dd><p>Set the field from a dict <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;,</span> <span class="pre">&quot;elements&quot;}</span></code> or a plain name.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetField.value">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetField.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetSelector">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">seamm_widgets.basis_set_selector.</span></span><span class="sig-name descname"><span class="pre">BasisSetSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Select</span> <span class="pre">a</span> <span class="pre">basis</span> <span class="pre">set</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">Basis</span> <span class="pre">Set</span> <span class="pre">Exchange'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;Logger</span> <span class="pre">seamm_widgets.basis_set_selector</span> <span class="pre">(WARNING)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetSelector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetSelector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A modal dialog for choosing a basis set from the Basis Set Exchange.</p>
+<p>Create once, then call <a class="reference internal" href="#seamm_widgets.basis_set_selector.BasisSetSelector.ask" title="seamm_widgets.basis_set_selector.BasisSetSelector.ask"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ask()</span></code></a> (optionally with elements to preselect)
+each time you need a choice; it returns the chosen basis-set display name, or
+<code class="docutils literal notranslate"><span class="pre">None</span></code> if cancelled.</p>
+<p>Example (pseudo-code; needs a Tk parent and a display):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">selector</span> <span class="o">=</span> <span class="n">BasisSetSelector</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.BasisSetSelector.ask">
+<span class="sig-name descname"><span class="pre">ask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#BasisSetSelector.ask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.BasisSetSelector.ask" title="Link to this definition"></a></dt>
+<dd><p>Show the dialog modally; return <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">elements)</span></code> (or <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">None)</span></code>
+if cancelled).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> (<em>iterable</em><em> of </em><em>str</em>) – Element symbols to preselect on the periodic table (e.g. those used
+last time, or the current system’s), narrowing the initial list.</p></li>
+<li><p><strong>current</strong> (<em>str</em><em>, </em><em>optional</em>) – A basis display name to highlight in the list (the current choice).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(basis_name,</span> <span class="pre">[element_symbols])</span></code> chosen on OK, else <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">None)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.filter_basis_names">
+<span class="sig-prename descclassname"><span class="pre">seamm_widgets.basis_set_selector.</span></span><span class="sig-name descname"><span class="pre">filter_basis_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#filter_basis_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.filter_basis_names" title="Link to this definition"></a></dt>
+<dd><p>Display names of basis sets covering all <cite>elements</cite> and matching <cite>search</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<em>dict</em>) – BSE metadata keyed by basis name (e.g. from <cite>orbital_basis_metadata</cite>).</p></li>
+<li><p><strong>elements</strong> (<em>iterable</em><em> of </em><em>str</em>) – Element symbols the basis must <em>all</em> cover. Empty means no element
+filter.</p></li>
+<li><p><strong>search</strong> (<em>str</em>) – Case-insensitive substring matched against the display name (and family).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matching display names, sorted case-insensitively.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="seamm_widgets.basis_set_selector.orbital_basis_metadata">
+<span class="sig-prename descclassname"><span class="pre">seamm_widgets.basis_set_selector.</span></span><span class="sig-name descname"><span class="pre">orbital_basis_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/basis_set_selector.html#orbital_basis_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.basis_set_selector.orbital_basis_metadata" title="Link to this definition"></a></dt>
+<dd><p>The Basis Set Exchange metadata for the orbital basis sets, by name.</p>
+<p>Auxiliary/fitting sets (jfit, rifit, …) are excluded – only the orbital
+basis sets a user selects as “the basis” are returned. <code class="docutils literal notranslate"><span class="pre">basis_set_exchange</span></code>
+is imported here (lazily) so importing this module does not require it.</p>
+</dd></dl>
+
 </section>
 <section id="module-seamm_widgets.check_tree">
 <span id="seamm-widgets-check-tree-module"></span><h2>seamm_widgets.check_tree module<a class="headerlink" href="#module-seamm_widgets.check_tree" title="Link to this heading"></a></h2>

@@ -4,6 +4,14 @@ seamm\_widgets package
 Submodules
 ----------
 
+seamm\_widgets.basis\_set\_selector module
+------------------------------------------
+
+.. automodule:: seamm_widgets.basis_set_selector
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 seamm\_widgets.check\_tree module
 ---------------------------------
 
