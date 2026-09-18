@@ -1,7 +1,7 @@
 =======
 History
 =======
-2026.9.17 -- Bugfix: pip metadata lacked requests
+2026.9.18 -- Bugfix: pip metadata lacked requests
     * ``pip install seamm-widgets`` did not install ``requests``, which the HTML
       widgets import, so seamm-widgets failed to import outside a conda-forge
       environment (whose recipe already listed it). It is now an install requirement.
