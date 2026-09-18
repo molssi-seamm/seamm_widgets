@@ -1,6 +1,11 @@
 =======
 History
 =======
+2026.9.17 -- Bugfix: pip metadata lacked requests
+    * ``pip install seamm-widgets`` did not install ``requests``, which the HTML
+      widgets import, so seamm-widgets failed to import outside a conda-forge
+      environment (whose recipe already listed it). It is now an install requirement.
+
 2026.6.28 -- A Basis Set Exchange basis-set picker
     * Added BasisSetField, a basis-set name field with a '...' button, and
       BasisSetSelector, the dialog it opens: a periodic table to choose the
