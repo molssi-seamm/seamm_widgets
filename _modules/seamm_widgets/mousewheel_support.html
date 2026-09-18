@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.mousewheel_support &mdash; SEAMM Widgets 2026.6.28 documentation</title>
+  <title>seamm_widgets.mousewheel_support &mdash; SEAMM Widgets 2026.9.18 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0bba250d"></script>
+      <script src="../../_static/documentation_options.js?v=4c890157"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,17 +94,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.mousewheel_support</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;Add support for the mousewheel to scrolled widgets</span>
+<span class="sd">"""Add support for the mousewheel to scrolled widgets</span>
 
 <span class="sd">Based on a version:</span>
 <span class="sd"># Version: 0.22</span>
 <span class="sd"># Author: Miguel Martinez Lopez</span>
 <span class="sd"># Uncomment the next line to see my email</span>
-<span class="sd"># print(&quot;Author&#39;s email: &quot;,</span>
-<span class="sd"># &quot;61706c69636163696f6e616d656469646140676d61696c2e636f6d&quot;.decode(&quot;hex&quot;))</span>
+<span class="sd"># print("Author's email: ",</span>
+<span class="sd"># "61706c69636163696f6e616d656469646140676d61696c2e636f6d".decode("hex"))</span>
 
 <span class="sd">with minor changes.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
 
@@ -130,7 +130,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">vertical_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="n">natural_scroll_direction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the instance"""</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span> <span class="o">=</span> <span class="n">natural_scroll_direction</span>
@@ -138,19 +138,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">horizontal_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_factor</span> <span class="o">=</span> <span class="n">horizontal_factor</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Vertical factor must be an integer.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">"Vertical factor must be an integer."</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vertical_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vertical_factor</span> <span class="o">=</span> <span class="n">vertical_factor</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Horizontal factor must be an integer.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">"Horizontal factor must be an integer."</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
-            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;4&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
-            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;5&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Linux"</span><span class="p">:</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;4&gt;"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">"+"</span><span class="p">)</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;5&gt;"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">"+"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Windows and MacOS</span>
-            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;MouseWheel&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+            <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;MouseWheel&gt;"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_mousewheel</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="s2">"+"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_on_mousewheel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_area</span><span class="p">:</span>
@@ -169,7 +169,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">xscrollbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">yscrollbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">what</span><span class="o">=</span><span class="s2">&quot;units&quot;</span><span class="p">,</span>
+        <span class="n">what</span><span class="o">=</span><span class="s2">"units"</span><span class="p">,</span>
         <span class="n">horizontal_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">vertical_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -180,25 +180,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="n">horizontal_factor</span> <span class="o">=</span> <span class="n">horizontal_factor</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizontal_factor</span>
 
             <span class="n">xscrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_mouse_wheel_handler</span><span class="p">(</span>
-                <span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">horizontal_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
+                <span class="n">widget</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">horizontal_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
             <span class="p">)</span>
             <span class="n">xscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
-                <span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">"&lt;Enter&gt;"</span><span class="p">,</span>
                 <span class="k">lambda</span> <span class="n">event</span><span class="p">,</span> <span class="n">scrollbar</span><span class="o">=</span><span class="n">xscrollbar</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">scrollbar</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="n">xscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+            <span class="n">xscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Leave&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
 
         <span class="k">if</span> <span class="n">yscrollbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">vertical_factor</span> <span class="o">=</span> <span class="n">vertical_factor</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertical_factor</span>
 
             <span class="n">yscrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_mouse_wheel_handler</span><span class="p">(</span>
-                <span class="n">widget</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">vertical_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
+                <span class="n">widget</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">vertical_factor</span><span class="p">,</span> <span class="n">what</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">natural_scroll_direction</span>
             <span class="p">)</span>
             <span class="n">yscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
-                <span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">"&lt;Enter&gt;"</span><span class="p">,</span>
                 <span class="k">lambda</span> <span class="n">event</span><span class="p">,</span> <span class="n">scrollbar</span><span class="o">=</span><span class="n">yscrollbar</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">scrollbar</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="n">yscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+            <span class="n">yscrollbar</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Leave&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
 
         <span class="n">main_scrollbar</span> <span class="o">=</span> <span class="n">yscrollbar</span> <span class="k">if</span> <span class="n">yscrollbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">xscrollbar</span>
 
@@ -206,62 +206,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
                 <span class="n">list_of_widgets</span> <span class="o">=</span> <span class="n">widget</span>
                 <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">list_of_widgets</span><span class="p">:</span>
-                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
-                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Enter&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Leave&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
 
                     <span class="n">widget</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="n">main_scrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Enter&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
-                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Leave&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Enter&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_bind</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Leave&gt;"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mousewheel_unbind</span><span class="p">())</span>
 
                 <span class="n">widget</span><span class="o">.</span><span class="n">onMouseWheel</span> <span class="o">=</span> <span class="n">main_scrollbar</span><span class="o">.</span><span class="n">onMouseWheel</span></div>
 
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_make_mouse_wheel_handler</span><span class="p">(</span>
-        <span class="n">widget</span><span class="p">,</span> <span class="n">orient</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="n">natural_scroll_direction</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">widget</span><span class="p">,</span> <span class="n">orient</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">"units"</span><span class="p">,</span> <span class="n">natural_scroll_direction</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">):</span>
-        <span class="n">view_command</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">orient</span> <span class="o">+</span> <span class="s2">&quot;view&quot;</span><span class="p">)</span>
+        <span class="n">view_command</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">orient</span> <span class="o">+</span> <span class="s2">"view"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">natural_scroll_direction</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Linux"</span><span class="p">:</span>
 
                 <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
-
-                <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span><span class="p">)</span>
-
-            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Windows"</span><span class="p">:</span>
 
                 <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Darwin"</span><span class="p">:</span>
+
+                <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Linux"</span><span class="p">:</span>
 
                 <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">num</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-                        <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                        <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
 
-            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Windows"</span><span class="p">:</span>
 
                 <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
                     <span class="n">view_command</span><span class="p">(</span>
-                        <span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span>
+                        <span class="s2">"scroll"</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">delta</span> <span class="o">/</span> <span class="mi">120</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span> <span class="n">what</span>
                     <span class="p">)</span>
 
-            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">OS</span> <span class="o">==</span> <span class="s2">"Darwin"</span><span class="p">:</span>
 
                 <span class="k">def</span><span class="w"> </span><span class="nf">onMouseWheel</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
-                    <span class="n">view_command</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                    <span class="n">view_command</span><span class="p">(</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">delta</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">onMouseWheel</span></div>
 

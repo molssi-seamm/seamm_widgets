@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.labeled_entry &mdash; SEAMM Widgets 2026.6.28 documentation</title>
+  <title>seamm_widgets.labeled_entry &mdash; SEAMM Widgets 2026.9.18 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0bba250d"></script>
+      <script src="../../_static/documentation_options.js?v=4c890157"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,12 +94,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.labeled_entry</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;Labeled entry widget.</span>
+<span class="sd">"""Labeled entry widget.</span>
 
 <span class="sd">The goal of these widgets is twofold: to make it easier for developers</span>
 <span class="sd">to implement dialogs with compound widgets, and to naturally</span>
 <span class="sd">standardize the user interface presented to the user.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
@@ -110,22 +110,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;class_&quot;</span><span class="p">:</span> <span class="s2">&quot;class_&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;cursor&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;exportselection&quot;</span><span class="p">:</span> <span class="s2">&quot;exportselection&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;font&quot;</span><span class="p">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;invalidcommand&quot;</span><span class="p">:</span> <span class="s2">&quot;invalidcommand&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;justify&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;show&quot;</span><span class="p">:</span> <span class="s2">&quot;show&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;takefocus&quot;</span><span class="p">:</span> <span class="s2">&quot;takefocus&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;textvariable&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;validate&quot;</span><span class="p">:</span> <span class="s2">&quot;validate&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;validatecommand&quot;</span><span class="p">:</span> <span class="s2">&quot;validatecommand&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;xscrollcommand&quot;</span><span class="p">:</span> <span class="s2">&quot;xscrollcommand&quot;</span><span class="p">,</span>
+    <span class="s2">"entry"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"class_"</span><span class="p">:</span> <span class="s2">"class_"</span><span class="p">,</span>
+        <span class="s2">"cursor"</span><span class="p">:</span> <span class="s2">"cursor"</span><span class="p">,</span>
+        <span class="s2">"exportselection"</span><span class="p">:</span> <span class="s2">"exportselection"</span><span class="p">,</span>
+        <span class="s2">"font"</span><span class="p">:</span> <span class="s2">"font"</span><span class="p">,</span>
+        <span class="s2">"invalidcommand"</span><span class="p">:</span> <span class="s2">"invalidcommand"</span><span class="p">,</span>
+        <span class="s2">"justify"</span><span class="p">:</span> <span class="s2">"justify"</span><span class="p">,</span>
+        <span class="s2">"show"</span><span class="p">:</span> <span class="s2">"show"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"state"</span><span class="p">,</span>
+        <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"style"</span><span class="p">,</span>
+        <span class="s2">"takefocus"</span><span class="p">:</span> <span class="s2">"takefocus"</span><span class="p">,</span>
+        <span class="s2">"variable"</span><span class="p">:</span> <span class="s2">"textvariable"</span><span class="p">,</span>
+        <span class="s2">"validate"</span><span class="p">:</span> <span class="s2">"validate"</span><span class="p">,</span>
+        <span class="s2">"validatecommand"</span><span class="p">:</span> <span class="s2">"validatecommand"</span><span class="p">,</span>
+        <span class="s2">"width"</span><span class="p">:</span> <span class="s2">"width"</span><span class="p">,</span>
+        <span class="s2">"xscrollcommand"</span><span class="p">:</span> <span class="s2">"xscrollcommand"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">}</span>
 
@@ -134,19 +134,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LabeledEntry</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledWidget</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the instance"""</span>
         <span class="c1"># Pull out any options specific to the entry</span>
         <span class="n">myoptions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span>
-            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-            <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+            <span class="s2">"justify"</span><span class="p">:</span> <span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span>
+            <span class="s2">"width"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">myoption</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">&quot;class_&quot;</span> <span class="ow">and</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">myoption</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">"class_"</span> <span class="ow">and</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="n">myoptions</span><span class="p">[</span><span class="n">myoption</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
 
         <span class="c1"># Create our parent</span>
-        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MLabeledEntry&quot;</span><span class="p">)</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"class_"</span><span class="p">,</span> <span class="s2">"MLabeledEntry"</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">interior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span>
@@ -177,14 +177,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="LabeledEntry.show">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show only the specified subwidgets.</span>
-<span class="sd">        &#39;all&#39; or no arguments reverts to showing all&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Show only the specified subwidgets.</span>
+<span class="sd">        'all' or no arguments reverts to showing all"""</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
-        <span class="n">show_all</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span>
+        <span class="n">show_all</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"all"</span>
 
-        <span class="k">if</span> <span class="n">show_all</span> <span class="ow">or</span> <span class="s2">&quot;entry&quot;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">show_all</span> <span class="ow">or</span> <span class="s2">"entry"</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">grid_remove</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -194,7 +194,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="LabeledEntry.set">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry.set">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value of the entry widget&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the value of the entry widget"""</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">END</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -206,7 +206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="LabeledEntry.get">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry.get">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return the current value&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return the current value"""</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
@@ -214,10 +214,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="LabeledEntry.config">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry.config">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the configuration of the megawidget&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the configuration of the megawidget"""</span>
 
         <span class="c1"># our options that we deal with</span>
-        <span class="n">opts</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Querying the configuration</span>
@@ -248,7 +248,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="LabeledEntry.state">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.labeled_entry.LabeledEntry.state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stateSpec</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the state of the widget&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the state of the widget"""</span>
         <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">stateSpec</span><span class="p">)</span>
         <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">stateSpec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span> <span class="o">+</span> <span class="n">tmp</span></div>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.scrolled_frame &mdash; SEAMM Widgets 2026.6.28 documentation</title>
+  <title>seamm_widgets.scrolled_frame &mdash; SEAMM Widgets 2026.9.18 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0bba250d"></script>
+      <script src="../../_static/documentation_options.js?v=4c890157"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,17 +94,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.scrolled_frame</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;A Tk scrolled frame widget compatible with tkinter.ttk</span>
+<span class="sd">"""A Tk scrolled frame widget compatible with tkinter.ttk</span>
 
 <span class="sd">Based on a version:</span>
 <span class="sd"># Version: 0.22</span>
 <span class="sd"># Author: Miguel Martinez Lopez</span>
 <span class="sd"># Uncomment the next line to see my email</span>
-<span class="sd"># print(&quot;Author&#39;s email: &quot;,</span>
-<span class="sd"># &quot;61706c69636163696f6e616d656469646140676d61696c2e636f6d&quot;.decode(&quot;hex&quot;))</span>
+<span class="sd"># print("Author's email: ",</span>
+<span class="sd"># "61706c69636163696f6e616d656469646140676d61696c2e636f6d".decode("hex"))</span>
 
 <span class="sd">with minor changes.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">seamm_widgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sw</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tk</span>
@@ -129,8 +129,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">inner_frame</span><span class="o">=</span><span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MScrolledFrame&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">""" """</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"class_"</span><span class="p">,</span> <span class="s2">"MScrolledFrame"</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -159,7 +159,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NS</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">yview</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span><span class="p">[</span><span class="s2">"command"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">yview</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -173,7 +173,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">xscrollcommand</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">xview</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span><span class="p">[</span><span class="s2">"command"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">xview</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -184,10 +184,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">anchor</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span>
-            <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;nw&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="s2">&quot;inner_frame&quot;</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">"nw"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="s2">"inner_frame"</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Configure&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_canvas_configure</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">"&lt;Configure&gt;"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_canvas_configure</span><span class="p">)</span>
 
         <span class="n">sw</span><span class="o">.</span><span class="n">MousewheelSupport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">add_support_to</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">,</span> <span class="n">xscrollbar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">xscrollbar</span><span class="p">,</span> <span class="n">yscrollbar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">yscrollbar</span>
@@ -212,7 +212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="ScrolledFrame.interior">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_frame.ScrolledFrame.interior">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">interior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The frame that contains user widgets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The frame that contains user widgets"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span></div>
 
 
@@ -226,8 +226,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="o">.</span><span class="n">winfo_reqwidth</span><span class="p">(),</span> <span class="n">event</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
         <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="o">.</span><span class="n">winfo_reqheight</span><span class="p">(),</span> <span class="n">event</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">scrollregion</span><span class="o">=</span><span class="s2">&quot;0 0 </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfigure</span><span class="p">(</span><span class="s2">&quot;inner_frame&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">scrollregion</span><span class="o">=</span><span class="s2">"0 0 </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfigure</span><span class="p">(</span><span class="s2">"inner_frame"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ScrolledFrame.update_viewport">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.scrolled_frame.ScrolledFrame.update_viewport">[docs]</a>
@@ -248,12 +248,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="n">canvas_height</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_height</span><span class="p">,</span> <span class="n">window_height</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
-            <span class="n">scrollregion</span><span class="o">=</span><span class="s2">&quot;0 0 </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">),</span>
+            <span class="n">scrollregion</span><span class="o">=</span><span class="s2">"0 0 </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">window_width</span><span class="p">,</span> <span class="n">window_height</span><span class="p">),</span>
             <span class="n">width</span><span class="o">=</span><span class="n">canvas_width</span><span class="p">,</span>
             <span class="n">height</span><span class="o">=</span><span class="n">canvas_height</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfigure</span><span class="p">(</span>
-            <span class="s2">&quot;inner_frame&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">window_width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">window_height</span>
+            <span class="s2">"inner_frame"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">window_width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">window_height</span>
         <span class="p">)</span></div>
 </div>
 

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.keywords &mdash; SEAMM Widgets 2026.6.28 documentation</title>
+  <title>seamm_widgets.keywords &mdash; SEAMM Widgets 2026.9.18 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0bba250d"></script>
+      <script src="../../_static/documentation_options.js?v=4c890157"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,12 +94,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.keywords</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;A Tk scrolled frame containing and handling keywords.</span>
+<span class="sd">"""A Tk scrolled frame containing and handling keywords.</span>
 
 <span class="sd">This megawidget displays a list of keywords that the user can add to and also</span>
 <span class="sd">delete. It provides tab completion as the user types, highlights incorrect</span>
 <span class="sd">keywords in red and generally helps the user find the keywords they wish.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">takewhile</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
@@ -114,21 +114,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="lcp">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.lcp">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">lcp</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Longest common prefix of strings&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">))))</span></div>
+<span class="w">    </span><span class="sd">"""Longest common prefix of strings"""</span>
+    <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">s</span><span class="p">))))</span></div>
 
 
 
 <div class="viewcode-block" id="Keywords">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Keywords</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">ScrolledFrame</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A widget to handle manual input of keywords with optional values&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A widget to handle manual input of keywords with optional values"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">master</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">keywords</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">keywords</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">N</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -142,9 +142,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="n">default_number_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">""" """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span> <span class="o">=</span> <span class="s2">""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_widget</span> <span class="o">=</span> <span class="kc">None</span>
@@ -155,10 +155,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="bp">self</span><span class="o">.</span><span class="n">popup_menu</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="o">=</span> <span class="n">default_number_values</span>
 
-        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MKeywords&quot;</span><span class="p">)</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"class_"</span><span class="p">,</span> <span class="s2">"MKeywords"</span><span class="p">)</span>
 
         <span class="n">s</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Style</span><span class="p">()</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;Red.TEntry&quot;</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">"Red.TEntry"</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">master</span><span class="p">,</span>
@@ -178,36 +178,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="c1"># After everything is set up can put in the keywords and metadata</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span>
-        <span class="k">if</span> <span class="n">keywords</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keywords</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current keywords, reflecting changes in the widgets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The current keywords, reflecting changes in the widgets"""</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">:</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">result</span>
 
     <span class="nd">@keywords</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Keywords::keywords: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Keywords::keywords: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">keyword</span><span class="p">:</span>
-                    <span class="n">keyword</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">keyword</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;keyword&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+                <span class="k">if</span> <span class="s2">"="</span> <span class="ow">in</span> <span class="n">keyword</span><span class="p">:</span>
+                    <span class="n">keyword</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">keyword</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"="</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"keyword"</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;keyword&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;  keywords.setter call layout_keywords&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"keyword"</span><span class="p">:</span> <span class="n">keyword</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"  keywords.setter call layout_keywords"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current metadata&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The current metadata"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 
     <span class="nd">@metadata</span><span class="o">.</span><span class="n">setter</span>
@@ -225,28 +225,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.clear">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.clear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the widgets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove the widgets."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s2">&quot;widgets&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="s2">"widgets"</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                         <span class="n">widget</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
-                    <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span></div>
+                    <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="Keywords.reset">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.reset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove any changes made in the dialog.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Remove any changes made in the dialog."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keywords</span></div>
 
 
 <div class="viewcode-block" id="Keywords.layout_keywords">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.layout_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">layout_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Layout the table of additional keywords and any arguments they</span>
-<span class="sd">        need&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Keywords::layout_keywords&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Layout the table of additional keywords and any arguments they</span>
+<span class="sd">        need"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Keywords::layout_keywords"</span><span class="p">)</span>
 
         <span class="n">frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span>
 
@@ -266,71 +266,71 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
             <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">keyword</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="s2">&quot;widgets&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">keyword</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">"widgets"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span>
+                <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">]</span>
 
             <span class="c1"># The button to remove a row...</span>
-            <span class="k">if</span> <span class="s2">&quot;remove&quot;</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;remove&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+            <span class="k">if</span> <span class="s2">"remove"</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"remove"</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
                     <span class="n">command</span><span class="o">=</span><span class="k">lambda</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_keyword</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;remove&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"remove"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
                     <span class="n">frame</span><span class="p">,</span>
-                    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                    <span class="n">text</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span>
                     <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                     <span class="n">command</span><span class="o">=</span><span class="k">lambda</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_keyword</span><span class="p">(</span><span class="n">row</span><span class="p">),</span>
                     <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
 
-            <span class="k">if</span> <span class="s2">&quot;entry&quot;</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+            <span class="k">if</span> <span class="s2">"entry"</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
                     <span class="n">validatecommand</span><span class="o">=</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">keyword_cb</span><span class="p">,</span>
                         <span class="n">keyword</span><span class="p">,</span>
                         <span class="n">row</span><span class="p">,</span>
-                        <span class="s2">&quot;%W&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%P&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%S&quot;</span><span class="p">,</span>
+                        <span class="s2">"%W"</span><span class="p">,</span>
+                        <span class="s2">"%P"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"%S"</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># the name of the keyword</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
                     <span class="n">frame</span><span class="p">,</span>
                     <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_width</span><span class="p">,</span>
-                    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
+                    <span class="n">validate</span><span class="o">=</span><span class="s2">"key"</span><span class="p">,</span>
                     <span class="n">validatecommand</span><span class="o">=</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">keyword_cb</span><span class="p">,</span>
                         <span class="n">keyword</span><span class="p">,</span>
                         <span class="n">row</span><span class="p">,</span>
-                        <span class="s2">&quot;%W&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%P&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%S&quot;</span><span class="p">,</span>
+                        <span class="s2">"%W"</span><span class="p">,</span>
+                        <span class="s2">"%P"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"%S"</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Red.TEntry&quot;</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="s2">"Red.TEntry"</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">keyword</span><span class="p">)</span>
-            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
-                <span class="s2">&quot;&lt;KeyPress-Tab&gt;&quot;</span><span class="p">,</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">"end"</span><span class="p">,</span> <span class="n">keyword</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+                <span class="s2">"&lt;KeyPress-Tab&gt;"</span><span class="p">,</span>
                 <span class="k">lambda</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_tab</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span>
             <span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;  widgets: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">widgets</span><span class="p">))</span>
-            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;remove&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"  widgets: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">widgets</span><span class="p">))</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">"remove"</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
             <span class="n">col</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">stick</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">stick</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
             <span class="n">col</span> <span class="o">+=</span> <span class="mi">1</span>
 
-            <span class="k">if</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keyword</span> <span class="o">==</span> <span class="s2">""</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
@@ -342,50 +342,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">keyword</span> <span class="o">=</span> <span class="n">possible_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">"value"</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s2">""</span>
             <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">continue</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
                 <span class="k">if</span> <span class="p">(</span>
-                    <span class="s2">&quot;takes values&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">definition</span>
+                    <span class="s2">"takes values"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">definition</span>
                     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_number_values</span> <span class="ow">is</span> <span class="kc">None</span>
                 <span class="p">):</span>
                     <span class="k">continue</span>
-                <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
+                <span class="k">if</span> <span class="s2">"value"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="s2">"value"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span>
                     <span class="n">frame</span><span class="p">,</span>
                     <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                    <span class="n">validate</span><span class="o">=</span><span class="s2">&quot;key&quot;</span><span class="p">,</span>
+                    <span class="n">validate</span><span class="o">=</span><span class="s2">"key"</span><span class="p">,</span>
                     <span class="n">validatecommand</span><span class="o">=</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">value_cb</span><span class="p">,</span>
                         <span class="n">keyword</span><span class="p">,</span>
-                        <span class="s2">&quot;%W&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%P&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;%S&quot;</span><span class="p">,</span>
+                        <span class="s2">"%W"</span><span class="p">,</span>
+                        <span class="s2">"%P"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"</span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span>
+                        <span class="s2">"%S"</span><span class="p">,</span>
                     <span class="p">),</span>
                     <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+                <span class="n">widgets</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">"end"</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
 
-            <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
+            <span class="n">widgets</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">EW</span><span class="p">)</span>
 
         <span class="c1"># The button to add a row...</span>
         <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_widget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_add_widget</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
                 <span class="n">frame</span><span class="p">,</span>
-                <span class="n">text</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"+"</span><span class="p">,</span>
                 <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                 <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">add_keyword</span><span class="p">,</span>
                 <span class="n">takefocus</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -400,13 +400,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.get_keywords">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.get_keywords">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the values of the keywords from the widgets&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Keywords::get_keywords&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Get the values of the keywords from the widgets"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Keywords::get_keywords"</span><span class="p">)</span>
 
         <span class="n">keywords</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">:</span>
-            <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span>
-            <span class="n">keyword</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">]</span>
+            <span class="n">keyword</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">keyword</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
                 <span class="c1"># See if it is a unique prefix</span>
@@ -417,19 +417,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">keyword</span> <span class="o">=</span> <span class="n">possible_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"value"</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">widgets</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
                     <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span>
                         <span class="n">keyword</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
-                        <span class="ow">and</span> <span class="s2">&quot;format&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
+                        <span class="ow">and</span> <span class="s2">"format"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
                     <span class="p">):</span>
                         <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span>
-                        <span class="n">result</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">definition</span><span class="p">[</span><span class="s2">"format"</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
                     <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
@@ -439,7 +439,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.handle_keyword">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.handle_keyword">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">changed</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle typing in a combobox for the keyword</span>
+<span class="w">        </span><span class="sd">"""Handle typing in a combobox for the keyword</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            keyword: the MOPAC keyword</span>
@@ -448,30 +448,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="sd">            before: the value before the keystroke</span>
 <span class="sd">            action: 0 for deletion, 1 for insertion</span>
 <span class="sd">            changed: the text being inserted or deleted</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Keywords::handle_keyword&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Keywords::handle_keyword"</span><span class="p">)</span>
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nametowidget</span><span class="p">(</span><span class="n">w_name</span><span class="p">)</span>  <span class="c1"># nopep8</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Validating the keyword&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Validating the keyword"</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">changed</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">:</span>
-            <span class="n">changed</span> <span class="o">=</span> <span class="s2">&quot;TAB&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">keyword: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">    row: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">  value: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> before: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">before</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> action: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">changed: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">changed</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">changed</span> <span class="o">==</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">:</span>
+            <span class="n">changed</span> <span class="o">=</span> <span class="s2">"TAB"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">keyword: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">    row: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">  value: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2"> before: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">before</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2"> action: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">changed: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">changed</span><span class="p">))</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">metadata: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">metadata: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;TEntry&quot;</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"TEntry"</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;Red.TEntry&quot;</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"Red.TEntry"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">True</span></div>
 
@@ -479,13 +479,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.post_cb">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.post_cb">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">post_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle post command for the combobox &#39;w&#39;</span>
+<span class="w">        </span><span class="sd">"""Handle post command for the combobox 'w'</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            w_name: the name of the widget (from %W)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;keyword_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">"keyword_"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
         <span class="n">keywords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -499,7 +499,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.set_keyword_cb">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.set_keyword_cb">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_keyword_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Keywords::set_keyword_cb&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Keywords::set_keyword_cb"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
@@ -508,76 +508,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="viewcode-block" id="Keywords.add_keyword">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.add_keyword">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a keyword to the input&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;keyword&quot;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">})</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Add a keyword to the input"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"keyword"</span><span class="p">:</span> <span class="n">keyword</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">][</span><span class="s2">"entry"</span><span class="p">]</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Keywords.post_keyword_dialog">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.post_keyword_dialog">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">post_keyword_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Put up the dialog with the appropriate list of keywords&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Put up the dialog with the appropriate list of keywords"""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Create the dialog!&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""Create the dialog!"""</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span> <span class="o">=</span> <span class="n">Pmw</span><span class="o">.</span><span class="n">Dialog</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">toplevel</span><span class="p">,</span>
-                <span class="n">buttons</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="s2">&quot;Help&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancel&quot;</span><span class="p">),</span>
-                <span class="n">defaultbutton</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+                <span class="n">buttons</span><span class="o">=</span><span class="p">(</span><span class="s2">"OK"</span><span class="p">,</span> <span class="s2">"Help"</span><span class="p">,</span> <span class="s2">"Cancel"</span><span class="p">),</span>
+                <span class="n">defaultbutton</span><span class="o">=</span><span class="s2">"OK"</span><span class="p">,</span>
                 <span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Add keyword&quot;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s2">"Add keyword"</span><span class="p">,</span>
                 <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_keyword_dialog</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
             <span class="n">frame</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">interior</span><span class="p">())</span>
             <span class="n">frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">YES</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
-            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;keyword frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">"keyword frame"</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span>
 
-            <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;keyword tree&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">"keyword tree"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span>
                 <span class="n">frame</span><span class="p">,</span>
-                <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Keyword&quot;</span><span class="p">,</span> <span class="s2">&quot;Description&quot;</span><span class="p">),</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">"Keyword"</span><span class="p">,</span> <span class="s2">"Description"</span><span class="p">),</span>
             <span class="p">)</span>
             <span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">YES</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">)</span>
 
-            <span class="n">w</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Keyword&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Keyword&quot;</span><span class="p">)</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Description&quot;</span><span class="p">)</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;#0&quot;</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Keyword&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">"Keyword"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Keyword"</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">"Description"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Description"</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"#0"</span><span class="p">,</span> <span class="n">minwidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Keyword"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">:</span>
-                <span class="n">description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">][</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
-                <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="n">keyword</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">description</span><span class="p">))</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">keyword</span><span class="p">][</span><span class="s2">"description"</span><span class="p">]</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="n">keyword</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">description</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;centerscreenfirst&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="s2">"centerscreenfirst"</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Keywords.handle_keyword_dialog">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.handle_keyword_dialog">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_keyword_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;Cancel&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"Cancel"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;Help&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"Help"</span><span class="p">:</span>
             <span class="c1"># display help!!!</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s2">"OK"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Don&#39;t recognize dialog result &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Don't recognize dialog result '</span><span class="si">{}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="n">keyword</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;keyword tree&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+        <span class="n">keyword</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">"keyword tree"</span><span class="p">]</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Keywords.validate_keyword_value">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.validate_keyword_value">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">validate_keyword_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">changed</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle typing in a combobox for the keyword</span>
+<span class="w">        </span><span class="sd">"""Handle typing in a combobox for the keyword</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            keyword: the MOPAC keyword</span>
@@ -586,15 +586,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="sd">            before: the value before the keystroke</span>
 <span class="sd">            action: 0 for deletion, 1 for insertion</span>
 <span class="sd">            changed: the text being inserted or deleted</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># w = self._dialog.nametowidget(w_name)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Validating the value of a keyword&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">keyword: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">  value: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> before: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">before</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> action: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">changed: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">changed</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Validating the value of a keyword"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">keyword: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">  value: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2"> before: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">before</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2"> action: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">changed: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">changed</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="kc">True</span></div>
 
@@ -602,9 +602,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.remove_keyword">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.remove_keyword">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a keyword from dd to input&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;remove row </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="s2">&quot;widgets&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""Remove a keyword from dd to input"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"remove row </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="s2">"widgets"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">widget</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span></div>
@@ -613,16 +613,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="Keywords.handle_tab">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.handle_tab">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_tab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle a tab in a keyword entry field&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Caught tab in row </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+<span class="w">        </span><span class="sd">"""Handle a tab in a keyword entry field"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Caught tab in row </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;widgets&quot;</span><span class="p">][</span><span class="s2">&quot;entry&quot;</span><span class="p">]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"widgets"</span><span class="p">][</span><span class="s2">"entry"</span><span class="p">]</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;break&quot;</span>
+        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">"break"</span>
 
         <span class="n">defs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
         <span class="n">keywords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -631,17 +631,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;break&quot;</span>
+            <span class="k">return</span> <span class="s2">"break"</span>
 
         <span class="n">prefix</span> <span class="o">=</span> <span class="n">lcp</span><span class="p">(</span><span class="o">*</span><span class="n">keywords</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;prefix = &quot;</span><span class="si">{}</span><span class="s1">&quot;, current = &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'prefix = "</span><span class="si">{}</span><span class="s1">", current = "</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">prefix</span> <span class="o">!=</span> <span class="n">current</span><span class="p">:</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prefix</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">"end"</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">]</span> <span class="o">=</span> <span class="n">prefix</span>
             <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">defs</span><span class="p">:</span>
-                <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;TEntry&quot;</span><span class="p">)</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"TEntry"</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span>
                 <span class="n">w</span><span class="o">.</span><span class="n">tk_focusNext</span><span class="p">()</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -653,93 +653,93 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">popup_menu</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">innerframe</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">:</span>
-                    <span class="n">description</span> <span class="o">=</span> <span class="n">defs</span><span class="p">[</span><span class="n">keyword</span><span class="p">][</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="n">defs</span><span class="p">[</span><span class="n">keyword</span><span class="p">][</span><span class="s2">"description"</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">popup_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
-                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">description</span><span class="p">),</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">"</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">description</span><span class="p">),</span>
                         <span class="n">command</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set_keyword_cb</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span>
                     <span class="p">)</span>
                     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">winfo_pointerxy</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">popup_menu</span><span class="o">.</span><span class="n">tk_popup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s2">&quot;break&quot;</span></div>
+        <span class="k">return</span> <span class="s2">"break"</span></div>
 
 
 <div class="viewcode-block" id="Keywords.set_keyword">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.keywords.Keywords.set_keyword">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the value in a widget to the full keyword&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the value in a widget to the full keyword"""</span>
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nametowidget</span><span class="p">(</span><span class="n">w_name</span><span class="p">)</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">keyword</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"end"</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">"end"</span><span class="p">,</span> <span class="n">keyword</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_keywords</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;keyword&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyword</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;TEntry&quot;</span><span class="p">)</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"keyword"</span><span class="p">]</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"TEntry"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout_keywords</span><span class="p">()</span>
         <span class="n">w</span><span class="o">.</span><span class="n">tk_focusNext</span><span class="p">()</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span></div>
 </div>
 
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
     <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;0SCF&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Read in data, then stop&quot;</span><span class="p">,</span>
+        <span class="s2">"0SCF"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Read in data, then stop"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;1ELECTRON&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Print final one-electron matrix&quot;</span><span class="p">,</span>
+        <span class="s2">"1ELECTRON"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Print final one-electron matrix"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;1SCF&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Do one scf and then stop&quot;</span><span class="p">,</span>
+        <span class="s2">"1SCF"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Do one scf and then stop"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;ADD-H&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span>
-                <span class="s2">&quot;Add hydrogen atoms (intended for use with &quot;</span> <span class="s2">&quot;organic compounds)&quot;</span>
+        <span class="s2">"ADD-H"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">"Add hydrogen atoms (intended for use with "</span> <span class="s2">"organic compounds)"</span>
             <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s2">&quot;A0&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Input geometry is in atomic units&quot;</span><span class="p">,</span>
+        <span class="s2">"A0"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Input geometry is in atomic units"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AIDER&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Read in ab-initio derivatives&quot;</span><span class="p">,</span>
+        <span class="s2">"AIDER"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Read in ab-initio derivatives"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AIGIN&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Geometry must be in Gaussian format&quot;</span><span class="p">,</span>
+        <span class="s2">"AIGIN"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Geometry must be in Gaussian format"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AIGOUT&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;Print the geometry in Gaussian format in the ARC &quot;</span> <span class="s2">&quot;file&quot;</span><span class="p">),</span>
+        <span class="s2">"AIGOUT"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"Print the geometry in Gaussian format in the ARC "</span> <span class="s2">"file"</span><span class="p">),</span>
         <span class="p">},</span>
-        <span class="s2">&quot;ALLBONDS&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span>
-                <span class="s2">&quot;Print final bond-order matrix, including bonds &quot;</span> <span class="s2">&quot;to hydrogen&quot;</span>
+        <span class="s2">"ALLBONDS"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">"Print final bond-order matrix, including bonds "</span> <span class="s2">"to hydrogen"</span>
             <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s2">&quot;ALLVEC&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Print all vectors (keywords vectors also needed)&quot;</span><span class="p">,</span>
+        <span class="s2">"ALLVEC"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Print all vectors (keywords vectors also needed)"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;ALT_A&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;In PDB files with alternative atoms, select &quot;</span> <span class="s2">&quot;atoms A&quot;</span><span class="p">),</span>
-            <span class="s2">&quot;takes values&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+        <span class="s2">"ALT_A"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"In PDB files with alternative atoms, select "</span> <span class="s2">"atoms A"</span><span class="p">),</span>
+            <span class="s2">"takes values"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"default"</span><span class="p">:</span> <span class="s2">"A"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;ANGSTROMS&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Input geometry is in Angstroms&quot;</span><span class="p">,</span>
+        <span class="s2">"ANGSTROMS"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Input geometry is in Angstroms"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AUTOSYM&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Symmetry to be imposed automatically&quot;</span><span class="p">,</span>
+        <span class="s2">"AUTOSYM"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Symmetry to be imposed automatically"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AUX&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span>
-                <span class="s2">&quot;Output auxiliary information for use by other &quot;</span> <span class="s2">&quot;programs&quot;</span>
+        <span class="s2">"AUX"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">"Output auxiliary information for use by other "</span> <span class="s2">"programs"</span>
             <span class="p">),</span>
         <span class="p">},</span>
-        <span class="s2">&quot;AM1&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Use the AM1 hamiltonian&quot;</span><span class="p">,</span>
+        <span class="s2">"AM1"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Use the AM1 hamiltonian"</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="s2">&quot;BAR&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;reduce bar length by a maximum of n.nn%&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;takes values&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;0.01&quot;</span><span class="p">,</span>
+        <span class="s2">"BAR"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"reduce bar length by a maximum of n.nn%"</span><span class="p">,</span>
+            <span class="s2">"takes values"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"default"</span><span class="p">:</span> <span class="s2">"0.01"</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">}</span>
 
@@ -752,7 +752,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_dialog</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
         <span class="n">dialog</span><span class="o">.</span><span class="n">deactivate</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">"OK"</span><span class="p">:</span>
             <span class="n">keywords</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get_keywords</span><span class="p">()</span>
             <span class="n">w</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>
         <span class="k">else</span><span class="p">:</span>
@@ -761,47 +761,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="c1">##################################################</span>
     <span class="c1"># Initialize Tk</span>
     <span class="c1">##################################################</span>
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;darwin&quot;</span><span class="p">):</span>
-        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">&quot;Command-&quot;</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"darwin"</span><span class="p">):</span>
+        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">"Command-"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">&quot;Control-&quot;</span>
+        <span class="n">CmdKey</span> <span class="o">=</span> <span class="s2">"Control-"</span>
 
     <span class="c1">#    logging.basicConfig(level=10)</span>
-    <span class="c1">#    module_logger.critical(&#39;Turned on debugging!&#39;)</span>
-    <span class="c1">#    module_logger.setLevel(&#39;DEBUG&#39;)</span>
+    <span class="c1">#    module_logger.critical('Turned on debugging!')</span>
+    <span class="c1">#    module_logger.setLevel('DEBUG')</span>
     <span class="c1">#    module_logger.setLevel(10)</span>
     <span class="c1">#    print(module_logger.getEffectiveLevel())</span>
-    <span class="c1">#    module_logger.debug(&#39;Turned on debugging!&#39;)</span>
+    <span class="c1">#    module_logger.debug('Turned on debugging!')</span>
 
     <span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
     <span class="n">Pmw</span><span class="o">.</span><span class="n">initialise</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 
     <span class="n">dialog</span> <span class="o">=</span> <span class="n">Pmw</span><span class="o">.</span><span class="n">Dialog</span><span class="p">(</span>
         <span class="n">root</span><span class="p">,</span>
-        <span class="n">buttons</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="s2">&quot;Cancel&quot;</span><span class="p">),</span>
+        <span class="n">buttons</span><span class="o">=</span><span class="p">(</span><span class="s2">"OK"</span><span class="p">,</span> <span class="s2">"Cancel"</span><span class="p">),</span>
         <span class="n">defaultbutton</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">master</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Add keyword&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Add keyword"</span><span class="p">,</span>
         <span class="n">command</span><span class="o">=</span><span class="n">handle_dialog</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">dialog</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;500x400&quot;</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">"500x400"</span><span class="p">)</span>
 
-    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BAR&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"BAR"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
 
     <span class="n">w</span> <span class="o">=</span> <span class="n">Keywords</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">interior</span><span class="p">(),</span> <span class="n">metadata</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords</span>
-    <span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="s2">"yes"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"both"</span><span class="p">)</span>
 
-    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">&quot;P&gt;&quot;</span><span class="p">,</span> <span class="n">print_keywords</span><span class="p">)</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">&quot;p&gt;&quot;</span><span class="p">,</span> <span class="n">print_keywords</span><span class="p">)</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">&quot;f&gt;&quot;</span><span class="p">,</span> <span class="n">print_focus</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;"</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">"P&gt;"</span><span class="p">,</span> <span class="n">print_keywords</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;"</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">"p&gt;"</span><span class="p">,</span> <span class="n">print_keywords</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">bind_all</span><span class="p">(</span><span class="s2">"&lt;"</span> <span class="o">+</span> <span class="n">CmdKey</span> <span class="o">+</span> <span class="s2">"f&gt;"</span><span class="p">,</span> <span class="n">print_focus</span><span class="p">)</span>
 
-    <span class="n">exit_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Exit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">exit</span><span class="p">)</span>
-    <span class="n">post_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Edit Keywords&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">)</span>
+    <span class="n">exit_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Exit"</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">exit</span><span class="p">)</span>
+    <span class="n">post_button</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Edit Keywords"</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">)</span>
     <span class="n">post_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">exit_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;centerscreenfirst&quot;</span><span class="p">)</span>
+    <span class="n">dialog</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="s2">"centerscreenfirst"</span><span class="p">)</span>
 
     <span class="c1"># enter the event loop</span>
     <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>

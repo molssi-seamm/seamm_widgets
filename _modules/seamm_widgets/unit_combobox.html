@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets.unit_combobox &mdash; SEAMM Widgets 2026.6.28 documentation</title>
+  <title>seamm_widgets.unit_combobox &mdash; SEAMM Widgets 2026.9.18 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=0bba250d"></script>
+      <script src="../../_static/documentation_options.js?v=4c890157"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -94,12 +94,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1>Source code for seamm_widgets.unit_combobox</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;Labeled combobox widget with units.</span>
+<span class="sd">"""Labeled combobox widget with units.</span>
 
 <span class="sd">The goal of these widgets is twofold: to make it easier for developers</span>
 <span class="sd">to implement dialogs with compound widgets, and to naturally</span>
 <span class="sd">standardize the user interface presented to the user.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">seamm_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">Q_</span><span class="p">,</span> <span class="n">units_class</span><span class="p">,</span> <span class="n">default_units</span>
@@ -110,24 +110,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;unitcombobox&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;as_quantity&quot;</span><span class="p">:</span> <span class="s2">&quot;as_quantity&quot;</span><span class="p">,</span>
+    <span class="s2">"unitcombobox"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"as_quantity"</span><span class="p">:</span> <span class="s2">"as_quantity"</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;cursor&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;exportselection&quot;</span><span class="p">:</span> <span class="s2">&quot;exportselection&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsheight&quot;</span><span class="p">:</span> <span class="s2">&quot;height&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsjustify&quot;</span><span class="p">:</span> <span class="s2">&quot;justify&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;postcommand&quot;</span><span class="p">:</span> <span class="s2">&quot;postcommand&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitstakefocus&quot;</span><span class="p">:</span> <span class="s2">&quot;takefocus&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;textvariable&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsvalidate&quot;</span><span class="p">:</span> <span class="s2">&quot;validate&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsvalidatecommand&quot;</span><span class="p">:</span> <span class="s2">&quot;validatecommand&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitswidth&quot;</span><span class="p">:</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsxscrollcommand&quot;</span><span class="p">:</span> <span class="s2">&quot;xscrollcommand&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;unitsstate&quot;</span><span class="p">:</span> <span class="s2">&quot;state&quot;</span><span class="p">,</span>
+    <span class="s2">"units"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"cursor"</span><span class="p">:</span> <span class="s2">"cursor"</span><span class="p">,</span>
+        <span class="s2">"exportselection"</span><span class="p">:</span> <span class="s2">"exportselection"</span><span class="p">,</span>
+        <span class="s2">"unitsheight"</span><span class="p">:</span> <span class="s2">"height"</span><span class="p">,</span>
+        <span class="s2">"unitsjustify"</span><span class="p">:</span> <span class="s2">"justify"</span><span class="p">,</span>
+        <span class="s2">"postcommand"</span><span class="p">:</span> <span class="s2">"postcommand"</span><span class="p">,</span>
+        <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"state"</span><span class="p">,</span>
+        <span class="s2">"style"</span><span class="p">:</span> <span class="s2">"style"</span><span class="p">,</span>
+        <span class="s2">"unitstakefocus"</span><span class="p">:</span> <span class="s2">"takefocus"</span><span class="p">,</span>
+        <span class="s2">"variable"</span><span class="p">:</span> <span class="s2">"textvariable"</span><span class="p">,</span>
+        <span class="s2">"unitsvalidate"</span><span class="p">:</span> <span class="s2">"validate"</span><span class="p">,</span>
+        <span class="s2">"unitsvalidatecommand"</span><span class="p">:</span> <span class="s2">"validatecommand"</span><span class="p">,</span>
+        <span class="s2">"unitswidth"</span><span class="p">:</span> <span class="s2">"width"</span><span class="p">,</span>
+        <span class="s2">"unitsxscrollcommand"</span><span class="p">:</span> <span class="s2">"xscrollcommand"</span><span class="p">,</span>
+        <span class="s2">"unitsstate"</span><span class="p">:</span> <span class="s2">"state"</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">}</span>
 
@@ -136,20 +136,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">UnitCombobox</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">LabeledCombobox</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the instance&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the instance"""</span>
         <span class="c1"># Pull out the specific unitcombobox options</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">as_quantity</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;as_quantity&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">as_quantity</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"as_quantity"</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="n">myoptions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s2">"height"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="s2">"width"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">myoption</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">&quot;class_&quot;</span> <span class="ow">and</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">myoption</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">"class_"</span> <span class="ow">and</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="n">myoptions</span><span class="p">[</span><span class="n">myoption</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
 
         <span class="c1"># Create our parent</span>
-        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class_&quot;</span><span class="p">,</span> <span class="s2">&quot;MUnitCombobox&quot;</span><span class="p">)</span>
+        <span class="n">class_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"class_"</span><span class="p">,</span> <span class="s2">"MUnitCombobox"</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">interior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span>
@@ -174,14 +174,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="UnitCombobox.show">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox.show">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show only the specified subwidgets.</span>
-<span class="sd">        &#39;all&#39; or no arguments reverts to showing all&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Show only the specified subwidgets.</span>
+<span class="sd">        'all' or no arguments reverts to showing all"""</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
-        <span class="n">show_all</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span>
+        <span class="n">show_all</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"all"</span>
 
-        <span class="k">if</span> <span class="n">show_all</span> <span class="ow">or</span> <span class="s2">&quot;units&quot;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">show_all</span> <span class="ow">or</span> <span class="s2">"units"</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">grid_remove</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -191,7 +191,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="UnitCombobox.set">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox.set">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unit_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the the value and units&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the the value and units"""</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
@@ -201,50 +201,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
 
             <span class="n">dimensionality</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">dimensionality</span>
-            <span class="n">current_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">)</span>
+            <span class="n">current_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">"values"</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_units</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">current_units</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">unit</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">Q_</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">dimensionality</span> <span class="o">!=</span> <span class="n">dimensionality</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[])</span>
                             <span class="n">current_units</span> <span class="o">=</span> <span class="p">[]</span>
                             <span class="k">break</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_units</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">([</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">)),</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;{0.units:~}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">([</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">)),</span> <span class="s2">""</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"{0.units:~}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">unit_string</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
             <span class="n">dimensionality</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">unit_string</span><span class="p">)</span><span class="o">.</span><span class="n">dimensionality</span>
-            <span class="n">current_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">)</span>
+            <span class="n">current_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">"values"</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_units</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">current_units</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">unit</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">Q_</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">dimensionality</span> <span class="o">!=</span> <span class="n">dimensionality</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[])</span>
                             <span class="n">current_units</span> <span class="o">=</span> <span class="p">[]</span>
                             <span class="k">break</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_units</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">([</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">)),</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">([</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">)),</span> <span class="s2">""</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">unit_string</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_units</span><span class="p">(</span><span class="s2">"all"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="UnitCombobox.get">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox.get">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;return the current value with units&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""return the current value with units"""</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">&quot;values&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s2">"values"</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">value</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_quantity</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
@@ -261,9 +261,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">dimensionality</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">dimensionality</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">values</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">),</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="n">dimensionality</span><span class="p">),</span> <span class="s2">""</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">values</span> <span class="o">==</span> <span class="s2">"all"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="n">default_units</span><span class="p">(</span><span class="s2">"all"</span><span class="p">),</span> <span class="s2">""</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">)</span></div>
 
@@ -271,10 +271,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="UnitCombobox.config">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox.config">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the configuration of the megawidget&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the configuration of the megawidget"""</span>
 
-        <span class="n">unitcombobox</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;unitcombobox&quot;</span><span class="p">]</span>
-        <span class="n">units</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span>
+        <span class="n">unitcombobox</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">"unitcombobox"</span><span class="p">]</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span>
 
         <span class="c1"># cannot modify kwargs while iterating over it...</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
@@ -299,7 +299,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="viewcode-block" id="UnitCombobox.state">
 <a class="viewcode-back" href="../../api/seamm_widgets.html#seamm_widgets.unit_combobox.UnitCombobox.state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stateSpec</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the state of the widget&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Set the state of the widget"""</span>
         <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">stateSpec</span><span class="p">)</span>
         <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">stateSpec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span> <span class="o">+</span> <span class="n">tmp</span></div>
