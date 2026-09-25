@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>History &mdash; SEAMM Widgets 2026.9.18 documentation</title>
+  <title>History &mdash; SEAMM Widgets 2026.9.25 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=4c890157"></script>
+      <script src="_static/documentation_options.js?v=9a43dc2a"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
@@ -96,6 +96,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section id="history">
 <h1>History<a class="headerlink" href="#history" title="Link to this heading"></a></h1>
 <dl class="simple">
+<dt>2026.9.25 – A labeled multi-line text widget</dt><dd><ul class="simple">
+<li><p>Added LabeledText, a labeled, scrollable multi-line text box with the same
+label/get/set/show interface as LabeledEntry, for free-form input such as a
+verbatim block of keywords for a code. Used by the ORCA plug-in for its extra
+input blocks.</p></li>
+</ul>
+</dd>
 <dt>2026.9.18 – Bugfix: pip metadata lacked requests</dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">seamm-widgets</span></code> did not install <code class="docutils literal notranslate"><span class="pre">requests</span></code>, which the HTML
 widgets import, so seamm-widgets failed to import outside a conda-forge

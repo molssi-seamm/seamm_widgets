@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.9.18 documentation</title>
+  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.9.25 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=4c890157"></script>
+      <script src="../_static/documentation_options.js?v=9a43dc2a"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
@@ -1478,6 +1478,59 @@ the allowed keyword arguments call the method keys.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="seamm_widgets.labeled_entry.LabeledEntry.value">
 <span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#seamm_widgets.labeled_entry.LabeledEntry.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-seamm_widgets.labeled_text">
+<span id="seamm-widgets-labeled-text-module"></span><h2>seamm_widgets.labeled_text module<a class="headerlink" href="#module-seamm_widgets.labeled_text" title="Link to this heading"></a></h2>
+<p>Labeled multi-line text widget.</p>
+<p>Unlike LabeledEntry (a single-line ttk.Entry), this holds free-form
+multi-line text – e.g. a verbatim block of input for a code that a
+single-line combobox/entry cannot represent.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">seamm_widgets.labeled_text.</span></span><span class="sig-name descname"><span class="pre">LabeledText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#seamm_widgets.labeled_widget.LabeledWidget" title="seamm_widgets.labeled_widget.LabeledWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabeledWidget</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.config">
+<span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText.config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.config" title="Link to this definition"></a></dt>
+<dd><p>Set the configuration of the megawidget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText.configure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.configure" title="Link to this definition"></a></dt>
+<dd><p>Configure resources of a widget.</p>
+<p>The values for resources are specified as keyword
+arguments. To get an overview about
+the allowed keyword arguments call the method keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.get" title="Link to this definition"></a></dt>
+<dd><p>Return the current contents (Tk always adds a trailing newline to
+the buffer; ‘end-1c’ omits it).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.set" title="Link to this definition"></a></dt>
+<dd><p>Set the contents of the text box.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/labeled_text.html#LabeledText.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.show" title="Link to this definition"></a></dt>
+<dd><p>Show only the specified subwidgets.
+‘all’ or no arguments reverts to showing all</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_text.LabeledText.value">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#seamm_widgets.labeled_text.LabeledText.value" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

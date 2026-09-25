@@ -52,6 +52,14 @@ seamm\_widgets.labeled\_entry module
    :show-inheritance:
    :undoc-members:
 
+seamm\_widgets.labeled\_text module
+-----------------------------------
+
+.. automodule:: seamm_widgets.labeled_text
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 seamm\_widgets.labeled\_widget module
 -------------------------------------
 
