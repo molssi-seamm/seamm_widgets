@@ -23,6 +23,7 @@ dependencies:
 
   # Pip-only installs
   - pip:
+    - requests
     # Documentation
     - rinohtype
     - sphinx-rtd-theme

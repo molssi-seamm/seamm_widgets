@@ -1,6 +1,12 @@
 =======
 History
 =======
+2026.9.25 -- A labeled multi-line text widget
+    * Added LabeledText, a labeled, scrollable multi-line text box with the same
+      label/get/set/show interface as LabeledEntry, for free-form input such as a
+      verbatim block of keywords for a code. Used by the ORCA plug-in for its extra
+      input blocks.
+
 2026.9.18 -- Bugfix: pip metadata lacked requests
     * ``pip install seamm-widgets`` did not install ``requests``, which the HTML
       widgets import, so seamm-widgets failed to import outside a conda-forge
