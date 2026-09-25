@@ -1,6 +1,12 @@
 =======
 History
 =======
+2026.9.25.1 -- Bugfix: basis_set_exchange is now a declared dependency
+    * The Basis Set Exchange picker imports basis_set_exchange when opened, but the
+      package was not listed as a requirement, so the picker failed in an
+      environment that did not happen to have it. It is now installed with
+      seamm-widgets.
+
 2026.9.25 -- A labeled multi-line text widget
     * Added LabeledText, a labeled, scrollable multi-line text box with the same
       label/get/set/show interface as LabeledEntry, for free-form input such as a

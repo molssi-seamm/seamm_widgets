@@ -1,3 +1,4 @@
+basis_set_exchange
 pillow
 Pmw
 requests

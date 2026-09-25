@@ -23,6 +23,7 @@ dependencies:
 
   # Pip-only installs
   - pip:
+    - basis-set-exchange
     - requests
     # Documentation
     - rinohtype
