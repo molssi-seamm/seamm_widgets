@@ -16,6 +16,7 @@ from seamm_widgets.scrolled_columns import ScrolledColumns  # noqa: F401
 from seamm_widgets.keywords import Keywords  # noqa: F401
 from seamm_widgets.property_table import PropertyTable  # noqa: F401
 from seamm_widgets.labeled_entry import LabeledEntry  # noqa: F401
+from seamm_widgets.labeled_text import LabeledText  # noqa: F401
 from seamm_widgets.labeled_combobox import LabeledCombobox  # noqa: F401
 from seamm_widgets.periodic_table import PeriodicTable  # noqa: F401
 from seamm_widgets.basis_set_selector import (  # noqa: F401
