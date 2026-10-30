@@ -13,6 +13,8 @@ import logging
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from seamm_widgets.tooltip import Tooltip
+
 logger = logging.getLogger(__name__)
 
 options = {
@@ -69,6 +71,7 @@ class LabeledWidget(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         # Pull out any options specific to the label
         labelpos = kwargs.pop("labelpos", "w")
+        tooltip = kwargs.pop("tooltip", None)
         myoptions = {
             "justify": "right",
             "padding": 0,
@@ -90,6 +93,11 @@ class LabeledWidget(ttk.Frame):
 
         # Set the label position to the default if needed.
         self.labelpos = labelpos
+
+        # Help text shown when the pointer rests on the widget
+        self._tooltip = None
+        if tooltip:
+            self.tooltip = tooltip
 
     @property
     def labelpos(self):
@@ -141,6 +149,19 @@ class LabeledWidget(ttk.Frame):
             raise ValueError(f"Can't handle labelpos = '{value}'")
         self._labelpos = value
 
+    @property
+    def tooltip(self):
+        """Help text shown when the pointer rests on the widget."""
+        return "" if self._tooltip is None else self._tooltip.text
+
+    @tooltip.setter
+    def tooltip(self, value):
+        if self._tooltip is None:
+            if value:
+                self._tooltip = Tooltip(self, value)
+        else:
+            self._tooltip.text = value
+
     def show(self, *args):
         """Show only the specified subwidgets.
         'all' or no arguments reverts to showing all"""
@@ -177,6 +198,8 @@ class LabeledWidget(ttk.Frame):
                 self.label.config(**{opts[k]: v})
             elif k == "labelpos":
                 self.labelpos = kwargs.pop(k)
+            elif k == "tooltip":
+                self.tooltip = kwargs.pop(k)
             else:
                 # Since this is the base class, raise an error force
                 # unrecognized options

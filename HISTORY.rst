@@ -1,6 +1,14 @@
 =======
 History
 =======
+2026.10.30 -- Tooltips: help text when the pointer rests on a widget
+    * New Tooltip widget, which shows help text in a small window when the pointer
+      rests on a widget for a moment, and hides it when the pointer leaves or a button
+      is pressed. The text is reflowed to wrap neatly.
+    * The labeled widgets take a 'tooltip' option and have a 'tooltip' property, so
+      both the label and the field show the help. SEAMM uses it to show the help text
+      of every parameter in the step dialogs.
+
 2026.9.25.1 -- Bugfix: basis_set_exchange is now a declared dependency
     * The Basis Set Exchange picker imports basis_set_exchange when opened, but the
       package was not listed as a requirement, so the picker failed in an
