@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; SEAMM Widgets 2026.9.25.1 documentation</title>
+  <title>Usage &mdash; SEAMM Widgets 2026.10.30 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=c1ec65af"></script>
+      <script src="_static/documentation_options.js?v=fcc0a42c"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
@@ -61,7 +61,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">SEAMM Widgets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tooltips">Tooltips</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
@@ -100,6 +103,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seamm_widgets</span>
 </pre></div>
 </div>
+<section id="tooltips">
+<h2>Tooltips<a class="headerlink" href="#tooltips" title="Link to this heading"></a></h2>
+<p>Every labeled widget (<code class="docutils literal notranslate"><span class="pre">LabeledEntry</span></code>, <code class="docutils literal notranslate"><span class="pre">LabeledCombobox</span></code>, <code class="docutils literal notranslate"><span class="pre">UnitEntry</span></code>,
+<code class="docutils literal notranslate"><span class="pre">UnitCombobox</span></code>, <code class="docutils literal notranslate"><span class="pre">LabeledText</span></code>, <code class="docutils literal notranslate"><span class="pre">BasisSetField</span></code>, …) can show help text when
+the pointer rests on it, on either the label or the field:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">seamm_widgets</span><span class="o">.</span><span class="n">LabeledEntry</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">labeltext</span><span class="o">=</span><span class="s2">"Basis:"</span><span class="p">,</span> <span class="n">tooltip</span><span class="o">=</span><span class="s2">"The orbital basis set."</span><span class="p">)</span>
+<span class="n">w</span><span class="o">.</span><span class="n">tooltip</span> <span class="o">=</span> <span class="s2">"Changed help text."</span>      <span class="c1"># or w.configure(tooltip=...)</span>
+</pre></div>
+</div>
+<p>The tip appears after the pointer has rested on the widget for 0.6 s and disappears when
+the pointer leaves, a mouse button is pressed or the widget is destroyed. The text is
+reflowed: common indentation and line breaks within a paragraph are removed, and blank
+lines separate paragraphs. Any other Tk widget can have a tip with
+<code class="docutils literal notranslate"><span class="pre">seamm_widgets.Tooltip(widget,</span> <span class="pre">text)</span></code>.</p>
+<p>SEAMM’s <code class="docutils literal notranslate"><span class="pre">Parameter.widget()</span></code> sets each parameter’s <code class="docutils literal notranslate"><span class="pre">help_text</span></code> as the tooltip of the
+widget it creates, so the step dialogs show it without further code.</p>
+</section>
 </section>
 
 

@@ -124,6 +124,14 @@ seamm\_widgets.search\_criteria module
    :show-inheritance:
    :undoc-members:
 
+seamm\_widgets.tooltip module
+-----------------------------
+
+.. automodule:: seamm_widgets.tooltip
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 seamm\_widgets.unit\_combobox module
 ------------------------------------
 

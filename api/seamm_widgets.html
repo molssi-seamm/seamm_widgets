@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.9.25.1 documentation</title>
+  <title>seamm_widgets package &mdash; SEAMM Widgets 2026.10.30 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c1ec65af"></script>
+      <script src="../_static/documentation_options.js?v=fcc0a42c"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
@@ -1580,6 +1580,12 @@ the allowed keyword arguments call the method keys.</p>
 <dd><p>Set the state of the widget</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="seamm_widgets.labeled_widget.LabeledWidget.tooltip">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tooltip</span></span><a class="headerlink" href="#seamm_widgets.labeled_widget.LabeledWidget.tooltip" title="Link to this definition"></a></dt>
+<dd><p>Help text shown when the pointer rests on the widget.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -2050,6 +2056,57 @@ values if requested.</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-seamm_widgets.tooltip">
+<span id="seamm-widgets-tooltip-module"></span><h2>seamm_widgets.tooltip module<a class="headerlink" href="#module-seamm_widgets.tooltip" title="Link to this heading"></a></h2>
+<p>A tooltip: help text that pops up when the pointer rests on a widget.</p>
+<p>The tip is bound to one widget, usually a compound widget such as a
+LabeledEntry, and covers all of its children: it shows after the pointer
+has rested anywhere inside the widget for a moment, and hides when the
+pointer leaves it, a mouse button is pressed or the widget is destroyed.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="seamm_widgets.tooltip.Tooltip">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">seamm_widgets.tooltip.</span></span><span class="sig-name descname"><span class="pre">Tooltip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wraplength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/tooltip.html#Tooltip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.tooltip.Tooltip" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Show help text in a small window when the pointer rests on a widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>widget</strong> (<em>tk.Widget</em>) – The widget to describe. The tip covers it and all its children.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – The help text, reflowed to wrap at <code class="docutils literal notranslate"><span class="pre">wraplength</span></code> pixels.</p></li>
+<li><p><strong>delay</strong> (<em>int</em>) – Milliseconds the pointer must rest before the tip shows.</p></li>
+<li><p><strong>wraplength</strong> (<em>int</em>) – The width of the tip in pixels.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.tooltip.Tooltip.hide">
+<span class="sig-name descname"><span class="pre">hide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/tooltip.html#Tooltip.hide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.tooltip.Tooltip.hide" title="Link to this definition"></a></dt>
+<dd><p>Cancel a pending tip and remove a shown one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_widgets.tooltip.Tooltip.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/tooltip.html#Tooltip.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.tooltip.Tooltip.show" title="Link to this definition"></a></dt>
+<dd><p>Show the tip just below the pointer, kept on the screen.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="seamm_widgets.tooltip.Tooltip.text">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#seamm_widgets.tooltip.Tooltip.text" title="Link to this definition"></a></dt>
+<dd><p>The help text shown in the tip.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="seamm_widgets.tooltip.reflow">
+<span class="sig-prename descclassname"><span class="pre">seamm_widgets.tooltip.</span></span><span class="sig-name descname"><span class="pre">reflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_widgets/tooltip.html#reflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_widgets.tooltip.reflow" title="Link to this definition"></a></dt>
+<dd><p>Tidy help text for display: remove the common indentation, join the
+lines of each paragraph and keep the blank lines between paragraphs, so
+that the label wraps the text to its own width.</p>
 </dd></dl>
 
 </section>
